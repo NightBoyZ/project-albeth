@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqgocbht3n1ps"]
+
+[ext_resource type="Script" path="res://Game Projects/Parkour/FPSPlayer.gd" id="1_3kjnv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rj1v7"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yam3m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x7p1q"]
+render_priority = 126
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cm4hc"]
+render_priority = 127
+transparency = 1
+blend_mode = 3
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vuf4o"]
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("grappling_hook")]
+collision_mask = 2
+script = ExtResource("1_3kjnv")
+grappling_hook = NodePath("CameraYaw/CameraPitch/CameraSpring/Camera3D/GrapplingGun/GrapplingHook")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+visible = false
+shape = SubResource("CapsuleShape3D_rj1v7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+
+[node name="CameraYaw" type="Node3D" parent="."]
+
+[node name="CameraPitch" type="Node3D" parent="CameraYaw"]
+
+[node name="CameraSpring" type="SpringArm3D" parent="CameraYaw/CameraPitch"]
+collision_mask = 2
+shape = SubResource("SphereShape3D_yam3m")
+spring_length = 0.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraYaw/CameraPitch/CameraSpring"]
+
+[node name="GrapplingGun2" type="CSGBox3D" parent="CameraYaw/CameraPitch/CameraSpring/Camera3D"]
+transform = Transform3D(0.999657, 0, 0.026177, 0, 1, 0, -0.0261769, 0, 0.999658, 0.5, -0.2, -0.5)
+size = Vector3(0.18, 0.18, 0.8)
+material = SubResource("StandardMaterial3D_x7p1q")
+
+[node name="GrapplingGun" type="CSGBox3D" parent="CameraYaw/CameraPitch/CameraSpring/Camera3D"]
+transform = Transform3D(0.999657, 0, 0.026177, 0, 1, 0, -0.0261769, 0, 0.999658, 0.5, -0.2, -0.5)
+size = Vector3(0.2, 0.2, 0.82)
+material = SubResource("StandardMaterial3D_cm4hc")
+
+[node name="GrapplingHook" type="RayCast3D" parent="CameraYaw/CameraPitch/CameraSpring/Camera3D/GrapplingGun"]
+target_position = Vector3(0, 0, -100)
+collision_mask = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -22.5
+offset_right = 20.0
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "+"
+label_settings = SubResource("LabelSettings_vuf4o")
+horizontal_alignment = 1
+vertical_alignment = 1

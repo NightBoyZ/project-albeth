@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwtpx0s05ocu"]
+
+[ext_resource type="Texture2D" uid="uid://cy5djqsrmlfm5" path="res://assets/img/goo_texture.png" id="1_h0du2"]
+[ext_resource type="Script" path="res://scenes/entities/slime/slime_goo/slime_goo.gd" id="2_xsw0j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qw6ax"]
+resource_local_to_scene = true
+render_priority = -2
+transparency = 1
+albedo_texture = ExtResource("1_h0du2")
+emission_enabled = true
+emission_energy_multiplier = 2.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_8mjbx"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_qw6ax")
+size = Vector2(2, 2)
+orientation = 1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_fv5wh"]
+resource_local_to_scene = true
+height = 0.1
+radius = 0.9
+
+[node name="SlimeGoo" type="Area3D" groups=["goo"]]
+collision_layer = 32
+input_ray_pickable = false
+script = ExtResource("2_xsw0j")
+
+[node name="GooTexture" type="MeshInstance3D" parent="."]
+layers = 2
+cast_shadow = 0
+mesh = SubResource("QuadMesh_8mjbx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["goo"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("CylinderShape3D_fv5wh")

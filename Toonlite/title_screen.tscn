@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bam4ppwu0cahr"]
+
+[ext_resource type="PackedScene" uid="uid://4j7ovu8av73o" path="res://infographic poster.tscn" id="1_hocty"]
+[ext_resource type="PackedScene" uid="uid://2htp3obe2asx" path="res://scenes/ui/MainMenu.tscn" id="5_oy8rv"]
+
+[node name="Game" type="Node"]
+
+[node name="Environment" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="Node3D" parent="Environment" instance=ExtResource("1_hocty")]
+
+[node name="MainMenu" parent="." instance=ExtResource("5_oy8rv")]

@@ -1,0 +1,111 @@
+[gd_scene load_steps=14 format=3 uid="uid://dwt06yikmqkp5"]
+
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_n6v2l"]
+[ext_resource type="PackedScene" uid="uid://cgxfe2qqj1xut" path="res://scenes/player.tscn" id="2_5v573"]
+[ext_resource type="AudioStream" uid="uid://fpfov3pyho2" path="res://assets/bgm/fgo.ogg" id="2_7upyc"]
+[ext_resource type="PackedScene" uid="uid://5yv0fmcgr4jb" path="res://scenes/spawner.tscn" id="3_24jti"]
+[ext_resource type="Script" path="res://EntityManager.gd" id="4_62eh5"]
+[ext_resource type="ArrayMesh" uid="uid://biwhu7rscgx42" path="res://assets/mesh/blender models/closed_room.obj" id="5_n2hhg"]
+[ext_resource type="PackedScene" uid="uid://k1mayfdrvedi" path="res://scenes/lesser_slime.tscn" id="6_r4gi5"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kxqfe"]
+sky_top_color = Color(0.384314, 0.454902, 0.54902, 1)
+sky_horizon_color = Color(0.656863, 0.72451, 0.887255, 1)
+ground_bottom_color = Color(0.243137, 0.443137, 1, 1)
+ground_horizon_color = Color(0.656863, 0.72451, 0.887255, 1)
+
+[sub_resource type="Sky" id="Sky_b01r8"]
+sky_material = SubResource("ProceduralSkyMaterial_kxqfe")
+
+[sub_resource type="Environment" id="Environment_qep66"]
+background_mode = 2
+sky = SubResource("Sky_b01r8")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y3rks"]
+albedo_color = Color(0.152941, 0.152941, 0.152941, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_whulw"]
+data = PackedVector3Array(39.9988, 0, 39.9988, -40, 0, 39.9988, 39.9988, 0, -40, 39.9988, 0, -40, -40, 0, 39.9988, -40, 0, -40, 39.9988, 0, 39.9988, 39.9988, 0, -40, 39.9988, 40, 39.9988, 39.9988, 40, 39.9988, 39.9988, 0, -40, 39.9988, 40, -40, 39.9988, 0, -40, -40, 0, -40, 39.9988, 40, -40, 39.9988, 40, -40, -40, 0, -40, -40, 40, -40, -40, 0, 39.9988, 39.9988, 0, 39.9988, -40, 40, 39.9988, -40, 40, 39.9988, 39.9988, 0, 39.9988, 39.9988, 40, 39.9988, -40, 0, -40, -40, 0, 39.9988, -40, 40, -40, -40, 40, -40, -40, 0, 39.9988, -40, 40, 39.9988)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_i3dl3"]
+vertices = PackedVector3Array(-9.5, 1, -9.5, -9.5, 1, 9.5, 9.5, 1, 9.5, 9.5, 1, -9.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+sample_partition_type = 1
+
+[node name="GameManager" type="Node3D"]
+script = ExtResource("1_n6v2l")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qep66")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_7upyc")
+autoplay = true
+
+[node name="PlayerManager" type="Node" parent="."]
+
+[node name="Player" parent="PlayerManager" instance=ExtResource("2_5v573")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="EntityManager" type="Node" parent="."]
+script = ExtResource("4_62eh5")
+
+[node name="Spawner" parent="EntityManager" instance=ExtResource("3_24jti")]
+entity = [ExtResource("6_r4gi5")]
+spawn_cap = 200
+
+[node name="UI" type="Control" parent="EntityManager"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SpawnCounter" type="Label" parent="EntityManager/UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Objects" type="Node3D" parent="."]
+
+[node name="ClosedRoom" type="MeshInstance3D" parent="."]
+visible = false
+mesh = ExtResource("5_n2hhg")
+surface_material_override/0 = SubResource("StandardMaterial3D_y3rks")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ClosedRoom"]
+collision_layer = 8
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ClosedRoom/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_whulw")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_i3dl3")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D"]
+use_collision = true
+collision_layer = 8
+collision_mask = 23
+size = Vector3(20, 1, 20)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Time" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 549.0
+offset_top = 34.0
+offset_right = 589.0
+offset_bottom = 57.0
+
+[node name="FPS" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 537.0
+offset_right = 103.0
+offset_bottom = 560.0

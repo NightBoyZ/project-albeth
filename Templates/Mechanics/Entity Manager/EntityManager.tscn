@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bl0yjxkgpxgso"]
+
+[ext_resource type="Script" path="res://Mechanics/Entity Manager/EntityManager.gd" id="1_l7x1n"]
+
+[node name="EntityManager" type="Node"]
+script = ExtResource("1_l7x1n")

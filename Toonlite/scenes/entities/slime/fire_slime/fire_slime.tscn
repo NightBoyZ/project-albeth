@@ -1,0 +1,287 @@
+[gd_scene load_steps=34 format=3 uid="uid://dldcunj8oamxd"]
+
+[ext_resource type="Script" path="res://scenes/entities/slime/fire_slime/fire_slime.gd" id="1_scovx"]
+[ext_resource type="Script" path="res://scripts/classes/state_machine.gd" id="2_7svm5"]
+[ext_resource type="Texture2D" uid="uid://d3w1taqey4oyi" path="res://assets/img/ball.png" id="2_gyxi8"]
+[ext_resource type="Script" path="res://scenes/entities/slime/states/chase.gd" id="2_h8x5m"]
+[ext_resource type="AudioStream" uid="uid://cxtmfj3w4x52q" path="res://assets/sfx/pixabay_splat.mp3" id="3_2v05m"]
+[ext_resource type="Texture2D" uid="uid://dd51nugrxt7wc" path="res://addons/kenney_particle_pack/fire_01.png" id="3_vjyu8"]
+[ext_resource type="Script" path="res://scenes/entities/slime/states/patrol.gd" id="3_xugcl"]
+[ext_resource type="Texture2D" uid="uid://bs4f3ycxf3ny4" path="res://addons/kenney_particle_pack/fire_02.png" id="4_qjl0u"]
+[ext_resource type="Material" uid="uid://mplbx4e2c8vv" path="res://scenes/entities/slime/fire_slime/slime_fireball.tres" id="5_1uhaq"]
+
+[sub_resource type="Gradient" id="Gradient_aj6dc"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fjhmj"]
+resource_local_to_scene = true
+noise_type = 3
+seed = 1
+fractal_type = 0
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_37t57"]
+resource_local_to_scene = true
+width = 128
+height = 128
+in_3d_space = true
+seamless = true
+color_ramp = SubResource("Gradient_aj6dc")
+noise = SubResource("FastNoiseLite_fjhmj")
+
+[sub_resource type="Gradient" id="Gradient_ekk6w"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vgcsj"]
+noise_type = 3
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_v8hk2"]
+width = 256
+height = 256
+in_3d_space = true
+seamless = true
+color_ramp = SubResource("Gradient_ekk6w")
+noise = SubResource("FastNoiseLite_vgcsj")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yciah"]
+resource_local_to_scene = true
+albedo_color = Color(1, 1, 0, 1)
+albedo_texture = SubResource("NoiseTexture2D_37t57")
+emission_enabled = true
+emission = Color(0.937255, 0, 0.121569, 1)
+emission_energy_multiplier = 2.0
+emission_operator = 1
+emission_texture = SubResource("NoiseTexture2D_v8hk2")
+
+[sub_resource type="SphereMesh" id="SphereMesh_1vk68"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_yciah")
+radius = 1.0
+radial_segments = 6
+rings = 4
+is_hemisphere = true
+
+[sub_resource type="Gradient" id="Gradient_y8ou4"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a30rl"]
+gradient = SubResource("Gradient_y8ou4")
+
+[sub_resource type="Curve" id="Curve_oh85c"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.738095, 0.848837), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8pis6"]
+curve = SubResource("Curve_oh85c")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l0bh8"]
+emission_shape_offset = Vector3(0, 0.4, 0)
+emission_shape = 1
+emission_sphere_radius = 0.8
+direction = Vector3(0, 1, 0)
+initial_velocity_max = 1.0
+gravity = Vector3(0, 1, 0)
+scale_curve = SubResource("CurveTexture_8pis6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylt0p"]
+render_priority = 1
+transparency = 1
+albedo_color = Color(1, 0.505882, 0, 1)
+albedo_texture = ExtResource("3_vjyu8")
+emission_enabled = true
+emission = Color(1, 0.309804, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_v1tpq"]
+material = SubResource("StandardMaterial3D_ylt0p")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ipaw"]
+render_priority = 1
+transparency = 1
+albedo_texture = ExtResource("4_qjl0u")
+
+[sub_resource type="QuadMesh" id="QuadMesh_0h3p6"]
+material = SubResource("StandardMaterial3D_8ipaw")
+
+[sub_resource type="QuadMesh" id="QuadMesh_3eo3g"]
+resource_local_to_scene = true
+material = ExtResource("5_1uhaq")
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xaebk"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hr2t6"]
+resource_local_to_scene = true
+radius = 0.75
+
+[sub_resource type="Animation" id="Animation_r0s41"]
+resource_name = "bounce"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 0.7, 1), Vector3(1, 2, 1), Vector3(1, 0.7, 1), Vector3(1, 1, 1)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 4.0,
+"start_offset": 1.8,
+"stream": ExtResource("3_2v05m")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="Animation" id="Animation_ykjsg"]
+resource_name = "knocked"
+
+[sub_resource type="Animation" id="Animation_8yhqw"]
+resource_name = "launch"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 2),
+"transitions": PackedFloat32Array(1, 1, 0.0441942),
+"update": 0,
+"values": [Vector3(1, 0.7, 1), Vector3(1, 2, 1), Vector3(1, 1, 1)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 2.0,
+"start_offset": 4.2,
+"stream": ExtResource("3_2v05m")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t6bhw"]
+_data = {
+"bounce": SubResource("Animation_r0s41"),
+"knocked": SubResource("Animation_ykjsg"),
+"launch": SubResource("Animation_8yhqw")
+}
+
+[node name="FireSlime" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 8
+input_ray_pickable = false
+platform_floor_layers = 4294967048
+platform_wall_layers = 16
+script = ExtResource("1_scovx")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_7svm5")
+initial_state = NodePath("Patrol")
+
+[node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("2_h8x5m")
+enemy = NodePath("../..")
+
+[node name="Patrol" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("3_xugcl")
+enemy = NodePath("../..")
+
+[node name="Mesh" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Model" type="MeshInstance3D" parent="Mesh"]
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_1vk68")
+
+[node name="Light" type="OmniLight3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 2
+light_color = Color(0.937255, 0, 0.121569, 1)
+light_energy = 2.0
+
+[node name="Shadow" type="Decal" parent="Mesh"]
+size = Vector3(1, 1, 1)
+texture_albedo = ExtResource("2_gyxi8")
+texture_normal = SubResource("GradientTexture1D_a30rl")
+cull_mask = 2
+
+[node name="Flames" type="GPUParticles3D" parent="Mesh"]
+amount = 4
+lifetime = 2.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_l0bh8")
+draw_pass_1 = SubResource("QuadMesh_v1tpq")
+
+[node name="Smoke" type="GPUParticles3D" parent="Mesh"]
+amount = 4
+lifetime = 2.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_l0bh8")
+draw_pass_1 = SubResource("QuadMesh_0h3p6")
+
+[node name="Ember" type="GPUParticles3D" parent="Mesh"]
+amount = 4
+lifetime = 2.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_l0bh8")
+draw_pass_1 = SubResource("QuadMesh_3eo3g")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 25
+
+[node name="Area" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("BoxShape3D_xaebk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("SphereShape3D_hr2t6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_t6bhw")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+max_db = 1.0
+max_distance = 20.0
+bus = &"Sfx"
+
+[node name="HealthBar" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+visibility_range_end = 10.0
+visibility_range_end_margin = 5.0
+visibility_range_fade_mode = 1
+billboard = 1
+font_size = 64
+
+[node name="VisibilityTimer" type="Timer" parent="HealthBar"]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="body_entered" from="Hitbox" to="StateMachine/Chase" method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="HealthBar/VisibilityTimer" to="." method="_on_visibility_timer_timeout"]

@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://xfbk5miyacd2"]
+
+[ext_resource type="Script" path="res://Mechanics/TestRoom.gd" id="1_ge0ek"]
+[ext_resource type="PackedScene" uid="uid://b8hwhvpggj386" path="res://Mechanics/Player Controller/3D/Player.tscn" id="2_n226e"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6mvj4"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_4m7fx"]
+sky_material = SubResource("ProceduralSkyMaterial_6mvj4")
+
+[sub_resource type="Environment" id="Environment_xmqm3"]
+background_mode = 2
+sky = SubResource("Sky_4m7fx")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_ge0ek")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xmqm3")
+
+[node name="Player" parent="." instance=ExtResource("2_n226e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.51464, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+use_collision = true
+collision_layer = 2
+size = Vector3(80, 1, 80)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6448, 0, 0)
+use_collision = true
+size = Vector3(1, 5, 12)
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(0, 0, 0, 2, 0, 3, 4, 0)

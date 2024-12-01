@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://mplbx4e2c8vv"]
+
+[ext_resource type="Texture2D" uid="uid://d3w1taqey4oyi" path="res://assets/img/ball.png" id="1_7yb2r"]
+
+[sub_resource type="Gradient" id="Gradient_38ude"]
+colors = PackedColorArray(1, 0.490196, 0.0117647, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qtic7"]
+gradient = SubResource("Gradient_38ude")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[resource]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(1, 0.4, 0, 1)
+albedo_texture = ExtResource("1_7yb2r")
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_texture = SubResource("GradientTexture2D_qtic7")

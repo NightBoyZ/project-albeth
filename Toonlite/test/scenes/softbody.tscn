@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://x18lc84s7fvm"]
+
+[ext_resource type="Script" path="res://scripts/old/world_2.gd" id="1_571ch"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_571ch")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.52988, 6.40934)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="SoftBody3D" type="SoftBody3D" parent="."]

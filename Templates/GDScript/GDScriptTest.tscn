@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3fpwahk7jhai"]
+
+[ext_resource type="Script" path="res://GDScript/variables.gd" id="1_fknqh"]
+
+[node name="GdScriptTest" type="Node"]
+editor_description = "Drag the script from the GDScript basics folder to \"GdScriptTest\" and run the code with f6.
+
+You may experiment and combine the scripts to make something new."
+script = ExtResource("1_fknqh")

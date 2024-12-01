@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8hwhvpggj386"]
+
+[ext_resource type="Script" path="res://Mechanics/Player Controller/3D/Player.gd" id="1_y8ohs"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_psj6t"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rj1v7"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gv4lk"]
+
+[node name="Player" type="CharacterBody3D"]
+collision_mask = 2
+script = ExtResource("1_y8ohs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_psj6t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_rj1v7")
+
+[node name="CameraYaw" type="Node3D" parent="."]
+
+[node name="CameraPitch" type="Node3D" parent="CameraYaw"]
+
+[node name="CameraSpring" type="SpringArm3D" parent="CameraYaw/CameraPitch"]
+collision_mask = 2
+shape = SubResource("SphereShape3D_gv4lk")
+spring_length = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraYaw/CameraPitch/CameraSpring"]

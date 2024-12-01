@@ -1,0 +1,98 @@
+[gd_scene load_steps=18 format=3 uid="uid://btokdg4d42w8v"]
+
+[ext_resource type="Script" path="res://scenes/items/weapons/weapon_base.gd" id="1_guhcf"]
+[ext_resource type="Shader" path="res://addons/GPUTrail-main/shaders/trail.gdshader" id="2_jdc1i"]
+[ext_resource type="Shader" path="res://addons/GPUTrail-main/shaders/trail_draw_pass.gdshader" id="3_cipq7"]
+[ext_resource type="Texture2D" uid="uid://crk6pkb7e5rwc" path="res://addons/GPUTrail-main/defaults/texture.tres" id="4_6qdc3"]
+[ext_resource type="Script" path="res://addons/GPUTrail-main/GPUTrail3D.gd" id="5_0qgdj"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vgpft"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g1e2a"]
+albedo_color = Color(0.152941, 0.784314, 0, 1)
+albedo_texture = SubResource("NoiseTexture2D_vgpft")
+emission_enabled = true
+emission = Color(0, 0.764706, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_wma60"]
+material = SubResource("StandardMaterial3D_g1e2a")
+size = Vector3(60, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iw7yk"]
+shader = ExtResource("2_jdc1i")
+
+[sub_resource type="Curve" id="Curve_cxf1x"]
+_data = [Vector2(0, 1), 0.0, -0.857143, 0, 0, Vector2(0.0982906, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_exgke"]
+curve = SubResource("Curve_cxf1x")
+
+[sub_resource type="Gradient" id="Gradient_1do5i"]
+offsets = PackedFloat32Array(0.00485437, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_v0s8q"]
+noise_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3bm34"]
+color_ramp = SubResource("Gradient_1do5i")
+noise = SubResource("FastNoiseLite_v0s8q")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xtuxb"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_cipq7")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 40
+shader_parameter/tex = SubResource("NoiseTexture2D_3bm34")
+shader_parameter/color_ramp = ExtResource("4_6qdc3")
+shader_parameter/curve = SubResource("CurveTexture_exgke")
+
+[sub_resource type="QuadMesh" id="QuadMesh_jgkl6"]
+material = SubResource("ShaderMaterial_xtuxb")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_cpwgx"]
+data = PackedVector3Array(-30, 0.5, 0.5, 30, 0.5, 0.5, -30, -0.5, 0.5, 30, 0.5, 0.5, 30, -0.5, 0.5, -30, -0.5, 0.5, 30, 0.5, -0.5, -30, 0.5, -0.5, 30, -0.5, -0.5, -30, 0.5, -0.5, -30, -0.5, -0.5, 30, -0.5, -0.5, 30, 0.5, 0.5, 30, 0.5, -0.5, 30, -0.5, 0.5, 30, 0.5, -0.5, 30, -0.5, -0.5, 30, -0.5, 0.5, -30, 0.5, -0.5, -30, 0.5, 0.5, -30, -0.5, -0.5, -30, 0.5, 0.5, -30, -0.5, 0.5, -30, -0.5, -0.5, 30, 0.5, 0.5, -30, 0.5, 0.5, 30, 0.5, -0.5, -30, 0.5, 0.5, -30, 0.5, -0.5, 30, 0.5, -0.5, -30, -0.5, 0.5, 30, -0.5, 0.5, -30, -0.5, -0.5, 30, -0.5, 0.5, 30, -0.5, -0.5, -30, -0.5, -0.5)
+
+[node name="Weapon" type="BoneAttachment3D"]
+unique_name_in_owner = true
+transform = Transform3D(0.411175, 0.488579, 0.769562, 0.911555, -0.221805, -0.346222, 0.00153601, 0.843856, -0.536567, -21.7055, 1.73915, -74.6354)
+bone_name = "mixamorig1_RightHandMiddle2"
+bone_idx = 44
+script = ExtResource("1_guhcf")
+
+[node name="GreenStick" type="MeshInstance3D" parent="."]
+transform = Transform3D(3, -4.47035e-08, 6.245e-16, 4.47035e-08, 3, -1.95578e-08, -3.33067e-16, 1.95578e-08, 3, 70, 0, 3)
+mesh = SubResource("BoxMesh_wma60")
+skeleton = NodePath("")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="GreenStick"]
+light_color = Color(0, 0.764706, 0, 1)
+shadow_enabled = true
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="GreenStick"]
+transform = Transform3D(-1.45705e-06, -33.3333, 0, 33.3333, -1.45705e-06, 0, 0, 0, 33.3333, 0, 0, 0)
+amount = 100
+lifetime = 100.0
+explosiveness = 1.0
+fixed_fps = 0
+process_material = SubResource("ShaderMaterial_iw7yk")
+draw_pass_1 = SubResource("QuadMesh_jgkl6")
+script = ExtResource("5_0qgdj")
+texture = SubResource("NoiseTexture2D_3bm34")
+color_ramp = ExtResource("4_6qdc3")
+curve = SubResource("CurveTexture_exgke")
+_defaults_have_been_set = true
+
+[node name="WeaponHitbox" type="Area3D" parent="GreenStick"]
+transform = Transform3D(0.933184, 93.7544, 59.6232, -26.9469, -57.6541, 91.0799, 107.79, -15.2249, 22.2533, -11.0997, 1.03785, 21.3588)
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="GreenStick/WeaponHitbox"]
+transform = Transform3D(7.55897e-05, -0.0121261, 0.0485055, 0.00759411, -0.0259443, -0.0068512, 0.00482948, 0.040986, 0.010014, -0.183379, 0.115479, 0.00744943)
+shape = SubResource("ConcavePolygonShape3D_cpwgx")
+
+[connection signal="area_entered" from="GreenStick/WeaponHitbox" to="." method="_on_weapon_hitbox_area_entered"]

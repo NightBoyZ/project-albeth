@@ -1,0 +1,31 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1otffaqvalr0"]
+
+[ext_resource type="Texture2D" uid="uid://d3w1taqey4oyi" path="res://assets/img/ball.png" id="1_v1xe5"]
+[ext_resource type="Script" path="res://scenes/vfx/vfx_remove.gd" id="2_eqohe"]
+
+[sub_resource type="Curve" id="Curve_hyyxs"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.994737, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_r252y"]
+curve = SubResource("Curve_hyyxs")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5cukd"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_r252y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhsht"]
+transparency = 1
+blend_mode = 1
+albedo_texture = ExtResource("1_v1xe5")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5kykp"]
+material = SubResource("StandardMaterial3D_yhsht")
+orientation = 2
+
+[node name="Orb" type="GPUParticles3D"]
+lod_bias = 0.001
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_5cukd")
+draw_pass_1 = SubResource("PlaneMesh_5kykp")
+script = ExtResource("2_eqohe")

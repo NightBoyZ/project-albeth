@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2hvreaxrmktj"]
+
+[ext_resource type="Script" path="res://scripts/old/extendo_floor.gd" id="1_nl17u"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pl4iu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yoej8"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mbod0"]
+radius = 4.0
+
+[node name="ExtendoPivot" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_pl4iu")
+script = ExtResource("1_nl17u")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_yoej8")
+
+[node name="SizeTimer" type="Timer" parent="MeshInstance3D"]
+autostart = true
+
+[node name="Area3D" type="Area3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_mbod0")
+
+[connection signal="timeout" from="MeshInstance3D/SizeTimer" to="MeshInstance3D" method="_on_size_timer_timeout"]
+[connection signal="body_entered" from="MeshInstance3D/Area3D" to="MeshInstance3D" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="MeshInstance3D/Area3D" to="MeshInstance3D" method="_on_area_3d_body_exited"]

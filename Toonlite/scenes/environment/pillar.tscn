@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://binvitr6cgc7e"]
+
+[ext_resource type="Shader" uid="uid://dbplx147rh58y" path="res://scenes/environment/extendo_floor.tres" id="1_ff3bh"]
+[ext_resource type="Script" path="res://scripts/old/extendo_floor.gd" id="2_igvki"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fh5vj"]
+render_priority = 0
+shader = ExtResource("1_ff3bh")
+
+[sub_resource type="BoxMesh" id="BoxMesh_pl4iu"]
+material = SubResource("ShaderMaterial_fh5vj")
+size = Vector3(5, 1, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yoej8"]
+size = Vector3(5, 1, 5)
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_pl4iu")
+script = ExtResource("2_igvki")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_yoej8")
+
+[node name="SizeTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="SizeTimer" to="." method="_on_size_timer_timeout"]

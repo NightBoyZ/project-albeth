@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgnfk4eu7sotw"]
+
+[ext_resource type="Texture2D" uid="uid://d3w1taqey4oyi" path="res://assets/img/ball.png" id="1_rxc6e"]
+
+[node name="Splatter" type="Decal"]
+size = Vector3(1, 1, 1)
+texture_albedo = ExtResource("1_rxc6e")
+modulate = Color(0.944853, 0, 0.126244, 1)
+upper_fade = 1e+06

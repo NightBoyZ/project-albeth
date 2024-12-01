@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b0qpuycfpo0r8"
+path="res://.godot/imported/Victory Fanfare - Final Fantasy VII Music (Extended).mp3-6dca4be67e80d1ded64a2449c057414e.mp3str"
+
+[deps]
+
+source_file="res://assets/bgm/Victory Fanfare - Final Fantasy VII Music (Extended).mp3"
+dest_files=["res://.godot/imported/Victory Fanfare - Final Fantasy VII Music (Extended).mp3-6dca4be67e80d1ded64a2449c057414e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

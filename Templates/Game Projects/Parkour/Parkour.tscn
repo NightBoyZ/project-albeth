@@ -1,0 +1,170 @@
+[gd_scene load_steps=7 format=3 uid="uid://ccokhod7s3842"]
+
+[ext_resource type="PackedScene" uid="uid://cqgocbht3n1ps" path="res://Game Projects/Parkour/FPSPlayer.tscn" id="1_1fi20"]
+[ext_resource type="Material" uid="uid://c4urka6ybrmhm" path="res://addons/kenney_prototype_tools/materials/dark/material_13.tres" id="2_2j2ya"]
+[ext_resource type="Material" uid="uid://bx6qeabdhq2s" path="res://addons/kenney_prototype_tools/materials/dark/material_01.tres" id="3_3ulg3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lpik0"]
+sky_top_color = Color(1, 1, 1, 1)
+sky_horizon_color = Color(1, 1, 1, 1)
+ground_bottom_color = Color(1, 1, 1, 1)
+ground_horizon_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Sky" id="Sky_0ye41"]
+sky_material = SubResource("ProceduralSkyMaterial_lpik0")
+
+[sub_resource type="Environment" id="Environment_v2fqx"]
+background_mode = 2
+sky = SubResource("Sky_0ye41")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Parkour" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_v2fqx")
+
+[node name="Player" parent="." instance=ExtResource("1_1fi20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.606, 0)
+
+[node name="Course" type="CSGBox3D" parent="."]
+material_override = ExtResource("2_2j2ya")
+use_collision = true
+collision_layer = 2
+size = Vector3(50, 1, 10)
+material = ExtResource("3_3ulg3")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Course"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.22346, 25.8579, -42.2742)
+size = Vector3(10, 1, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Course"]
+transform = Transform3D(0.829564, 0, -0.558411, 0, 1, 0, 0.558411, 0, 0.829564, 13.4499, 31.0973, -78.2253)
+size = Vector3(10, 1, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Course"]
+transform = Transform3D(0.919424, 0, -0.393268, 0, 1, 0, 0.393268, 0, 0.919424, 14.2368, 8, -36.6546)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Course"]
+transform = Transform3D(0.890044, -0.454675, 0.0330564, 0.356246, 0.738944, 0.571882, -0.284447, -0.497224, 0.819669, -28.2635, 0.508427, -85.307)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Course"]
+transform = Transform3D(0.820421, 0, -0.571759, 0, 1, 0, 0.571759, 0, 0.820421, 22.6469, 16.232, -55.7142)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Course"]
+transform = Transform3D(0.998084, 0, 0.0618673, 0, 1, 0, -0.0618673, 0, 0.998084, -9.5283, 30.5366, -76.4371)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Course"]
+transform = Transform3D(0.17131, 0, 0.985217, 0, 1, 0, -0.985217, 0, 0.17131, -15.5779, 16.232, -22.7272)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Course"]
+transform = Transform3D(-0.729697, 0, 0.683771, 0, 1, 0, -0.683771, 0, -0.729697, -15.5779, 42.2628, -55.0352)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Course"]
+transform = Transform3D(-0.745579, 0.330054, 0.578944, -0.222801, 0.695298, -0.683315, -0.628069, -0.638455, -0.444864, 78.9798, 16.0085, -35.4778)
+size = Vector3(10, 1, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Course"]
+transform = Transform3D(-0.295217, 0.330054, 0.896611, -0.566398, 0.695298, -0.44244, -0.769441, -0.638455, -0.0183221, 42.9906, 39.1658, -37.07)
+size = Vector3(10, 1, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Course"]
+transform = Transform3D(-0.457823, 0.330054, 0.825507, -0.473575, 0.695298, -0.540636, -0.752413, -0.638455, -0.162019, 58.8476, -5.47494, -41.311)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="Course"]
+transform = Transform3D(-0.710697, 0.295022, 0.638648, 0.243762, 0.95485, -0.169829, -0.659917, 0.0349816, -0.750524, 59.8953, 32.0302, 11.8089)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="Course"]
+transform = Transform3D(-0.280673, 0.330053, 0.90127, -0.573482, 0.695298, -0.433218, -0.769637, -0.638455, -0.00587115, 44.2598, 11.3987, -43.37)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="Course"]
+transform = Transform3D(-0.779969, 0.330054, 0.531708, -0.180099, 0.695298, -0.695791, -0.599344, -0.638455, -0.482869, 60.9728, 42.6736, -23.0757)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="Course"]
+transform = Transform3D(-0.698111, 0.330054, -0.635379, 0.635046, 0.695298, -0.336566, 0.330693, -0.638455, -0.694995, 91.857, -2.62528, -34.0369)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="Course"]
+transform = Transform3D(0.148182, 0.330053, -0.932259, 0.629808, 0.695298, 0.346269, 0.762486, -0.638455, -0.10484, 81.7441, 37.5504, -36.2837)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="Course"]
+transform = Transform3D(-0.795486, -0.561458, -0.227961, -0.136094, 0.532113, -0.835664, 0.590491, -0.633735, -0.4997, -58.8341, 12.599, -52.6015)
+size = Vector3(10, 1, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="Course"]
+transform = Transform3D(-0.787203, -0.561458, 0.2551, -0.579543, 0.532113, -0.61724, 0.210812, -0.633735, -0.74427, -71.6167, 42.3443, -24.5687)
+size = Vector3(10, 1, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="Course"]
+transform = Transform3D(-0.821039, -0.561458, 0.103247, -0.453768, 0.532113, -0.714808, 0.346396, -0.633735, -0.691658, -68.751, -4.79232, -30.2393)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="Course"]
+transform = Transform3D(-0.843193, 0.0601485, -0.534237, 0.306136, 0.870593, -0.38516, 0.441936, -0.488313, -0.752491, -19.6455, 37.6624, -26.2761)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="Course"]
+transform = Transform3D(-0.782973, -0.561459, 0.267803, -0.589453, 0.532113, -0.607783, 0.198744, -0.633735, -0.747584, -75.7183, 14.3709, -20.9661)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D22" type="CSGBox3D" parent="Course"]
+transform = Transform3D(-0.779859, -0.561458, -0.276739, -0.0841332, 0.532113, -0.842483, 0.620275, -0.633735, -0.462211, -53.4307, 43.6788, -38.6753)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D23" type="CSGBox3D" parent="Course"]
+transform = Transform3D(0.0883162, -0.561458, -0.822779, 0.799996, 0.532114, -0.27724, 0.59347, -0.633735, 0.496159, -52.8307, -7.99295, -60.0211)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGBox3D24" type="CSGBox3D" parent="Course"]
+transform = Transform3D(0.736337, -0.561458, -0.377588, 0.67071, 0.532113, 0.516724, -0.0891995, -0.633735, 0.768391, -60.0809, 32.8569, -60.3734)
+size = Vector3(5, 5, 1)
+material = ExtResource("2_2j2ya")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Course"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 14)
+radius = 10.0
+height = 80.0
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Course/CSGCylinder3D"]
+operation = 2
+radius = 9.0
+height = 80.0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Course/CSGCylinder3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -38, -9)
+operation = 2
+size = Vector3(3, 3, 3)

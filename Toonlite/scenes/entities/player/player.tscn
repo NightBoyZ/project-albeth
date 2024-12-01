@@ -1,0 +1,1398 @@
+[gd_scene load_steps=91 format=3 uid="uid://cgxfe2qqj1xut"]
+
+[ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_2v223"]
+[ext_resource type="PackedScene" uid="uid://ewnnqlvpqdim" path="res://scenes/vfx/player/afterimage.tscn" id="2_px1ln"]
+[ext_resource type="Script" path="res://scenes/ui/SpawnDebug.gd" id="3_82bry"]
+[ext_resource type="PackedScene" uid="uid://dt2nm24c07pkt" path="res://assets/mesh/blender models/characters/Toon_base.blend" id="3_jtf67"]
+[ext_resource type="Script" path="res://scenes/ui/DebugMenu.gd" id="3_vebvr"]
+[ext_resource type="PackedScene" uid="uid://btua8cg1uy3as" path="res://scenes/items/weapons/GreenStick.tscn" id="4_0jl8w"]
+[ext_resource type="Texture2D" uid="uid://d3w1taqey4oyi" path="res://assets/img/ball.png" id="5_b15xv"]
+[ext_resource type="Script" path="res://scenes/entities/player/stats_debug.gd" id="5_jt1fs"]
+[ext_resource type="Shader" uid="uid://p7rg743dv5ae" path="res://scenes/levels/idk_pillars.tres" id="6_xjp8v"]
+[ext_resource type="Script" path="res://scripts/classes/effects_manager.gd" id="7_3erhj"]
+[ext_resource type="Script" path="res://scripts/classes/state_machine.gd" id="7_8ah7a"]
+[ext_resource type="Script" path="res://scenes/entities/player/states/idle.gd" id="8_jb7qn"]
+[ext_resource type="Script" path="res://scenes/entities/player/states/jog.gd" id="9_ckqwd"]
+[ext_resource type="AudioStream" uid="uid://bfhy2ai43hs2x" path="res://assets/sfx/10_SE_BATTLE_bow_hit_2.ogg" id="9_jsolr"]
+[ext_resource type="Script" path="res://scenes/entities/player/states/jump.gd" id="10_y7tsk"]
+[ext_resource type="Script" path="res://scenes/entities/player/no_clip.gd" id="11_4qyqe"]
+[ext_resource type="Script" path="res://scenes/entities/player/states/sprint.gd" id="11_66ait"]
+[ext_resource type="Script" path="res://scenes/entities/player/game_complete.gd" id="11_f58f6"]
+[ext_resource type="Script" path="res://scenes/entities/player/states/dashing.gd" id="13_2sn2y"]
+[ext_resource type="Script" path="res://scenes/entities/player/game_failed.gd" id="13_ad22t"]
+[ext_resource type="Script" path="res://scenes/entities/player/states/special_attack.gd" id="15_lcx60"]
+[ext_resource type="Script" path="res://scenes/entities/player/states/basic_attack.gd" id="19_3n5fr"]
+
+[sub_resource type="Gradient" id="Gradient_infwd"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.243137, 0, 0, 0, 0.541176, 0, 0, 0.215686, 0.842635, 2.06962e-06, 5.77569e-07, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kksof"]
+gradient = SubResource("Gradient_infwd")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Animation" id="Animation_y72x6"]
+resource_name = "Hurt"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.7),
+"transitions": PackedFloat32Array(0, 0.5, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../SFX/AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.06,
+"stream": ExtResource("9_jsolr")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_058nf"]
+_data = {
+"Hurt": SubResource("Animation_y72x6")
+}
+
+[sub_resource type="Animation" id="Animation_pt0jy"]
+resource_name = "GameComplete"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameComplete/Blur:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.490196)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GeneralUI:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GameComplete/Complete:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["", "Game Complete!"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GameComplete/Complete:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GeneralUI:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GameComplete/MainMenuButton:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("GameComplete:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_4l61b"]
+resource_name = "GameFailed"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GeneralUI:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GeneralUI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GameFailed/Blur:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 0.490196)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GameFailed:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GameFailed/Failed:text")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["", "Game Failed!"]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GameFailed/Failed:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1.1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("GameFailed/MainMenuButton:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_sbgxn"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wdtmp"]
+_data = {
+"GameComplete": SubResource("Animation_pt0jy"),
+"GameFailed": SubResource("Animation_4l61b"),
+"RESET": SubResource("Animation_sbgxn")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oe3et"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tgxn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jp55h"]
+font_size = 12
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ospy"]
+bg_color = Color(0.341176, 0.341176, 0.341176, 1)
+skew = Vector2(1, 0)
+border_width_left = 48
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 48.0
+shadow_size = 2
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2htff"]
+bg_color = Color(0, 0.721569, 0.329412, 1)
+skew = Vector2(1, 0)
+border_width_right = 32
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ppoe"]
+font_size = 14
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_td14e"]
+resource_local_to_scene = true
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfakp"]
+bg_color = Color(0.341176, 0.341176, 0.341176, 1)
+skew = Vector2(1, 0)
+border_width_left = 48
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 48.0
+shadow_size = 2
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_do75n"]
+bg_color = Color(0.937255, 0.905882, 0, 1)
+skew = Vector2(1, 0)
+border_width_right = 32
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_4s6rk"]
+font_size = 14
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vdco"]
+bg_color = Color(0.341176, 0.341176, 0.341176, 1)
+border_width_left = 48
+border_width_right = 48
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 47.0
+expand_margin_right = 48.0
+shadow_size = 2
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_guy6u"]
+bg_color = Color(0.519244, 0.919083, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ditp6"]
+font_size = 12
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wh1fi"]
+font_size = 14
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_168p6"]
+resource_local_to_scene = true
+font_size = 10
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4ailc"]
+font_size = 12
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_yitdf"]
+font_size = 12
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_48oiv"]
+font_names = PackedStringArray("Calibri")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_gox3w"]
+font = SubResource("SystemFont_48oiv")
+font_size = 64
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6kuf2"]
+radius = 0.8
+height = 3.0
+
+[sub_resource type="Gradient" id="Gradient_1mfjx"]
+colors = PackedColorArray(0, 0.572549, 0.921569, 0.490196, 1, 1, 1, 0.490196)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p030e"]
+noise_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0hvnn"]
+seamless = true
+seamless_blend_skirt = 1.0
+color_ramp = SubResource("Gradient_1mfjx")
+noise = SubResource("FastNoiseLite_p030e")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ft7x2"]
+transparency = 1
+blend_mode = 4
+albedo_color = Color(0, 0.947092, 0.949873, 1)
+albedo_texture = SubResource("NoiseTexture2D_0hvnn")
+emission_enabled = true
+emission = Color(0.218334, 0.309823, 0.835941, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_b0s1i"]
+material = SubResource("StandardMaterial3D_ft7x2")
+radius = 0.8
+height = 3.0
+radial_segments = 4
+rings = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sxi5i"]
+radius = 0.3
+height = 1.6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xciyy"]
+radius = 0.8
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_x3irf"]
+xfade_time = 0.2
+input_0/name = "on_ground"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "on_air"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y3daq"]
+animation = &"spin_slash_2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pk4ih"]
+animation = &"run_stop"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_bv787"]
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_m1p4k"]
+xfade_time = 0.2
+input_0/name = "BasicMelee"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "SkillMelee"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_rjt4x"]
+xfade_time = 0.2
+allow_transition_to_self = true
+input_0/name = "Melee_1"
+input_0/auto_advance = true
+input_0/break_loop_at_end = false
+input_0/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ccpfo"]
+animation = &"warrior_sprint"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xot0r"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pblc6"]
+animation = &"jog"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_glmvv"]
+animation = &"jumping"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_ic6xw"]
+xfade_time = 0.2
+input_0/name = "idle"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "walking"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "dashing"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+input_3/name = "strafe"
+input_3/auto_advance = true
+input_3/break_loop_at_end = false
+input_3/reset = true
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_e3gxo"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_sdon1"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ildmj"]
+animation = &"spin_slash"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_wuyvn"]
+xfade_time = 0.4
+allow_transition_to_self = true
+input_0/name = "Spin_1"
+input_0/auto_advance = true
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "Spin_2"
+input_1/auto_advance = true
+input_1/break_loop_at_end = false
+input_1/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b87f5"]
+animation = &"warrior_sprint"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_e3ivc"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_3srwm"]
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_vnc01"]
+xfade_time = 0.2
+input_0/name = "jogging"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "sprinting"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_h56el"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_fjg2w"]
+filter_enabled = true
+filters = ["", "Armature/Skeleton3D:mixamorig1_Head", "Armature/Skeleton3D:mixamorig1_HeadTop_End", "Armature/Skeleton3D:mixamorig1_LeftForeArm", "Armature/Skeleton3D:mixamorig1_LeftHand", "Armature/Skeleton3D:mixamorig1_LeftHandIndex1", "Armature/Skeleton3D:mixamorig1_LeftHandIndex2", "Armature/Skeleton3D:mixamorig1_LeftHandIndex3", "Armature/Skeleton3D:mixamorig1_LeftHandIndex4", "Armature/Skeleton3D:mixamorig1_LeftHandMiddle1", "Armature/Skeleton3D:mixamorig1_LeftHandMiddle2", "Armature/Skeleton3D:mixamorig1_LeftHandMiddle3", "Armature/Skeleton3D:mixamorig1_LeftHandMiddle4", "Armature/Skeleton3D:mixamorig1_LeftHandPinky1", "Armature/Skeleton3D:mixamorig1_LeftHandPinky2", "Armature/Skeleton3D:mixamorig1_LeftHandPinky3", "Armature/Skeleton3D:mixamorig1_LeftHandPinky4", "Armature/Skeleton3D:mixamorig1_LeftHandRing1", "Armature/Skeleton3D:mixamorig1_LeftHandRing2", "Armature/Skeleton3D:mixamorig1_LeftHandRing3", "Armature/Skeleton3D:mixamorig1_LeftHandRing4", "Armature/Skeleton3D:mixamorig1_LeftHandThumb1", "Armature/Skeleton3D:mixamorig1_LeftHandThumb2", "Armature/Skeleton3D:mixamorig1_LeftHandThumb3", "Armature/Skeleton3D:mixamorig1_LeftHandThumb4", "Armature/Skeleton3D:mixamorig1_LeftShoulder", "Armature/Skeleton3D:mixamorig1_Neck", "Armature/Skeleton3D:mixamorig1_RightArm", "Armature/Skeleton3D:mixamorig1_RightForeArm", "Armature/Skeleton3D:mixamorig1_RightHand", "Armature/Skeleton3D:mixamorig1_RightHandIndex1", "Armature/Skeleton3D:mixamorig1_RightHandIndex2", "Armature/Skeleton3D:mixamorig1_RightHandIndex3", "Armature/Skeleton3D:mixamorig1_RightHandIndex4", "Armature/Skeleton3D:mixamorig1_RightHandMiddle1", "Armature/Skeleton3D:mixamorig1_RightHandMiddle2", "Armature/Skeleton3D:mixamorig1_RightHandMiddle3", "Armature/Skeleton3D:mixamorig1_RightHandMiddle4", "Armature/Skeleton3D:mixamorig1_RightHandPinky1", "Armature/Skeleton3D:mixamorig1_RightHandPinky2", "Armature/Skeleton3D:mixamorig1_RightHandPinky3", "Armature/Skeleton3D:mixamorig1_RightHandPinky4", "Armature/Skeleton3D:mixamorig1_RightHandRing1", "Armature/Skeleton3D:mixamorig1_RightHandRing2", "Armature/Skeleton3D:mixamorig1_RightHandRing3", "Armature/Skeleton3D:mixamorig1_RightHandRing4", "Armature/Skeleton3D:mixamorig1_RightHandThumb1", "Armature/Skeleton3D:mixamorig1_RightHandThumb2", "Armature/Skeleton3D:mixamorig1_RightHandThumb3", "Armature/Skeleton3D:mixamorig1_RightHandThumb4", "Armature/Skeleton3D:mixamorig1_RightShoulder", "Armature/Skeleton3D:mixamorig1_Spine", "Armature/Skeleton3D:mixamorig1_Spine1", "Armature/Skeleton3D:mixamorig1_Spine2", "Armature/Skeleton3D:mixamorig_Head", "Armature/Skeleton3D:mixamorig_HeadTop_End", "Armature/Skeleton3D:mixamorig_LeftArm", "Armature/Skeleton3D:mixamorig_LeftForeArm", "Armature/Skeleton3D:mixamorig_LeftHand", "Armature/Skeleton3D:mixamorig_LeftShoulder", "Armature/Skeleton3D:mixamorig_Neck", "Armature/Skeleton3D:mixamorig_RightArm", "Armature/Skeleton3D:mixamorig_RightForeArm", "Armature/Skeleton3D:mixamorig_RightHand", "Armature/Skeleton3D:mixamorig_RightShoulder", "Armature/Skeleton3D:mixamorig_Spine", "Armature/Skeleton3D:mixamorig_Spine1", "Armature/Skeleton3D:mixamorig_Spine2"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f7e58"]
+animation = &"warrior_attack_1"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5x6nd"]
+graph_offset = Vector2(-418.52, 4.51055)
+nodes/AirOrGround/node = SubResource("AnimationNodeTransition_x3irf")
+nodes/AirOrGround/position = Vector2(220, 120)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_pk4ih")
+nodes/Animation/position = Vector2(-180, 440)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_y3daq")
+"nodes/Animation 2/position" = Vector2(220, 660)
+nodes/AttackSpeed/node = SubResource("AnimationNodeTimeScale_bv787")
+nodes/AttackSpeed/position = Vector2(220, 360)
+nodes/AttackState/node = SubResource("AnimationNodeTransition_m1p4k")
+nodes/AttackState/position = Vector2(700, 300)
+nodes/BasicCombo/node = SubResource("AnimationNodeTransition_rjt4x")
+nodes/BasicCombo/position = Vector2(40, 520)
+nodes/Dash/node = SubResource("AnimationNodeAnimation_ccpfo")
+nodes/Dash/position = Vector2(-620, 420)
+nodes/Idle/node = SubResource("AnimationNodeAnimation_xot0r")
+nodes/Idle/position = Vector2(-160, 20)
+nodes/Jog/node = SubResource("AnimationNodeAnimation_pblc6")
+nodes/Jog/position = Vector2(-580, 80)
+nodes/Jump/node = SubResource("AnimationNodeAnimation_glmvv")
+nodes/Jump/position = Vector2(40, 380)
+nodes/MovementState/node = SubResource("AnimationNodeTransition_ic6xw")
+nodes/MovementState/position = Vector2(20, 100)
+nodes/Pause/node = SubResource("AnimationNodeTimeScale_e3gxo")
+nodes/Pause/position = Vector2(1080, 240)
+nodes/SkillSpeed/node = SubResource("AnimationNodeTimeScale_sdon1")
+nodes/SkillSpeed/position = Vector2(540, 440)
+nodes/SpinSlash/node = SubResource("AnimationNodeTransition_wuyvn")
+nodes/SpinSlash/position = Vector2(380, 500)
+"nodes/SpinSlash 2/node" = SubResource("AnimationNodeAnimation_ildmj")
+"nodes/SpinSlash 2/position" = Vector2(220, 520)
+nodes/Sprint/node = SubResource("AnimationNodeAnimation_b87f5")
+nodes/Sprint/position = Vector2(-620, 240)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_e3ivc")
+nodes/TimeScale/position = Vector2(-320, 340)
+nodes/WalkSpeed/node = SubResource("AnimationNodeTimeScale_3srwm")
+nodes/WalkSpeed/position = Vector2(-280, 160)
+nodes/WalkState/node = SubResource("AnimationNodeTransition_vnc01")
+nodes/WalkState/position = Vector2(-420, 120)
+nodes/animation_speed/node = SubResource("AnimationNodeTimeScale_h56el")
+nodes/animation_speed/position = Vector2(880, 240)
+nodes/attack_blend/node = SubResource("AnimationNodeBlend2_fjg2w")
+nodes/attack_blend/position = Vector2(460, 160)
+nodes/melee/node = SubResource("AnimationNodeAnimation_f7e58")
+nodes/melee/position = Vector2(-180, 620)
+nodes/output/position = Vector2(1220, 260)
+node_connections = [&"AirOrGround", 0, &"MovementState", &"AirOrGround", 1, &"Jump", &"AttackSpeed", 0, &"BasicCombo", &"AttackState", 0, &"attack_blend", &"AttackState", 1, &"SkillSpeed", &"BasicCombo", 0, &"melee", &"MovementState", 0, &"Idle", &"MovementState", 1, &"WalkSpeed", &"MovementState", 2, &"TimeScale", &"MovementState", 3, &"Animation", &"Pause", 0, &"animation_speed", &"SkillSpeed", 0, &"SpinSlash", &"SpinSlash", 0, &"SpinSlash 2", &"SpinSlash", 1, &"Animation 2", &"TimeScale", 0, &"Dash", &"WalkSpeed", 0, &"WalkState", &"WalkState", 0, &"Jog", &"WalkState", 1, &"Sprint", &"animation_speed", 0, &"AttackState", &"attack_blend", 0, &"AirOrGround", &"attack_blend", 1, &"AttackSpeed", &"output", 0, &"Pause"]
+
+[sub_resource type="Gradient" id="Gradient_hfnbh"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o1igx"]
+gradient = SubResource("Gradient_hfnbh")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ssifd"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_fsm51"]
+radial_segments = 32
+rings = 16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rri8"]
+render_priority = 0
+shader = ExtResource("6_xjp8v")
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader_parameter/Vector2Parameter = Vector2(0.001, 0.005)
+
+[sub_resource type="Curve" id="Curve_kkd3h"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.23913, 0.505494), 0.0, 0.0, 0, 0, Vector2(0.768116, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.010989), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_jwthu"]
+curve = SubResource("Curve_kkd3h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xy26w"]
+emission_shape_offset = Vector3(0, 5, 0)
+emission_shape = 3
+emission_box_extents = Vector3(10, 5, 10)
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_jwthu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a2y3m"]
+emission_enabled = true
+emission = Color(0.666667, 0.666667, 0.666667, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_8qcxk"]
+material = SubResource("StandardMaterial3D_a2y3m")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("R_Weapon", "L_Weapon") groups=["players"]]
+collision_mask = 10
+platform_floor_layers = 4278190088
+script = ExtResource("1_2v223")
+R_Weapon = NodePath("Mesh/Toon_base/Armature/Skeleton3D/Weapon")
+L_Weapon = NodePath("Mesh/Toon_base/Armature/Skeleton3D/Weapon2")
+afterimage = ExtResource("2_px1ln")
+change_fov_on_run = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("7_8ah7a")
+initial_state = NodePath("Idle")
+
+[node name="BasicAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("19_3n5fr")
+player = NodePath("../..")
+
+[node name="SpecialAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("15_lcx60")
+player = NodePath("../..")
+
+[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("10_y7tsk")
+player = NodePath("../..")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("8_jb7qn")
+player = NodePath("../..")
+
+[node name="Jog" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("9_ckqwd")
+player = NodePath("../..")
+
+[node name="Sprint" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("11_66ait")
+player = NodePath("../..")
+
+[node name="Dashing" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("13_2sn2y")
+player = NodePath("../..")
+
+[node name="NoClip" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("11_4qyqe")
+player = NodePath("../..")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="HurtVignette" type="TextureRect" parent="UI"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_kksof")
+stretch_mode = 6
+
+[node name="VigAnim" type="AnimationPlayer" parent="UI/HurtVignette"]
+libraries = {
+"": SubResource("AnimationLibrary_058nf")
+}
+
+[node name="LevelProgress" type="AnimationPlayer" parent="UI"]
+libraries = {
+"": SubResource("AnimationLibrary_wdtmp")
+}
+
+[node name="GeneralUI" type="Control" parent="UI"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="WaveBar" type="ProgressBar" parent="UI/GeneralUI"]
+layout_mode = 0
+offset_left = 1069.0
+offset_top = 82.0
+offset_right = 1118.0
+offset_bottom = 106.0
+theme_override_styles/background = SubResource("StyleBoxFlat_oe3et")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7tgxn")
+show_percentage = false
+
+[node name="Playtime" type="Label" parent="UI/GeneralUI/WaveBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.5
+offset_top = -10.0
+offset_right = 20.5
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+label_settings = SubResource("LabelSettings_jp55h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HPBar" type="ProgressBar" parent="UI/GeneralUI"]
+z_index = 99
+layout_mode = 0
+offset_left = 147.0
+offset_top = 528.0
+offset_right = 567.0
+offset_bottom = 552.0
+theme_override_styles/background = SubResource("StyleBoxFlat_8ospy")
+theme_override_styles/fill = SubResource("StyleBoxFlat_2htff")
+value = 100.0
+show_percentage = false
+
+[node name="Value" type="Label" parent="UI/GeneralUI/HPBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "123/123"
+label_settings = SubResource("LabelSettings_8ppoe")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="UI/GeneralUI/HPBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -244.0
+offset_top = -13.0
+offset_right = -224.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "HP
+"
+label_settings = SubResource("LabelSettings_td14e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="STBar" type="ProgressBar" parent="UI/GeneralUI"]
+z_index = 99
+layout_mode = 0
+offset_left = 124.0
+offset_top = 551.0
+offset_right = 544.0
+offset_bottom = 575.0
+theme_override_styles/background = SubResource("StyleBoxFlat_dfakp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_do75n")
+value = 100.0
+show_percentage = false
+
+[node name="Value" type="Label" parent="UI/GeneralUI/STBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "123/123"
+label_settings = SubResource("LabelSettings_4s6rk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="UI/GeneralUI/STBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -245.0
+offset_top = -12.0
+offset_right = -228.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "ST
+"
+label_settings = SubResource("LabelSettings_td14e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExpBar" type="ProgressBar" parent="UI/GeneralUI"]
+z_index = 99
+layout_mode = 0
+offset_left = 112.0
+offset_top = 575.0
+offset_right = 340.0
+offset_bottom = 591.0
+theme_override_styles/background = SubResource("StyleBoxFlat_5vdco")
+theme_override_styles/fill = SubResource("StyleBoxFlat_guy6u")
+value = 100.0
+show_percentage = false
+
+[node name="Value" type="Label" parent="UI/GeneralUI/ExpBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "0/5
+"
+label_settings = SubResource("LabelSettings_ditp6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="Label" parent="UI/GeneralUI/ExpBar"]
+layout_mode = 0
+offset_top = -72.0
+offset_right = 47.0
+offset_bottom = -48.0
+text = "Level 1"
+label_settings = SubResource("LabelSettings_wh1fi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Exp" type="Label" parent="UI/GeneralUI/ExpBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -146.0
+offset_top = -8.0
+offset_right = -130.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "XP
+"
+label_settings = SubResource("LabelSettings_168p6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="UI/GeneralUI/ExpBar"]
+layout_mode = 0
+offset_left = 232.0
+offset_right = 274.0
+offset_bottom = 17.0
+text = "000000"
+label_settings = SubResource("LabelSettings_4ailc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DebugMenu" type="Control" parent="UI/GeneralUI"]
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("3_vebvr")
+
+[node name="LevelDebug" type="VBoxContainer" parent="UI/GeneralUI/DebugMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FPS" type="Label" parent="UI/GeneralUI/DebugMenu/LevelDebug"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="SpawnCounter" type="Label" parent="UI/GeneralUI/DebugMenu/LevelDebug"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="ProgressCounter" type="Label" parent="UI/GeneralUI/DebugMenu/LevelDebug"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="ObjectCounter" type="Label" parent="UI/GeneralUI/DebugMenu/LevelDebug"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="KillCounter" type="Label" parent="UI/GeneralUI/DebugMenu/LevelDebug"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="SpawnDebug" type="VBoxContainer" parent="UI/GeneralUI/DebugMenu"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -240.0
+offset_top = 384.0
+offset_right = -14.0
+offset_bottom = 520.0
+grow_horizontal = 0
+script = ExtResource("3_82bry")
+
+[node name="1" type="HBoxContainer" parent="UI/GeneralUI/DebugMenu/SpawnDebug"]
+layout_mode = 2
+
+[node name="Lesser" type="CheckBox" parent="UI/GeneralUI/DebugMenu/SpawnDebug/1"]
+layout_mode = 2
+mouse_filter = 1
+button_pressed = true
+
+[node name="LesserSlime" type="Label" parent="UI/GeneralUI/DebugMenu/SpawnDebug/1"]
+layout_mode = 2
+text = "Spawn Lesser Slimes"
+
+[node name="2" type="HBoxContainer" parent="UI/GeneralUI/DebugMenu/SpawnDebug"]
+layout_mode = 2
+
+[node name="Ice" type="CheckBox" parent="UI/GeneralUI/DebugMenu/SpawnDebug/2"]
+layout_mode = 2
+mouse_filter = 1
+button_pressed = true
+
+[node name="IceSlime" type="Label" parent="UI/GeneralUI/DebugMenu/SpawnDebug/2"]
+layout_mode = 2
+text = "Spawn Ice Slimes"
+
+[node name="3" type="HBoxContainer" parent="UI/GeneralUI/DebugMenu/SpawnDebug"]
+layout_mode = 2
+
+[node name="Fire" type="CheckBox" parent="UI/GeneralUI/DebugMenu/SpawnDebug/3"]
+layout_mode = 2
+mouse_filter = 1
+button_pressed = true
+
+[node name="FireSlime" type="Label" parent="UI/GeneralUI/DebugMenu/SpawnDebug/3"]
+layout_mode = 2
+text = "Spawn Fire Slimes"
+
+[node name="4" type="HBoxContainer" parent="UI/GeneralUI/DebugMenu/SpawnDebug"]
+layout_mode = 2
+
+[node name="Shock" type="CheckBox" parent="UI/GeneralUI/DebugMenu/SpawnDebug/4"]
+layout_mode = 2
+mouse_filter = 1
+button_pressed = true
+
+[node name="ShockSlime" type="Label" parent="UI/GeneralUI/DebugMenu/SpawnDebug/4"]
+layout_mode = 2
+text = "Spawn Shock Slimes"
+
+[node name="5" type="HBoxContainer" parent="UI/GeneralUI/DebugMenu/SpawnDebug"]
+layout_mode = 2
+
+[node name="Nature" type="CheckBox" parent="UI/GeneralUI/DebugMenu/SpawnDebug/5"]
+layout_mode = 2
+mouse_filter = 1
+button_pressed = true
+
+[node name="NatureSlime" type="Label" parent="UI/GeneralUI/DebugMenu/SpawnDebug/5"]
+layout_mode = 2
+text = "Spawn Nature Slimes"
+
+[node name="StatsDebug" type="VBoxContainer" parent="UI/GeneralUI/DebugMenu" node_paths=PackedStringArray("player")]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -38.5
+offset_right = 127.0
+offset_bottom = 38.5
+grow_vertical = 2
+script = ExtResource("5_jt1fs")
+player = NodePath("../../../..")
+
+[node name="PlayerHitbox" type="Label" parent="UI/GeneralUI/DebugMenu/StatsDebug"]
+layout_mode = 2
+text = "Player Hitbox"
+horizontal_alignment = 1
+
+[node name="HitboxToggle" type="CheckBox" parent="UI/GeneralUI/DebugMenu/StatsDebug/PlayerHitbox"]
+layout_mode = 0
+offset_left = 124.0
+offset_top = 0.5
+offset_right = 148.0
+offset_bottom = 24.5
+
+[node name="NoClip" type="Label" parent="UI/GeneralUI/DebugMenu/StatsDebug"]
+layout_mode = 2
+text = "Player NoClip"
+horizontal_alignment = 1
+
+[node name="NoClipToggle" type="CheckBox" parent="UI/GeneralUI/DebugMenu/StatsDebug/NoClip"]
+layout_mode = 0
+offset_left = 124.0
+offset_top = 0.5
+offset_right = 148.0
+offset_bottom = 24.5
+
+[node name="PlayerExp" type="Label" parent="UI/GeneralUI/DebugMenu/StatsDebug"]
+layout_mode = 2
+text = "Get Experience
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="LineEdit" parent="UI/GeneralUI/DebugMenu/StatsDebug/PlayerExp"]
+layout_mode = 0
+offset_top = 23.5
+offset_right = 128.0
+offset_bottom = 54.5
+mouse_filter = 1
+text = "1111"
+placeholder_text = "<number>"
+alignment = 1
+max_length = 12
+
+[node name="ApplyButton" type="Button" parent="UI/GeneralUI/DebugMenu/StatsDebug/PlayerExp"]
+layout_mode = 2
+offset_left = 134.0
+offset_top = 23.5
+offset_right = 186.0
+offset_bottom = 54.5
+size_flags_horizontal = 0
+text = "Apply
+"
+
+[node name="DebugToggle" type="Button" parent="UI/GeneralUI"]
+z_index = 100
+layout_mode = 0
+offset_left = 968.0
+offset_top = 560.0
+offset_right = 1075.0
+offset_bottom = 592.0
+toggle_mode = true
+text = "Debug Menu"
+
+[node name="ObjectiveBanner" type="ColorRect" parent="UI/GeneralUI"]
+layout_mode = 0
+offset_left = 708.0
+offset_top = 48.0
+offset_right = 1116.0
+offset_bottom = 80.0
+color = Color(0.231416, 0.684233, 1, 0.470588)
+
+[node name="Objective" type="Label" parent="UI/GeneralUI/ObjectiveBanner"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 240.0
+offset_bottom = 32.0
+text = "Objective: Survive for 5 mins and get as much highscore as possible"
+label_settings = SubResource("LabelSettings_yitdf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReferenceRect" type="ReferenceRect" parent="UI/GeneralUI/ObjectiveBanner"]
+layout_mode = 0
+offset_right = 408.0
+offset_bottom = 32.0
+border_color = Color(0, 0, 0, 1)
+border_width = 4.0
+editor_only = false
+
+[node name="GameFailed" type="Control" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_ad22t")
+
+[node name="Blur" type="ColorRect" parent="UI/GameFailed"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Failed" type="Label" parent="UI/GameFailed"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.5
+offset_top = -32.0
+offset_right = 220.5
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_gox3w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainMenuButton" type="Button" parent="UI/GameFailed"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 60.0
+offset_right = 64.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+toggle_mode = true
+text = "Main Menu"
+
+[node name="GameComplete" type="Control" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_f58f6")
+
+[node name="Blur" type="ColorRect" parent="UI/GameComplete"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Complete" type="Label" parent="UI/GameComplete"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.5
+offset_top = -32.0
+offset_right = 220.5
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_gox3w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainMenuButton" type="Button" parent="UI/GameComplete"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 60.0
+offset_right = 64.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+toggle_mode = true
+text = "Main Menu"
+
+[node name="FrozenCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+shape = SubResource("CapsuleShape3D_6kuf2")
+disabled = true
+
+[node name="IceCasing" type="MeshInstance3D" parent="FrozenCollision"]
+visible = false
+mesh = SubResource("CapsuleMesh_b0s1i")
+skeleton = NodePath("../../VFX")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("CapsuleShape3D_sxi5i")
+
+[node name="Hitbox" type="Area3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+collision_mask = 4
+monitoring = false
+monitorable = false
+
+[node name="Area" type="CollisionShape3D" parent="Collision/Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("SphereShape3D_xciyy")
+
+[node name="RayCast3D" type="RayCast3D" parent="Collision"]
+target_position = Vector3(0, -1.2, 0)
+collision_mask = 32
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Mesh" type="Node3D" parent="."]
+
+[node name="Toon_base" parent="Mesh" instance=ExtResource("3_jtf67")]
+
+[node name="Skeleton3D" parent="Mesh/Toon_base/Armature" index="0"]
+bones/0/position = Vector3(0.405577, -0.217435, -77.6033)
+bones/0/rotation = Quaternion(-0.685348, -0.269548, 0.246702, 0.629905)
+bones/1/rotation = Quaternion(0.0471419, 0.0391406, -0.00634806, 0.998101)
+bones/2/rotation = Quaternion(0.0937404, 0.0803875, -0.0167952, 0.992204)
+bones/3/rotation = Quaternion(0.0934086, 0.0804497, -0.0167759, 0.992231)
+bones/4/position = Vector3(3.57628e-07, 15.6978, -5.48527e-07)
+bones/4/rotation = Quaternion(-0.0175011, -0.0106035, 0.00168089, 0.999789)
+bones/5/position = Vector3(1.66893e-06, 7.06056, 0.0417279)
+bones/5/rotation = Quaternion(-0.0717461, 0.177593, -0.000808045, 0.981485)
+bones/6/position = Vector3(-6.25849e-07, 27.4475, 0.162227)
+bones/7/position = Vector3(1.6817, 14.2102, 0.00367981)
+bones/7/rotation = Quaternion(0.653363, 0.275198, -0.659042, 0.25109)
+bones/8/position = Vector3(5.60608e-06, 4.55394, 6.79201e-06)
+bones/8/rotation = Quaternion(0.206797, -0.0838387, 0.0814855, 0.971373)
+bones/9/position = Vector3(2.8306e-06, 34.3239, 6.79878e-06)
+bones/9/rotation = Quaternion(-0.00455496, 0.0654498, 0.419747, 0.905267)
+bones/10/position = Vector3(1.90921e-06, 32.7385, 2.21772e-06)
+bones/11/position = Vector3(-1.6817, 14.2102, -0.00249496)
+bones/11/rotation = Quaternion(0.704054, -0.247353, 0.613439, 0.25849)
+bones/12/position = Vector3(2.01056e-07, 4.55394, 1.31406e-06)
+bones/12/rotation = Quaternion(0.190676, 0.132495, 0.144676, 0.961851)
+bones/13/position = Vector3(-1.23679e-05, 34.3239, -2.37845e-06)
+bones/13/rotation = Quaternion(0.0627952, -0.00173474, -0.365458, 0.928706)
+bones/14/position = Vector3(4.89876e-07, 32.7385, -2.70974e-06)
+bones/15/rotation = Quaternion(0.0812821, 0.187153, 0.973989, -0.0985567)
+bones/16/rotation = Quaternion(-0.298558, 0.121853, -0.0404636, 0.945715)
+bones/17/rotation = Quaternion(0.687352, -0.320249, 0.20516, 0.618787)
+bones/18/rotation = Quaternion(0.0647353, -0.00877737, -0.016662, 0.997725)
+bones/20/rotation = Quaternion(-0.127656, 0.00689867, 0.984765, 0.117872)
+bones/21/rotation = Quaternion(-0.282715, 0.0746543, -0.0257424, 0.955948)
+bones/22/rotation = Quaternion(0.805061, 0.202806, 0.0331222, 0.556461)
+bones/23/rotation = Quaternion(0.0198617, 0.0037267, -0.0115179, 0.99973)
+
+[node name="Weapon" parent="Mesh/Toon_base/Armature/Skeleton3D" index="0" node_paths=PackedStringArray("equipper") instance=ExtResource("4_0jl8w")]
+transform = Transform3D(-0.333301, -0.347839, 0.87631, 0.926729, 0.0501172, 0.372372, -0.173444, 0.936214, 0.305648, -21.3617, -15.4992, -67.0867)
+bone_name = "mixamorig_RightHand"
+bone_idx = 14
+equipper = NodePath("../../../../..")
+
+[node name="Weapon2" parent="Mesh/Toon_base/Armature/Skeleton3D" index="1" node_paths=PackedStringArray("equipper") instance=ExtResource("4_0jl8w")]
+transform = Transform3D(0.563346, 0.00672283, -0.826194, -0.630914, 0.649153, -0.42491, 0.53347, 0.760628, 0.369939, 16.7509, 25.8732, -67.4332)
+bone_name = "mixamorig_LeftHand"
+bone_idx = 10
+equipper = NodePath("../../../../..")
+
+[node name="AnimationTree" type="AnimationTree" parent="Mesh/Toon_base"]
+tree_root = SubResource("AnimationNodeBlendTree_5x6nd")
+anim_player = NodePath("../AnimationPlayer")
+parameters/AirOrGround/current_state = "on_ground"
+parameters/AirOrGround/transition_request = ""
+parameters/AirOrGround/current_index = 0
+parameters/AttackSpeed/scale = 2.0
+parameters/AttackState/current_state = "BasicMelee"
+parameters/AttackState/transition_request = ""
+parameters/AttackState/current_index = 0
+parameters/BasicCombo/current_state = "Melee_1"
+parameters/BasicCombo/transition_request = ""
+parameters/BasicCombo/current_index = 0
+parameters/MovementState/current_state = "idle"
+parameters/MovementState/transition_request = ""
+parameters/MovementState/current_index = 0
+parameters/Pause/scale = 1.0
+parameters/SkillSpeed/scale = 1.2
+parameters/SpinSlash/current_state = "Spin_2"
+parameters/SpinSlash/transition_request = ""
+parameters/SpinSlash/current_index = 1
+parameters/TimeScale/scale = 3.0
+parameters/WalkSpeed/scale = 1.2
+parameters/WalkState/current_state = "jogging"
+parameters/WalkState/transition_request = ""
+parameters/WalkState/current_index = 0
+parameters/animation_speed/scale = 1.0
+parameters/attack_blend/blend_amount = 0.0
+
+[node name="Shadow" type="Decal" parent="Mesh"]
+size = Vector3(1.2, 1, 1.2)
+texture_albedo = ExtResource("5_b15xv")
+texture_normal = SubResource("GradientTexture1D_o1igx")
+cull_mask = 2
+
+[node name="Camera" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="CameraYaw" type="Node3D" parent="Camera"]
+
+[node name="CameraPitch" type="Node3D" parent="Camera/CameraYaw"]
+
+[node name="Aim" type="RayCast3D" parent="Camera/CameraYaw/CameraPitch"]
+target_position = Vector3(0, 0, -1)
+collision_mask = 4
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Camera/CameraYaw/CameraPitch"]
+collision_mask = 8
+shape = SubResource("SphereShape3D_ssifd")
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="Camera/CameraYaw/CameraPitch/SpringArm3D"]
+current = true
+far = 2000.0
+
+[node name="Fog" type="CSGMesh3D" parent="Camera/CameraYaw/CameraPitch/SpringArm3D/Camera3D"]
+visible = false
+mesh = SubResource("SphereMesh_fsm51")
+material = SubResource("ShaderMaterial_2rri8")
+
+[node name="VFX" type="Node3D" parent="."]
+
+[node name="Wisp" type="GPUParticles3D" parent="VFX"]
+amount = 64
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_xy26w")
+draw_pass_1 = SubResource("BoxMesh_8qcxk")
+
+[node name="SFX" type="Node3D" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SFX"]
+bus = &"Sfx"
+
+[node name="EffectsManager" type="Node3D" parent="."]
+script = ExtResource("7_3erhj")
+
+[node name="RegenTimer" type="Timer" parent="EffectsManager"]
+autostart = true
+
+[connection signal="toggled" from="UI/GeneralUI/DebugMenu/SpawnDebug/1/Lesser" to="UI/GeneralUI/DebugMenu/SpawnDebug" method="_on_check_box_toggled"]
+[connection signal="toggled" from="UI/GeneralUI/DebugMenu/SpawnDebug/1/Lesser" to="UI/GeneralUI/DebugMenu/SpawnDebug" method="_on_lesser_toggled"]
+[connection signal="toggled" from="UI/GeneralUI/DebugMenu/SpawnDebug/2/Ice" to="UI/GeneralUI/DebugMenu/SpawnDebug" method="_on_ice_toggled"]
+[connection signal="toggled" from="UI/GeneralUI/DebugMenu/SpawnDebug/3/Fire" to="UI/GeneralUI/DebugMenu/SpawnDebug" method="_on_fire_toggled"]
+[connection signal="toggled" from="UI/GeneralUI/DebugMenu/SpawnDebug/4/Shock" to="UI/GeneralUI/DebugMenu/SpawnDebug" method="_on_shock_toggled"]
+[connection signal="toggled" from="UI/GeneralUI/DebugMenu/SpawnDebug/5/Nature" to="UI/GeneralUI/DebugMenu/SpawnDebug" method="_on_nature_toggled"]
+[connection signal="toggled" from="UI/GeneralUI/DebugMenu/StatsDebug/PlayerHitbox/HitboxToggle" to="UI/GeneralUI/DebugMenu/StatsDebug" method="_on_hitbox_toggle_toggled"]
+[connection signal="toggled" from="UI/GeneralUI/DebugMenu/StatsDebug/NoClip/NoClipToggle" to="UI/GeneralUI/DebugMenu/StatsDebug" method="_on_no_clip_toggle_toggled"]
+[connection signal="pressed" from="UI/GeneralUI/DebugMenu/StatsDebug/PlayerExp/ApplyButton" to="UI/GeneralUI/DebugMenu/StatsDebug" method="_on_apply_button_pressed"]
+[connection signal="toggled" from="UI/GeneralUI/DebugToggle" to="UI/GeneralUI/DebugMenu" method="_on_debug_toggle_toggled"]
+[connection signal="pressed" from="UI/GameFailed/MainMenuButton" to="UI/GameComplete" method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="UI/GameComplete/MainMenuButton" to="UI/GameComplete" method="_on_main_menu_button_pressed"]
+[connection signal="area_entered" from="Collision/Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_exited" from="Collision/Hitbox" to="." method="_on_hitbox_area_exited"]
+[connection signal="timeout" from="EffectsManager/RegenTimer" to="." method="_on_regen_timer_timeout"]
+
+[editable path="Mesh/Toon_base"]

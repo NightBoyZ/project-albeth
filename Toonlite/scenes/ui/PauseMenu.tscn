@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=3 uid="uid://0iib3pugy5wn"]
+
+[ext_resource type="Script" path="res://scenes/ui/PauseMenu.gd" id="1_enmxb"]
+[ext_resource type="PackedScene" uid="uid://hgoikxp01t1f" path="res://scenes/ui/Settings.tscn" id="2_123ou"]
+
+[sub_resource type="Gradient" id="Gradient_icgm8"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.0242718, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.470588)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_win2n"]
+gradient = SubResource("Gradient_icgm8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.7, 0.4)
+metadata/_snap_enabled = true
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+script = ExtResource("1_enmxb")
+
+[node name="Vignette" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_win2n")
+expand_mode = 2
+
+[node name="MenuList" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -56.0
+offset_right = 48.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResumeButton" type="Button" parent="MenuList"]
+layout_mode = 2
+mouse_filter = 1
+toggle_mode = true
+text = "Resume"
+
+[node name="SettingsButton" type="Button" parent="MenuList"]
+layout_mode = 2
+mouse_filter = 1
+toggle_mode = true
+text = "Settings
+"
+
+[node name="MainMenuButton" type="Button" parent="MenuList"]
+layout_mode = 2
+mouse_filter = 1
+toggle_mode = true
+text = "Main Menu
+"
+
+[node name="QuitButton" type="Button" parent="MenuList"]
+layout_mode = 2
+mouse_filter = 1
+toggle_mode = true
+text = "Quit
+"
+
+[node name="Settings" parent="." instance=ExtResource("2_123ou")]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 128.0
+offset_right = 576.0
+offset_bottom = 128.0
+
+[connection signal="toggled" from="MenuList/ResumeButton" to="." method="_on_resume_button_toggled"]
+[connection signal="toggled" from="MenuList/SettingsButton" to="." method="_on_settings_button_toggled"]
+[connection signal="toggled" from="MenuList/MainMenuButton" to="." method="_on_main_menu_button_toggled"]
+[connection signal="toggled" from="MenuList/QuitButton" to="." method="_on_quit_button_toggled"]

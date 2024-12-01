@@ -1,0 +1,807 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwyvxpebjcvhm"]
+
+[ext_resource type="Script" path="res://Algorithms/Wave Function Collapse/Sudoku/wave_coll.gd" id="1_x7r7s"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_smk53"]
+line_spacing = 0.0
+font_size = 42
+
+[node name="SudokuFunc" type="Node2D"]
+script = ExtResource("1_x7r7s")
+
+[node name="Row1" type="Node2D" parent="."]
+
+[node name="Column1" type="Node2D" parent="Row1"]
+
+[node name="Sudo1" type="Label" parent="Row1/Column1"]
+offset_right = 64.0
+offset_bottom = 64.0
+text = "1"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo2" type="Label" parent="Row1/Column1"]
+offset_left = 64.0
+offset_right = 128.0
+offset_bottom = 64.0
+text = "2"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo3" type="Label" parent="Row1/Column1"]
+offset_left = 128.0
+offset_right = 192.0
+offset_bottom = 64.0
+text = "3"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo4" type="Label" parent="Row1/Column1"]
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 128.0
+text = "4
+"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo5" type="Label" parent="Row1/Column1"]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 128.0
+offset_bottom = 128.0
+text = "5"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo6" type="Label" parent="Row1/Column1"]
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 192.0
+offset_bottom = 128.0
+text = "6"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo7" type="Label" parent="Row1/Column1"]
+offset_top = 128.0
+offset_right = 64.0
+offset_bottom = 192.0
+text = "7"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo8" type="Label" parent="Row1/Column1"]
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 128.0
+offset_bottom = 192.0
+text = "8"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo9" type="Label" parent="Row1/Column1"]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 192.0
+offset_bottom = 192.0
+text = "9"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Column2" type="Node2D" parent="Row1"]
+position = Vector2(192, 0)
+
+[node name="Sudo1" type="Label" parent="Row1/Column2"]
+offset_right = 64.0
+offset_bottom = 64.0
+text = "1"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo2" type="Label" parent="Row1/Column2"]
+offset_left = 64.0
+offset_right = 128.0
+offset_bottom = 64.0
+text = "2"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo3" type="Label" parent="Row1/Column2"]
+offset_left = 128.0
+offset_right = 192.0
+offset_bottom = 64.0
+text = "3"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo4" type="Label" parent="Row1/Column2"]
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 128.0
+text = "4
+"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo5" type="Label" parent="Row1/Column2"]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 128.0
+offset_bottom = 128.0
+text = "5"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo6" type="Label" parent="Row1/Column2"]
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 192.0
+offset_bottom = 128.0
+text = "6"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo7" type="Label" parent="Row1/Column2"]
+offset_top = 128.0
+offset_right = 64.0
+offset_bottom = 192.0
+text = "7"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo8" type="Label" parent="Row1/Column2"]
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 128.0
+offset_bottom = 192.0
+text = "8"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo9" type="Label" parent="Row1/Column2"]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 192.0
+offset_bottom = 192.0
+text = "9"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Column3" type="Node2D" parent="Row1"]
+position = Vector2(384, 0)
+
+[node name="Sudo1" type="Label" parent="Row1/Column3"]
+offset_right = 64.0
+offset_bottom = 64.0
+text = "1"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo2" type="Label" parent="Row1/Column3"]
+offset_left = 64.0
+offset_right = 128.0
+offset_bottom = 64.0
+text = "2"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo3" type="Label" parent="Row1/Column3"]
+offset_left = 128.0
+offset_right = 192.0
+offset_bottom = 64.0
+text = "3"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo4" type="Label" parent="Row1/Column3"]
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 128.0
+text = "4
+"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo5" type="Label" parent="Row1/Column3"]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 128.0
+offset_bottom = 128.0
+text = "5"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo6" type="Label" parent="Row1/Column3"]
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 192.0
+offset_bottom = 128.0
+text = "6"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo7" type="Label" parent="Row1/Column3"]
+offset_top = 128.0
+offset_right = 64.0
+offset_bottom = 192.0
+text = "7"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo8" type="Label" parent="Row1/Column3"]
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 128.0
+offset_bottom = 192.0
+text = "8"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo9" type="Label" parent="Row1/Column3"]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 192.0
+offset_bottom = 192.0
+text = "9"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row2" type="Node2D" parent="."]
+position = Vector2(0, 192)
+
+[node name="Column1" type="Node2D" parent="Row2"]
+
+[node name="Sudo1" type="Label" parent="Row2/Column1"]
+offset_right = 64.0
+offset_bottom = 64.0
+text = "1"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo2" type="Label" parent="Row2/Column1"]
+offset_left = 64.0
+offset_right = 128.0
+offset_bottom = 64.0
+text = "2"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo3" type="Label" parent="Row2/Column1"]
+offset_left = 128.0
+offset_right = 192.0
+offset_bottom = 64.0
+text = "3"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo4" type="Label" parent="Row2/Column1"]
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 128.0
+text = "4
+"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo5" type="Label" parent="Row2/Column1"]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 128.0
+offset_bottom = 128.0
+text = "5"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo6" type="Label" parent="Row2/Column1"]
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 192.0
+offset_bottom = 128.0
+text = "6"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo7" type="Label" parent="Row2/Column1"]
+offset_top = 128.0
+offset_right = 64.0
+offset_bottom = 192.0
+text = "7"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo8" type="Label" parent="Row2/Column1"]
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 128.0
+offset_bottom = 192.0
+text = "8"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo9" type="Label" parent="Row2/Column1"]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 192.0
+offset_bottom = 192.0
+text = "9"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Column2" type="Node2D" parent="Row2"]
+position = Vector2(192, 0)
+
+[node name="Sudo1" type="Label" parent="Row2/Column2"]
+offset_right = 64.0
+offset_bottom = 64.0
+text = "1"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo2" type="Label" parent="Row2/Column2"]
+offset_left = 64.0
+offset_right = 128.0
+offset_bottom = 64.0
+text = "2"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo3" type="Label" parent="Row2/Column2"]
+offset_left = 128.0
+offset_right = 192.0
+offset_bottom = 64.0
+text = "3"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo4" type="Label" parent="Row2/Column2"]
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 128.0
+text = "4
+"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo5" type="Label" parent="Row2/Column2"]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 128.0
+offset_bottom = 128.0
+text = "5"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo6" type="Label" parent="Row2/Column2"]
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 192.0
+offset_bottom = 128.0
+text = "6"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo7" type="Label" parent="Row2/Column2"]
+offset_top = 128.0
+offset_right = 64.0
+offset_bottom = 192.0
+text = "7"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo8" type="Label" parent="Row2/Column2"]
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 128.0
+offset_bottom = 192.0
+text = "8"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo9" type="Label" parent="Row2/Column2"]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 192.0
+offset_bottom = 192.0
+text = "9"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Column3" type="Node2D" parent="Row2"]
+position = Vector2(384, 0)
+
+[node name="Sudo1" type="Label" parent="Row2/Column3"]
+offset_right = 64.0
+offset_bottom = 64.0
+text = "1"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo2" type="Label" parent="Row2/Column3"]
+offset_left = 64.0
+offset_right = 128.0
+offset_bottom = 64.0
+text = "2"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo3" type="Label" parent="Row2/Column3"]
+offset_left = 128.0
+offset_right = 192.0
+offset_bottom = 64.0
+text = "3"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo4" type="Label" parent="Row2/Column3"]
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 128.0
+text = "4
+"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo5" type="Label" parent="Row2/Column3"]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 128.0
+offset_bottom = 128.0
+text = "5"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo6" type="Label" parent="Row2/Column3"]
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 192.0
+offset_bottom = 128.0
+text = "6"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo7" type="Label" parent="Row2/Column3"]
+offset_top = 128.0
+offset_right = 64.0
+offset_bottom = 192.0
+text = "7"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo8" type="Label" parent="Row2/Column3"]
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 128.0
+offset_bottom = 192.0
+text = "8"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo9" type="Label" parent="Row2/Column3"]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 192.0
+offset_bottom = 192.0
+text = "9"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row3" type="Node2D" parent="."]
+position = Vector2(0, 384)
+
+[node name="Column1" type="Node2D" parent="Row3"]
+
+[node name="Sudo1" type="Label" parent="Row3/Column1"]
+offset_right = 64.0
+offset_bottom = 64.0
+text = "1"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo2" type="Label" parent="Row3/Column1"]
+offset_left = 64.0
+offset_right = 128.0
+offset_bottom = 64.0
+text = "2"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo3" type="Label" parent="Row3/Column1"]
+offset_left = 128.0
+offset_right = 192.0
+offset_bottom = 64.0
+text = "3"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo4" type="Label" parent="Row3/Column1"]
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 128.0
+text = "4
+"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo5" type="Label" parent="Row3/Column1"]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 128.0
+offset_bottom = 128.0
+text = "5"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo6" type="Label" parent="Row3/Column1"]
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 192.0
+offset_bottom = 128.0
+text = "6"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo7" type="Label" parent="Row3/Column1"]
+offset_top = 128.0
+offset_right = 64.0
+offset_bottom = 192.0
+text = "7"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo8" type="Label" parent="Row3/Column1"]
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 128.0
+offset_bottom = 192.0
+text = "8"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo9" type="Label" parent="Row3/Column1"]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 192.0
+offset_bottom = 192.0
+text = "9"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Column2" type="Node2D" parent="Row3"]
+position = Vector2(192, 0)
+
+[node name="Sudo1" type="Label" parent="Row3/Column2"]
+offset_right = 64.0
+offset_bottom = 64.0
+text = "1"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo2" type="Label" parent="Row3/Column2"]
+offset_left = 64.0
+offset_right = 128.0
+offset_bottom = 64.0
+text = "2"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo3" type="Label" parent="Row3/Column2"]
+offset_left = 128.0
+offset_right = 192.0
+offset_bottom = 64.0
+text = "3"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo4" type="Label" parent="Row3/Column2"]
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 128.0
+text = "4
+"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo5" type="Label" parent="Row3/Column2"]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 128.0
+offset_bottom = 128.0
+text = "5"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo6" type="Label" parent="Row3/Column2"]
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 192.0
+offset_bottom = 128.0
+text = "6"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo7" type="Label" parent="Row3/Column2"]
+offset_top = 128.0
+offset_right = 64.0
+offset_bottom = 192.0
+text = "7"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo8" type="Label" parent="Row3/Column2"]
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 128.0
+offset_bottom = 192.0
+text = "8"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo9" type="Label" parent="Row3/Column2"]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 192.0
+offset_bottom = 192.0
+text = "9"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Column3" type="Node2D" parent="Row3"]
+position = Vector2(384, 0)
+
+[node name="Sudo1" type="Label" parent="Row3/Column3"]
+offset_right = 64.0
+offset_bottom = 64.0
+text = "1"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo2" type="Label" parent="Row3/Column3"]
+offset_left = 64.0
+offset_right = 128.0
+offset_bottom = 64.0
+text = "2"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo3" type="Label" parent="Row3/Column3"]
+offset_left = 128.0
+offset_right = 192.0
+offset_bottom = 64.0
+text = "3"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo4" type="Label" parent="Row3/Column3"]
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 128.0
+text = "4
+"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo5" type="Label" parent="Row3/Column3"]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 128.0
+offset_bottom = 128.0
+text = "5"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo6" type="Label" parent="Row3/Column3"]
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 192.0
+offset_bottom = 128.0
+text = "6"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo7" type="Label" parent="Row3/Column3"]
+offset_top = 128.0
+offset_right = 64.0
+offset_bottom = 192.0
+text = "7"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo8" type="Label" parent="Row3/Column3"]
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 128.0
+offset_bottom = 192.0
+text = "8"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sudo9" type="Label" parent="Row3/Column3"]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 192.0
+offset_bottom = 192.0
+text = "9"
+label_settings = SubResource("LabelSettings_smk53")
+horizontal_alignment = 1
+vertical_alignment = 1

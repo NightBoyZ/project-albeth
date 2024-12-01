@@ -1,0 +1,107 @@
+[gd_scene load_steps=16 format=3 uid="uid://r8a34ufx1oml"]
+
+[ext_resource type="Script" path="res://Mechanics/CSG Boxes/character_body_3d.gd" id="1_3mgbw"]
+
+[sub_resource type="Gradient" id="Gradient_n2ox2"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2pve3"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xjngc"]
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 1.0
+color_ramp = SubResource("Gradient_n2ox2")
+noise = SubResource("FastNoiseLite_2pve3")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ovkce"]
+sky_cover = SubResource("NoiseTexture2D_xjngc")
+ground_bottom_color = Color(0.201678, 0.593841, 0.966636, 1)
+ground_horizon_color = Color(0.642416, 0.88992, 0.999539, 1)
+ground_curve = 0.0606287
+
+[sub_resource type="Sky" id="Sky_gky5b"]
+sky_material = SubResource("ProceduralSkyMaterial_ovkce")
+
+[sub_resource type="Environment" id="Environment_5qc5j"]
+background_mode = 2
+sky = SubResource("Sky_gky5b")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_th12d"]
+height = 1.0
+radius = 0.25
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3olg2"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="Gradient" id="Gradient_f4ull"]
+offsets = PackedFloat32Array(0, 0.15625, 0.3125, 0.5, 0.53125, 0.5625, 0.65625, 0.75, 0.875, 0.96875)
+colors = PackedColorArray(0.196078, 0.803922, 0.196078, 1, 0.823529, 0.705882, 0.54902, 1, 0.196078, 0.803922, 0.196078, 1, 0.156119, 0.466688, 0, 1, 0.0901961, 0.596078, 0, 1, 0.555461, 0.389476, 1.92523e-07, 1, 0.556863, 0.388235, 0, 1, 0.619608, 0.482353, 0.372549, 1, 0.996078, 0.780392, 0.498039, 1, 0.478431, 0.384314, 0.25098, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 32
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1jo4h"]
+noise_type = 3
+fractal_type = 3
+fractal_weighted_strength = 0.2
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g536q"]
+generate_mipmaps = false
+seamless = true
+color_ramp = SubResource("Gradient_f4ull")
+noise = SubResource("FastNoiseLite_1jo4h")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qlcf"]
+albedo_texture = SubResource("NoiseTexture2D_g536q")
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ik4c"]
+transparency = 1
+blend_mode = 3
+cull_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3gegt"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.44627, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5qc5j")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26854, 0)
+script = ExtResource("1_3mgbw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CylinderShape3D_th12d")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.969633, 0.244563, 0, -0.244563, 0.969633, 0, 2.67184, 6.24887)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_3olg2")
+
+[node name="Floor" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(20, 0.1, 20)
+material = SubResource("StandardMaterial3D_3qlcf")
+
+[node name="Dome" type="CSGSphere3D" parent="."]
+use_collision = true
+radius = 10.0
+rings = 12
+material = SubResource("StandardMaterial3D_0ik4c")
+
+[node name="RoomSpace" type="CSGSphere3D" parent="Dome"]
+operation = 2
+radius = 9.9
+rings = 12
+material = SubResource("StandardMaterial3D_3gegt")

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://su66v2slfk25"]
+
+[ext_resource type="Texture2D" uid="uid://c423ahkgk4j83" path="res://addons/kenney_particle_pack/slash_03.png" id="1_1iyfb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_idfxy"]
+transparency = 1
+albedo_texture = ExtResource("1_1iyfb")
+emission_enabled = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_4asnm"]
+material = SubResource("StandardMaterial3D_idfxy")
+
+[node name="Slash" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+draw_pass_1 = SubResource("QuadMesh_4asnm")

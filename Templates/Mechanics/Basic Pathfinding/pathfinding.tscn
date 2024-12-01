@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2y57x6185wdn"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_gy88v"]
+vertices = PackedVector2Array(558, 310, -566, 310, -566, -310, 566, -310)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-576, -320, 576, -320, 568, 320, -576, 320)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="Pathfinding" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_gy88v")

@@ -1,0 +1,106 @@
+[gd_scene load_steps=7 format=3 uid="uid://chouv28bcwvd"]
+
+[ext_resource type="Script" path="res://scenes/ui/MainMenu.gd" id="1_tvon4"]
+[ext_resource type="PackedScene" uid="uid://hgoikxp01t1f" path="res://scenes/ui/Settings.tscn" id="2_qegs8"]
+
+[sub_resource type="SystemFont" id="SystemFont_8g0yc"]
+resource_local_to_scene = true
+font_names = PackedStringArray("Arial")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_6acir"]
+resource_local_to_scene = true
+font = SubResource("SystemFont_8g0yc")
+font_size = 128
+
+[sub_resource type="SystemFont" id="SystemFont_j272b"]
+font_names = PackedStringArray("Arial")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_6eox4"]
+font = SubResource("SystemFont_j272b")
+font_size = 32
+
+[node name="SelectMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1)
+script = ExtResource("1_tvon4")
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 72.0
+offset_top = 48.0
+offset_right = 513.0
+offset_bottom = 192.0
+grow_horizontal = 2
+text = "Toonlite"
+label_settings = SubResource("LabelSettings_6acir")
+horizontal_alignment = 1
+
+[node name="VersionLabel" type="Label" parent="."]
+layout_mode = 0
+offset_top = 608.0
+offset_right = 78.0
+offset_bottom = 644.0
+text = "v0.01"
+label_settings = SubResource("LabelSettings_6eox4")
+
+[node name="Settings" parent="." instance=ExtResource("2_qegs8")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -68.0
+offset_right = -64.0
+offset_bottom = 68.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="StartGame" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Start Game"
+
+[node name="LoadGame" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Load Game"
+
+[node name="Settings" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Settings
+"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Quit
+"
+
+[connection signal="toggled" from="VBoxContainer/StartGame" to="." method="_on_start_game_toggled"]
+[connection signal="toggled" from="VBoxContainer/LoadGame" to="." method="_on_load_game_toggled"]
+[connection signal="toggled" from="VBoxContainer/Settings" to="." method="_on_settings_toggled"]
+[connection signal="toggled" from="VBoxContainer/Quit" to="." method="_on_quit_toggled"]

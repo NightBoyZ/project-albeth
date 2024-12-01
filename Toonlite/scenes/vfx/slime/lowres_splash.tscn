@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://bh5yxav4hyo13"]
+
+[ext_resource type="Script" path="res://scenes/vfx/vfx_remove.gd" id="1_xxhsu"]
+
+[sub_resource type="Curve" id="Curve_mjjkc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.746377, 0.78022), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xshwx"]
+curve = SubResource("Curve_mjjkc")
+
+[sub_resource type="Curve" id="Curve_0jqvb"]
+max_value = 3.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_rk84p"]
+min_value = 1.0
+max_value = 3.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 3), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_swhoh"]
+max_value = 3.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_i2xjh"]
+curve_x = SubResource("Curve_0jqvb")
+curve_y = SubResource("Curve_rk84p")
+curve_z = SubResource("Curve_swhoh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ytkwc"]
+particle_flag_align_y = true
+emission_shape_offset = Vector3(0, 0.15, 0)
+direction = Vector3(0, 1, 0)
+spread = 20.0
+initial_velocity_min = 3.0
+initial_velocity_max = 10.0
+scale_curve = SubResource("CurveTexture_xshwx")
+scale_over_velocity_max = 1.0
+scale_over_velocity_curve = SubResource("CurveXYZTexture_i2xjh")
+collision_mode = 1
+collision_friction = 0.2
+collision_bounce = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8jk6f"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_afwo1"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_8jk6f")
+radius = 0.1
+height = 0.2
+radial_segments = 4
+rings = 1
+
+[node name="Splash" type="GPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001438, 0)
+lod_bias = 0.05
+emitting = false
+amount = 1
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+collision_base_size = 0.05
+process_material = SubResource("ParticleProcessMaterial_ytkwc")
+draw_pass_1 = SubResource("SphereMesh_afwo1")
+script = ExtResource("1_xxhsu")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

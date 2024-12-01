@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dl8r057qtllpe"]
+
+[node name="Sudoku" type="Node2D"]

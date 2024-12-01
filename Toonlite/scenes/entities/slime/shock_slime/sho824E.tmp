@@ -1,0 +1,226 @@
+[gd_scene load_steps=24 format=3 uid="uid://bk0hsceot6hvf"]
+
+[ext_resource type="Script" path="res://scenes/entities/slime/shock_slime/shock_slime.gd" id="1_8fiyf"]
+[ext_resource type="Script" path="res://scripts/classes/state_machine.gd" id="5_rxiov"]
+[ext_resource type="Script" path="res://scenes/entities/slime/states/chase.gd" id="6_3x3nb"]
+[ext_resource type="Script" path="res://scenes/entities/slime/states/patrol.gd" id="7_dpka8"]
+[ext_resource type="Texture2D" uid="uid://d3w1taqey4oyi" path="res://assets/img/ball.png" id="8_i7ash"]
+[ext_resource type="AudioStream" uid="uid://cxtmfj3w4x52q" path="res://assets/sfx/pixabay_splat.mp3" id="9_oykhd"]
+[ext_resource type="PackedScene" uid="uid://benuft535vo04" path="res://scenes/entities/slime/shock_slime/pulse_bomb.tscn" id="10_wohad"]
+
+[sub_resource type="Gradient" id="Gradient_bkoui"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6flro"]
+resource_local_to_scene = true
+noise_type = 3
+seed = 1
+fractal_type = 0
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_owf77"]
+resource_local_to_scene = true
+width = 128
+height = 128
+seamless = true
+color_ramp = SubResource("Gradient_bkoui")
+noise = SubResource("FastNoiseLite_6flro")
+
+[sub_resource type="Gradient" id="Gradient_nybvc"]
+colors = PackedColorArray(0.33432, 0.00196219, 0.689883, 1, 0.992368, 0.864197, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_63n61"]
+noise_type = 3
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3o0fr"]
+width = 256
+height = 256
+seamless = true
+color_ramp = SubResource("Gradient_nybvc")
+noise = SubResource("FastNoiseLite_63n61")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwp7w"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("NoiseTexture2D_owf77")
+emission_enabled = true
+emission = Color(0.556863, 0.333333, 1, 1)
+emission_energy_multiplier = 2.0
+emission_operator = 1
+emission_texture = SubResource("NoiseTexture2D_3o0fr")
+
+[sub_resource type="SphereMesh" id="SphereMesh_b4bij"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_kwp7w")
+radius = 1.0
+radial_segments = 6
+rings = 4
+is_hemisphere = true
+
+[sub_resource type="Gradient" id="Gradient_hr1gh"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0tyok"]
+gradient = SubResource("Gradient_hr1gh")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oeggh"]
+radius = 0.75
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cyjny"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="Animation" id="Animation_r0s41"]
+resource_name = "bounce"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 0.7, 1), Vector3(1, 2, 1), Vector3(1, 0.7, 1), Vector3(1, 1, 1)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 4.0,
+"start_offset": 1.8,
+"stream": ExtResource("9_oykhd")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="Animation" id="Animation_ykjsg"]
+resource_name = "knocked"
+
+[sub_resource type="Animation" id="Animation_8yhqw"]
+resource_name = "launch"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 2),
+"transitions": PackedFloat32Array(1, 1, 0.0441942),
+"update": 0,
+"values": [Vector3(1, 0.7, 1), Vector3(1, 2, 1), Vector3(1, 1, 1)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 2.0,
+"start_offset": 4.2,
+"stream": ExtResource("9_oykhd")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t6bhw"]
+_data = {
+"bounce": SubResource("Animation_r0s41"),
+"knocked": SubResource("Animation_ykjsg"),
+"launch": SubResource("Animation_8yhqw")
+}
+
+[node name="ShockSlime" type="CharacterBody3D" groups=["enemies"]]
+visible = false
+collision_layer = 4
+collision_mask = 8
+input_ray_pickable = false
+platform_floor_layers = 4294967048
+platform_wall_layers = 16
+script = ExtResource("1_8fiyf")
+
+[node name="Mesh" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="PulseBomb" parent="Mesh" instance=ExtResource("10_wohad")]
+transform = Transform3D(1, 0, 0, 0, 1.42857, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Model" type="MeshInstance3D" parent="Mesh"]
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_b4bij")
+
+[node name="Light" type="OmniLight3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 2
+light_color = Color(0.443137, 0.00392157, 0.898039, 1)
+light_energy = 4.0
+
+[node name="Shadow" type="Decal" parent="Mesh"]
+layers = 2
+size = Vector3(2.5, 1, 2.5)
+texture_albedo = ExtResource("8_i7ash")
+texture_normal = SubResource("GradientTexture1D_0tyok")
+cull_mask = 2
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("SphereShape3D_oeggh")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 25
+
+[node name="Area" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("BoxShape3D_cyjny")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_t6bhw")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+max_db = 1.0
+max_distance = 20.0
+bus = &"Sfx"
+
+[node name="HealthBar" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+visible = false
+visibility_range_end = 10.0
+visibility_range_end_margin = 5.0
+visibility_range_fade_mode = 1
+billboard = 1
+font_size = 64
+
+[node name="VisibilityTimer" type="Timer" parent="HealthBar"]
+wait_time = 2.0
+one_shot = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("5_rxiov")
+initial_state = NodePath("Patrol")
+
+[node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("6_3x3nb")
+enemy = NodePath("../..")
+
+[node name="Patrol" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("7_dpka8")
+enemy = NodePath("../..")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="HealthBar/VisibilityTimer" to="." method="_on_visibility_timer_timeout"]

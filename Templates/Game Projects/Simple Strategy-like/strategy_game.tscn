@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2e6pl1e5h22v"]
+
+[ext_resource type="Script" path="res://Game Projects/Simple Strategy-like/game_manager.gd" id="1_fl0a0"]
+[ext_resource type="PackedScene" uid="uid://bbq1x36eoqu78" path="res://Game Projects/Simple Strategy-like/enemy.tscn" id="2_pm5ep"]
+[ext_resource type="PackedScene" uid="uid://bivspjt41t75s" path="res://Game Projects/Simple Strategy-like/player.tscn" id="3_8vrh6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f5pcb"]
+size = Vector2(64, 648)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u4oeb"]
+size = Vector2(64, 648)
+
+[node name="StrategyGame" type="Node2D" node_paths=PackedStringArray("timer")]
+script = ExtResource("1_fl0a0")
+timer = NodePath("Timer")
+
+[node name="PlayerScore" type="Area2D" parent="."]
+
+[node name="Box" type="CollisionShape2D" parent="PlayerScore"]
+position = Vector2(1184, 324)
+shape = SubResource("RectangleShape2D_f5pcb")
+
+[node name="EnemyScore" type="Area2D" parent="."]
+
+[node name="Box" type="CollisionShape2D" parent="EnemyScore"]
+position = Vector2(-32, 324)
+shape = SubResource("RectangleShape2D_u4oeb")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayerScore" type="Label" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="EnemyScore" type="Label" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Enemy" parent="." instance=ExtResource("2_pm5ep")]
+position = Vector2(1120, 96)
+
+[node name="Enemy2" parent="." instance=ExtResource("2_pm5ep")]
+position = Vector2(1112, 328)
+
+[node name="Enemy3" parent="." instance=ExtResource("2_pm5ep")]
+position = Vector2(1128, 496)
+
+[node name="Player" parent="." instance=ExtResource("3_8vrh6")]
+position = Vector2(72, 160)
+
+[node name="Player2" parent="." instance=ExtResource("3_8vrh6")]
+position = Vector2(64, 328)
+
+[node name="Player3" parent="." instance=ExtResource("3_8vrh6")]
+position = Vector2(72, 488)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[connection signal="area_entered" from="PlayerScore" to="." method="_on_player_score_area_entered"]
+[connection signal="area_entered" from="EnemyScore" to="." method="_on_enemy_score_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

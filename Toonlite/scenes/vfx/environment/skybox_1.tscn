@@ -1,0 +1,143 @@
+[gd_scene load_steps=12 format=3 uid="uid://dt6xc4y0m81ek"]
+
+[ext_resource type="PackedScene" uid="uid://b02f6cirf87h2" path="res://assets/mesh/blender models/terrain_far.blend" id="1_yoo2h"]
+[ext_resource type="Material" uid="uid://bjw3oy3l584be" path="res://scenes/levels/minimalism.tres" id="2_wiabd"]
+[ext_resource type="Shader" uid="uid://p7rg743dv5ae" path="res://scenes/levels/idk_pillars.tres" id="3_oqh33"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ogpl1"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_th3cw"]
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 1.0
+normalize = false
+noise = SubResource("FastNoiseLite_ogpl1")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xsjeu"]
+sky_top_color = Color(0.258824, 0.360784, 0.964706, 1)
+sky_horizon_color = Color(0.656863, 0.72451, 0.887255, 1)
+sky_cover = SubResource("NoiseTexture2D_th3cw")
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.67451, 0.764706, 1, 1)
+sun_angle_max = 90.0
+
+[sub_resource type="Sky" id="Sky_d05uw"]
+sky_material = SubResource("ProceduralSkyMaterial_xsjeu")
+
+[sub_resource type="Environment" id="Environment_qjs4j"]
+background_mode = 2
+sky = SubResource("Sky_d05uw")
+ambient_light_color = Color(1, 1, 1, 1)
+tonemap_mode = 2
+glow_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_light_energy = 0.5
+fog_sun_scatter = 1.0
+volumetric_fog_length = 32.0
+adjustment_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ntwlu"]
+render_priority = 0
+shader = ExtResource("3_oqh33")
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader_parameter/Vector2Parameter = Vector2(-0.005, -0.01)
+shader_parameter/ColorParameter2 = null
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ggq4y"]
+size = Vector2(100, 100)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_gp2k3"]
+vertices = PackedVector3Array(-49.5, 0.5, -49.5, -49.5, 0.5, 49.5, 49.5, 0.5, 49.5, 49.5, 0.5, -49.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+sample_partition_type = 1
+
+[node name="SubViewportContainer" type="SubViewportContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Game" type="SubViewport" parent="."]
+size = Vector2i(4096, 2048)
+
+[node name="Camera3D" type="Camera3D" parent="Game"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 200, 0)
+current = true
+fov = 160.0
+
+[node name="Node3D" type="Node3D" parent="Game"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Game/Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+sky_mode = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Game/Node3D"]
+environment = SubResource("Environment_qjs4j")
+
+[node name="Terrain" parent="Game/Node3D" instance=ExtResource("1_yoo2h")]
+
+[node name="Mountains" parent="Game/Node3D/Terrain" index="0"]
+visible = false
+surface_material_override/0 = ExtResource("2_wiabd")
+
+[node name="Cube" parent="Game/Node3D/Terrain" index="1"]
+transform = Transform3D(0.866025, 0.482963, 0.12941, -0.5, 0.836516, 0.224144, 0, -0.258819, 0.965926, -306.452, 61.0181, 299.451)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_001" parent="Game/Node3D/Terrain" index="2"]
+transform = Transform3D(0.965926, -0.258819, 0, 0.224144, 0.836516, 0.5, -0.12941, -0.482963, 0.866025, 315.373, 7.01811, 261.446)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_002" parent="Game/Node3D/Terrain" index="3"]
+transform = Transform3D(0.711516, 0.699469, -0.0669873, -0.69065, 0.678603, -0.25, -0.129409, 0.224144, 0.965926, -441.667, 43.0612, -54.9663)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_003" parent="Game/Node3D/Terrain" index="4"]
+transform = Transform3D(0.965926, -0.258819, 3.8567e-09, 0.224144, 0.836516, 0.5, -0.12941, -0.482963, 0.866025, 128.548, 8.91068, 418.101)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_004" parent="Game/Node3D/Terrain" index="5"]
+transform = Transform3D(0.866025, 0.482963, -0.12941, -0.5, 0.836516, -0.224144, 0, 0.258819, 0.965926, -46.0704, 116.018, -465.172)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_005" parent="Game/Node3D/Terrain" index="6"]
+transform = Transform3D(0.965926, -0.224144, 0.12941, 0.258819, 0.836516, -0.482963, 0, 0.5, 0.866025, 64.7825, -9.09668, -411.95)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_006" parent="Game/Node3D/Terrain" index="7"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.683013, 0.683013, 0.258819, -0.183013, -0.183013, 0.965926, 456.49, 8.76081, 165.027)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_007" parent="Game/Node3D/Terrain" index="8"]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 327.327, 7.0235, -222.178)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_008" parent="Game/Node3D/Terrain" index="9"]
+transform = Transform3D(0.965926, -0.258819, 3.8567e-09, 0.224144, 0.836516, 0.5, -0.12941, -0.482963, 0.866025, -16.0095, -28.1391, 413.888)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_009" parent="Game/Node3D/Terrain" index="10"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.25, 0.933013, -0.258819, -0.0669873, 0.25, 0.965926, -281.786, 2.82958, -277.128)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_010" parent="Game/Node3D/Terrain" index="11"]
+transform = Transform3D(0.965926, -0.25, 0.0669873, 0.258819, 0.933013, -0.25, 0, 0.258819, 0.965926, 409.721, -5.60603, -79.5862)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_011" parent="Game/Node3D/Terrain" index="12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 259.648, -61.7558, 341.233)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Mountains2" parent="Game/Node3D/Terrain" index="14"]
+surface_material_override/0 = ExtResource("2_wiabd")
+
+[node name="NavigationPlane" type="CSGMesh3D" parent="Game/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.922142, 0)
+visible = false
+collision_layer = 8
+collision_mask = 23
+mesh = SubResource("PlaneMesh_ggq4y")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Game/Node3D/NavigationPlane"]
+navigation_mesh = SubResource("NavigationMesh_gp2k3")
+
+[editable path="Game/Node3D/Terrain"]

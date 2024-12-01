@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ewnnqlvpqdim"]
+
+[ext_resource type="Script" path="res://scenes/vfx/player/afterimage.gd" id="1_1o84e"]
+
+[node name="Afterimage" type="MeshInstance3D"]
+script = ExtResource("1_1o84e")

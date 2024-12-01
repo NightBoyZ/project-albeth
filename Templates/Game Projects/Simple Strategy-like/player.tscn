@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bivspjt41t75s"]
+
+[ext_resource type="Script" path="res://Game Projects/Simple Strategy-like/player.gd" id="1_hq4w7"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_71xnf"]
+radius = 8.0
+height = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbbd5"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0l7o6"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_hq4w7")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+mesh = SubResource("SphereMesh_71xnf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mbbd5")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="Box" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_0l7o6")
+debug_color = Color(1, 1, 1, 0.419608)

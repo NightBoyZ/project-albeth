@@ -1,0 +1,64 @@
+[gd_scene load_steps=12 format=3 uid="uid://benuft535vo04"]
+
+[ext_resource type="Script" path="res://scenes/entities/slime/shock_slime/pulse_bomb.gd" id="1_cpp7g"]
+[ext_resource type="Texture2D" uid="uid://brytv526fnm0w" path="res://addons/kenney_particle_pack/spark_02.png" id="1_djfnn"]
+[ext_resource type="Texture2D" uid="uid://ckwikf4vah5wk" path="res://addons/kenney_particle_pack/star_05.png" id="5_0wcoy"]
+
+[sub_resource type="Curve" id="Curve_j1b1u"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.281746, 1), 0.0, 0.0, 0, 0, Vector2(0.34127, 0), 0.0, 0.0, 0, 0, Vector2(0.392857, 1), 0.0, 0.0, 0, 0, Vector2(0.428571, 0), 0.0, 0.0, 0, 0, Vector2(0.496032, 1), 0.0, 0.0, 0, 0, Vector2(0.56746, 0), 0.0, 0.0, 0, 0]
+point_count = 7
+
+[sub_resource type="CurveTexture" id="CurveTexture_ux5so"]
+curve = SubResource("Curve_j1b1u")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pw7ln"]
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_ux5so")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ybdxh"]
+transparency = 1
+albedo_texture = ExtResource("1_djfnn")
+emission_enabled = true
+emission = Color(0.587837, 0.545479, 0.590596, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ldqn7"]
+material = SubResource("StandardMaterial3D_ybdxh")
+size = Vector2(15, 15)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kyora"]
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 12.0
+initial_velocity_max = 12.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oqho2"]
+transparency = 1
+albedo_texture = ExtResource("5_0wcoy")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_1hwed"]
+material = SubResource("StandardMaterial3D_oqho2")
+
+[node name="PulseBomb" type="Node3D"]
+script = ExtResource("1_cpp7g")
+
+[node name="Spark" type="GPUParticles3D" parent="."]
+amount = 1
+transform_align = 3
+process_material = SubResource("ParticleProcessMaterial_pw7ln")
+draw_pass_1 = SubResource("QuadMesh_ldqn7")
+
+[node name="Pulse" type="GPUParticles3D" parent="."]
+lifetime = 0.05
+explosiveness = 1.0
+transform_align = 3
+process_material = SubResource("ParticleProcessMaterial_kyora")
+draw_pass_1 = SubResource("QuadMesh_1hwed")

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bdmjv1xwwk5f4"
+path="res://.godot/imported/129. Reflect - Manbou Nitohei.mp3-d01290eb910ba142968aca156b93443b.mp3str"
+
+[deps]
+
+source_file="res://assets/bgm/129. Reflect - Manbou Nitohei.mp3"
+dest_files=["res://.godot/imported/129. Reflect - Manbou Nitohei.mp3-d01290eb910ba142968aca156b93443b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

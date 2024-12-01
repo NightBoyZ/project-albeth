@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://gxlt63fpm8g8"]
+
+[ext_resource type="Script" path="res://Mechanics/RPG Status System/rpg_stats.gd" id="1_hxv1e"]
+
+[node name="RpgStats" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hxv1e")
+
+[node name="STBar" type="ProgressBar" parent="."]
+layout_mode = 1
+offset_right = 340.0
+offset_bottom = 27.0
+
+[node name="HPBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_top = 27.0
+offset_right = 340.0
+offset_bottom = 54.0

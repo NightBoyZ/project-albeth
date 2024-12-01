@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://5yv0fmcgr4jb"]
+
+[ext_resource type="Script" path="res://scripts/old/spawner.gd" id="1_d56v3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i6wck"]
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oruax"]
+material = SubResource("StandardMaterial3D_i6wck")
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_373k6"]
+size = Vector3(1, 0.1, 1)
+
+[node name="Spawner" type="StaticBody3D"]
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+script = ExtResource("1_d56v3")
+activated = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_oruax")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_373k6")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true

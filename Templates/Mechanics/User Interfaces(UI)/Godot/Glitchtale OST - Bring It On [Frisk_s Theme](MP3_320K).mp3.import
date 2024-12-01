@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cksqjr4ojpndd"
+path="res://.godot/imported/Glitchtale OST - Bring It On [Frisk_s Theme](MP3_320K).mp3-c44e4a5b1636ea574aff433aa2847274.mp3str"
+
+[deps]
+
+source_file="res://Mechanics/User Interfaces(UI)/Godot/Glitchtale OST - Bring It On [Frisk_s Theme](MP3_320K).mp3"
+dest_files=["res://.godot/imported/Glitchtale OST - Bring It On [Frisk_s Theme](MP3_320K).mp3-c44e4a5b1636ea574aff433aa2847274.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

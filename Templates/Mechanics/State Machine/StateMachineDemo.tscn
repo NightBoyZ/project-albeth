@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://mm80kejn7fdc"]
+
+[ext_resource type="PackedScene" uid="uid://bokt1f8kpraen" path="res://Mechanics/State Machine/player/Player.tscn" id="1_odsto"]
+[ext_resource type="PackedScene" uid="uid://b41rur3wg4aiu" path="res://Mechanics/State Machine/enemy/Enemy.tscn" id="2_420xo"]
+
+[node name="StateMachineDemo" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_odsto")]
+position = Vector2(150, 328)
+
+[node name="Enemy" parent="." instance=ExtResource("2_420xo")]
+position = Vector2(905, 322)

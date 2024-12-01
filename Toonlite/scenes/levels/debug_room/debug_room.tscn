@@ -1,0 +1,208 @@
+[gd_scene load_steps=11 format=3 uid="uid://xjqv55iklksb"]
+
+[ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_m6jr4"]
+[ext_resource type="PackedScene" uid="uid://cgxfe2qqj1xut" path="res://scenes/entities/player/player.tscn" id="2_8utg0"]
+[ext_resource type="AudioStream" uid="uid://b226biv21pbml" path="res://assets/bgm/lobby.mp3" id="3_wpxdh"]
+[ext_resource type="PackedScene" uid="uid://dspgw7qsh4s4c" path="res://scenes/entities/player/dummy/dummy.tscn" id="4_tl5yu"]
+
+[sub_resource type="Animation" id="Animation_povu4"]
+resource_name = "LevelComplete"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelProgress:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Level Complete!"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelProgress:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5, 1.7, 3),
+"transitions": PackedFloat32Array(-2, -2, -2, 1),
+"update": 0,
+"values": [Vector2(0, 301.5), Vector2(453.5, 301.5), Vector2(453.5, 301.5), Vector2(258, 535)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LevelProgress:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.6, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.5, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_vjjqc"]
+resource_name = "LevelFail"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelProgress:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Level Failed!"]
+}
+
+[sub_resource type="Animation" id="Animation_ed4w6"]
+resource_name = "start"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pbrem"]
+_data = {
+"LevelComplete": SubResource("Animation_povu4"),
+"LevelFail": SubResource("Animation_vjjqc"),
+"start": SubResource("Animation_ed4w6")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_4828h"]
+font_size = 32
+
+[sub_resource type="Environment" id="Environment_7hunp"]
+background_mode = 1
+background_color = Color(0.678431, 0.701961, 0.682353, 1)
+
+[node name="GameManager" type="Node3D"]
+script = ExtResource("1_m6jr4")
+
+[node name="LevelUI" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+
+[node name="UIAnim" type="AnimationPlayer" parent="LevelUI"]
+libraries = {
+"": SubResource("AnimationLibrary_pbrem")
+}
+
+[node name="Screen" type="ColorRect" parent="LevelUI"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Time" type="Label" parent="LevelUI"]
+layout_mode = 0
+offset_left = 549.0
+offset_top = 34.0
+offset_right = 589.0
+offset_bottom = 57.0
+
+[node name="FPS" type="Label" parent="LevelUI"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 536.0
+offset_right = 160.0
+offset_bottom = 559.0
+
+[node name="LevelProgress" type="Label" parent="LevelUI"]
+layout_mode = 1
+offset_left = 258.0
+offset_top = 535.0
+offset_right = 513.999
+offset_bottom = 583.0
+scale = Vector2(0.5, 0.5)
+text = "Level Complete!"
+label_settings = SubResource("LabelSettings_4828h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpawnCounter" type="Label" parent="LevelUI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 24.0
+vertical_alignment = 1
+
+[node name="KillCounter" type="Label" parent="LevelUI"]
+layout_mode = 0
+offset_top = 24.0
+offset_right = 40.0
+offset_bottom = 48.0
+vertical_alignment = 1
+
+[node name="ProgressCounter" type="Label" parent="LevelUI"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 40.0
+offset_bottom = 72.0
+vertical_alignment = 1
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_7hunp")
+
+[node name="Platform" type="CSGBox3D" parent="Environment"]
+use_collision = true
+collision_layer = 8
+collision_mask = 23
+size = Vector3(20, 2, 20)
+
+[node name="PlayerManager" type="Node" parent="."]
+
+[node name="Player" parent="PlayerManager" instance=ExtResource("2_8utg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_wpxdh")
+autoplay = true
+
+[node name="Dummy" parent="." instance=ExtResource("4_tl5yu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

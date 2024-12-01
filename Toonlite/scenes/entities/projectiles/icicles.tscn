@@ -1,0 +1,172 @@
+[gd_scene load_steps=17 format=3 uid="uid://bqt513xi3qhkk"]
+
+[ext_resource type="Shader" uid="uid://p7rg743dv5ae" path="res://scenes/levels/idk_pillars.tres" id="1_vg6pn"]
+[ext_resource type="Script" path="res://scenes/entities/projectiles/icicles.gd" id="1_y1v1o"]
+[ext_resource type="Texture2D" uid="uid://d3w1taqey4oyi" path="res://assets/img/ball.png" id="3_s6qf4"]
+[ext_resource type="Script" path="res://scenes/vfx/vfx_remove.gd" id="4_0qdla"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nkv61"]
+size = Vector3(0.5, 2, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bwmio"]
+render_priority = 0
+shader = ExtResource("1_vg6pn")
+shader_parameter/ColorParameter = Color(0.662745, 0.792157, 0.992157, 1)
+shader_parameter/Vector2Parameter = Vector2(0, 0.1)
+shader_parameter/ColorParameter2 = Color(0.164706, 0.572549, 0.698039, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_552gh"]
+size = Vector3(0.3, 2, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h2m4f"]
+size = Vector3(0.4, 2, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2dphg"]
+size = Vector3(0.3, 2, 0.3)
+
+[sub_resource type="SphereMesh" id="SphereMesh_xts36"]
+radius = 2.0
+radial_segments = 6
+rings = 2
+is_hemisphere = true
+
+[sub_resource type="Curve" id="Curve_hyyxs"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.994737, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_r252y"]
+curve = SubResource("Curve_hyyxs")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jv22v"]
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 4.0
+initial_velocity_max = 6.0
+gravity = Vector3(0, 8, 0)
+scale_curve = SubResource("CurveTexture_r252y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhsht"]
+transparency = 1
+blend_mode = 1
+albedo_texture = ExtResource("3_s6qf4")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_avc8i"]
+material = SubResource("StandardMaterial3D_yhsht")
+size = Vector2(1, 1)
+orientation = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8app4"]
+size = Vector3(3, 2, 3)
+
+[node name="Icicles" type="Node3D"]
+script = ExtResource("1_y1v1o")
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(0.856177, 0.337331, 0.391368, 0, 0.757462, -0.652879, -0.516683, 0.55898, 0.648522, 0.0555575, 0.352932, 1.20488)
+mesh = SubResource("BoxMesh_nkv61")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D17" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(-0.959719, 0.223751, -0.169927, 0.280671, 0.791038, -0.543583, 0.0127919, -0.56938, -0.821975, 0.833934, 0.435548, -1.23793)
+mesh = SubResource("BoxMesh_nkv61")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D14" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(0.608092, 0.387012, 0.693142, -0.221658, 0.921168, -0.31987, -0.762294, 0.0408709, 0.64594, 0.602894, 0.829228, 0.573673)
+mesh = SubResource("BoxMesh_nkv61")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D15" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(0.647065, 0.0707909, 0.759142, -0.0147005, 0.996653, -0.0804092, -0.762294, 0.0408709, 0.64594, 0.425366, 0.829228, -0.376914)
+mesh = SubResource("BoxMesh_nkv61")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D16" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(0.521819, -0.551609, 0.650717, 0.382901, 0.833101, 0.399162, -0.762294, 0.0408709, 0.64594, -0.518385, 0.829228, -0.0319018)
+mesh = SubResource("BoxMesh_nkv61")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(0.875549, -0.315425, -0.365953, 0.385621, 0.912574, 0.136032, 0.291051, -0.260222, 0.920638, -1.23747, 0.352932, -0.133614)
+mesh = SubResource("BoxMesh_nkv61")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(0.72989, -0.39191, 0.560061, 0.385621, 0.912574, 0.136032, -0.56441, 0.116683, 0.817207, -0.632107, 0.352932, -0.8218)
+mesh = SubResource("BoxMesh_nkv61")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(0.924258, 0.287176, -0.251552, -0.320877, 0.941361, -0.104297, 0.20685, 0.177114, 0.962209, 0.856184, 0.494985, 0.128124)
+mesh = SubResource("BoxMesh_nkv61")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(0.988378, -0.150866, 0.0186725, 0.13644, 0.934546, 0.328646, -0.0670318, -0.322279, 0.944268, -0.102817, 0.550375, -0.78433)
+mesh = SubResource("BoxMesh_552gh")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(0.988378, -0.150866, 0.0186725, 0.144272, 0.969628, 0.197505, -0.0479021, -0.192516, 0.980124, -0.102817, 1.14838, -0.475493)
+mesh = SubResource("BoxMesh_552gh")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(0.836608, 0.322681, -0.44268, 0.0517956, 0.757885, 0.650329, 0.545349, -0.566999, 0.617339, 1.04833, 0.498601, -0.554101)
+mesh = SubResource("BoxMesh_552gh")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(0.777307, 0.567696, 0.271138, -0.624041, 0.750409, 0.217851, -0.0797911, -0.338539, 0.937563, 1.17116, 0.508987, 0.214722)
+mesh = SubResource("BoxMesh_h2m4f")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(0.890329, -0.357114, -0.28246, 0.344723, 0.933964, -0.0942219, 0.297456, -0.0134821, 0.95464, -0.357963, 0.908948, 0.828775)
+mesh = SubResource("BoxMesh_2dphg")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D13" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(0.720321, -0.653098, -0.233668, 0.626623, 0.757154, -0.184556, 0.297456, -0.0134821, 0.95464, -0.931906, 0.908948, 0.902586)
+mesh = SubResource("BoxMesh_2dphg")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(0.793412, 0.293951, -0.533, 0.17071, 0.733056, 0.658397, 0.584255, -0.61337, 0.531435, 0.184324, 0.577313, -1.03576)
+mesh = SubResource("BoxMesh_2dphg")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(-0.88668, 0.359948, 0.290235, 0.441313, 0.846114, 0.298887, -0.137989, 0.393102, -0.909082, 0.0616712, 0.809782, 0.471078)
+mesh = SubResource("BoxMesh_2dphg")
+surface_material_override/0 = SubResource("ShaderMaterial_bwmio")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="MultiMeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.461853, 0)
+mesh = SubResource("SphereMesh_xts36")
+
+[node name="Orb" type="GPUParticles3D" parent="."]
+lod_bias = 0.001
+amount = 4
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_jv22v")
+draw_pass_1 = SubResource("PlaneMesh_avc8i")
+script = ExtResource("4_0qdla")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 25
+
+[node name="Area" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_8app4")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

@@ -1,0 +1,23 @@
+[gd_resource type="VisualShader" load_steps=4 format=3 uid="uid://cg6nave78kj5r"]
+
+[sub_resource type="VisualShaderNodeColorFunc" id="VisualShaderNodeColorFunc_rbo0q"]
+
+[sub_resource type="VisualShaderNodeColorOp" id="VisualShaderNodeColorOp_5pubg"]
+
+[sub_resource type="VisualShaderNodeColorFunc" id="VisualShaderNodeColorFunc_s7ndp"]
+output_port_for_preview = 0
+default_input_values = [0, Vector3(23, 0, 0)]
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+
+
+"
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorFunc_rbo0q")
+nodes/fragment/2/position = Vector2(-372.912, 279.79)
+nodes/fragment/3/node = SubResource("VisualShaderNodeColorOp_5pubg")
+nodes/fragment/3/position = Vector2(-120, 100)
+nodes/sky/3/node = SubResource("VisualShaderNodeColorFunc_s7ndp")
+nodes/sky/3/position = Vector2(-53.4719, 82.8021)

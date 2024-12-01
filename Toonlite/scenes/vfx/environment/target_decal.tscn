@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bipr8juhr6jol"]
+
+[ext_resource type="Texture2D" uid="uid://dj23dkfdhyeg6" path="res://assets/img/crosshair.png" id="1_veh3t"]
+[ext_resource type="Script" path="res://scenes/vfx/environment/target_decal.gd" id="2_ekgwk"]
+
+[node name="TargetDecal" type="Decal"]
+size = Vector3(2, 1, 2)
+texture_albedo = ExtResource("1_veh3t")
+cull_mask = 2
+script = ExtResource("2_ekgwk")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,91 @@
+[gd_scene load_steps=16 format=3 uid="uid://dku8roys4yioy"]
+
+[ext_resource type="Texture2D" uid="uid://c73rjeqpeqnwt" path="res://addons/kenney_particle_pack/circle_04.png" id="1_205ob"]
+[ext_resource type="Script" path="res://scenes/entities/slime/shock_slime/shockwave.gd" id="2_bv4nn"]
+[ext_resource type="Texture2D" uid="uid://brytv526fnm0w" path="res://addons/kenney_particle_pack/spark_02.png" id="3_px2a1"]
+[ext_resource type="Texture2D" uid="uid://ckwikf4vah5wk" path="res://addons/kenney_particle_pack/star_05.png" id="4_2qkvw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h7gcb"]
+transparency = 1
+albedo_texture = ExtResource("1_205ob")
+emission_enabled = true
+emission = Color(1, 0.159096, 0.997859, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_2647l"]
+material = SubResource("StandardMaterial3D_h7gcb")
+size = Vector2(4, 4)
+orientation = 1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_f1kf2"]
+height = 0.2
+radius = 1.8
+
+[sub_resource type="Curve" id="Curve_ut23i"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.281746, 1), 0.0, 0.0, 0, 0, Vector2(0.34127, 0), 0.0, 0.0, 0, 0, Vector2(0.392857, 1), 0.0, 0.0, 0, 0, Vector2(0.428571, 0), 0.0, 0.0, 0, 0, Vector2(0.496032, 1), 0.0, 0.0, 0, 0, Vector2(0.56746, 0), 0.0, 0.0, 0, 0]
+point_count = 7
+
+[sub_resource type="CurveTexture" id="CurveTexture_6ba3f"]
+curve = SubResource("Curve_ut23i")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1iqon"]
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_6ba3f")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0la8a"]
+transparency = 1
+albedo_texture = ExtResource("3_px2a1")
+emission_enabled = true
+emission = Color(0.587837, 0.545479, 0.590596, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_2sm23"]
+material = SubResource("StandardMaterial3D_0la8a")
+size = Vector2(10, 10)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7clia"]
+emission_shape = 1
+emission_sphere_radius = 4.0
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 12.0
+initial_velocity_max = 12.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kbpop"]
+transparency = 1
+albedo_texture = ExtResource("4_2qkvw")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_c8j0v"]
+material = SubResource("StandardMaterial3D_kbpop")
+
+[node name="Shockwave" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_2647l")
+skeleton = NodePath("")
+script = ExtResource("2_bv4nn")
+
+[node name="AOE" type="Area3D" parent="."]
+
+[node name="Area" type="CollisionShape3D" parent="AOE"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("CylinderShape3D_f1kf2")
+
+[node name="Spark" type="GPUParticles3D" parent="."]
+amount = 1
+transform_align = 3
+process_material = SubResource("ParticleProcessMaterial_1iqon")
+draw_pass_1 = SubResource("QuadMesh_2sm23")
+
+[node name="Pulse" type="GPUParticles3D" parent="."]
+lifetime = 0.05
+explosiveness = 1.0
+transform_align = 3
+process_material = SubResource("ParticleProcessMaterial_7clia")
+draw_pass_1 = SubResource("QuadMesh_c8j0v")
+
+[connection signal="body_entered" from="AOE" to="." method="_on_aoe_body_entered"]

@@ -1,0 +1,329 @@
+[gd_scene load_steps=32 format=3 uid="uid://2htp3obe2asx"]
+
+[ext_resource type="Script" path="res://scenes/ui/MainMenu.gd" id="1_1hfgy"]
+[ext_resource type="PackedScene" uid="uid://b02f6cirf87h2" path="res://assets/mesh/blender models/terrain_far.blend" id="1_rjweb"]
+[ext_resource type="PackedScene" uid="uid://hgoikxp01t1f" path="res://scenes/ui/control.tscn" id="2_r7dm1"]
+[ext_resource type="Material" uid="uid://bjw3oy3l584be" path="res://scenes/levels/minimalism.tres" id="2_ugj2o"]
+[ext_resource type="Shader" uid="uid://p7rg743dv5ae" path="res://scenes/levels/idk_pillars.tres" id="3_oyls3"]
+[ext_resource type="Shader" uid="uid://de3hol2spv58" path="res://scenes/levels/barrier.tres" id="4_mlu1w"]
+[ext_resource type="Script" path="res://scenes/ui/Panorama.gd" id="5_ridlg"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ogpl1"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vnwy8"]
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 1.0
+normalize = false
+noise = SubResource("FastNoiseLite_ogpl1")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xsjeu"]
+sky_top_color = Color(0.258824, 0.360784, 0.964706, 1)
+sky_horizon_color = Color(0.656863, 0.72451, 0.887255, 1)
+sky_cover = SubResource("NoiseTexture2D_vnwy8")
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.67451, 0.764706, 1, 1)
+sun_angle_max = 90.0
+
+[sub_resource type="Sky" id="Sky_pl2yv"]
+sky_material = SubResource("ProceduralSkyMaterial_xsjeu")
+
+[sub_resource type="Environment" id="Environment_aeote"]
+background_mode = 2
+sky = SubResource("Sky_pl2yv")
+ambient_light_color = Color(1, 1, 1, 1)
+tonemap_mode = 2
+glow_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_light_energy = 0.5
+fog_sun_scatter = 1.0
+volumetric_fog_length = 32.0
+adjustment_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ntwlu"]
+render_priority = 0
+shader = ExtResource("3_oyls3")
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader_parameter/Vector2Parameter = Vector2(-0.005, -0.01)
+shader_parameter/ColorParameter2 = null
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ggq4y"]
+size = Vector2(100, 100)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_gp2k3"]
+vertices = PackedVector3Array(-49.5, 0.5, -49.5, -49.5, 0.5, 49.5, 49.5, 0.5, 49.5, 49.5, 0.5, -49.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+sample_partition_type = 1
+
+[sub_resource type="Gradient" id="Gradient_r5gny"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pe4y3"]
+noise_type = 3
+fractal_type = 2
+domain_warp_enabled = true
+domain_warp_type = 2
+domain_warp_frequency = 1.0
+domain_warp_fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1xfya"]
+color_ramp = SubResource("Gradient_r5gny")
+noise = SubResource("FastNoiseLite_pe4y3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kawrj"]
+albedo_texture = SubResource("NoiseTexture2D_1xfya")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_kio3g"]
+data = PackedVector3Array(39.9988, 0, 39.9988, -40, 0, 39.9988, 39.9988, 0, -40, 39.9988, 0, -40, -40, 0, 39.9988, -40, 0, -40, 39.9988, 0, 39.9988, 39.9988, 0, -40, 39.9988, 40, 39.9988, 39.9988, 40, 39.9988, 39.9988, 0, -40, 39.9988, 40, -40, 39.9988, 0, -40, -40, 0, -40, 39.9988, 40, -40, 39.9988, 40, -40, -40, 0, -40, -40, 40, -40, -40, 0, 39.9988, 39.9988, 0, 39.9988, -40, 40, 39.9988, -40, 40, 39.9988, 39.9988, 0, 39.9988, 39.9988, 40, 39.9988, -40, 0, -40, -40, 0, 39.9988, -40, 40, -40, -40, 40, -40, -40, 0, 39.9988, -40, 40, 39.9988)
+
+[sub_resource type="Gradient" id="Gradient_4mw15"]
+offsets = PackedFloat32Array(0, 0.898876, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.668539, 0.668539, 0.668539, 0.668539, 1.63645e-06, 0.816718, 0.707345, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fwcir"]
+gradient = SubResource("Gradient_4mw15")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbhrj"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0.0862745, 1, 0.513726, 1)
+albedo_texture = SubResource("GradientTexture2D_fwcir")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6caqc"]
+material = SubResource("StandardMaterial3D_tbhrj")
+size = Vector2(120, 120)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5xdd6"]
+render_priority = 0
+shader = ExtResource("4_mlu1w")
+shader_parameter/ColorParameter = Color(0.0117647, 0.517647, 0.376471, 1)
+shader_parameter/Vector2Parameter = null
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1nmpp"]
+lightmap_size_hint = Vector2i(402, 52)
+material = SubResource("ShaderMaterial_5xdd6")
+flip_faces = true
+size = Vector2(120, 10)
+orientation = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u5t2x"]
+material = SubResource("ShaderMaterial_5xdd6")
+size = Vector2(120, 10)
+orientation = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_l67b3"]
+material = SubResource("ShaderMaterial_5xdd6")
+flip_faces = true
+size = Vector2(120, 10)
+orientation = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dm43b"]
+material = SubResource("ShaderMaterial_5xdd6")
+size = Vector2(120, 10)
+orientation = 2
+
+[sub_resource type="SystemFont" id="SystemFont_uouue"]
+font_names = PackedStringArray("Arial")
+
+[sub_resource type="LabelSettings" id="LabelSettings_6acir"]
+font = SubResource("SystemFont_uouue")
+font_size = 128
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Environment" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+sky_mode = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_aeote")
+
+[node name="Terrain" parent="Environment" instance=ExtResource("1_rjweb")]
+
+[node name="Mountains" parent="Environment/Terrain" index="0"]
+surface_material_override/0 = ExtResource("2_ugj2o")
+
+[node name="Cube" parent="Environment/Terrain" index="1"]
+transform = Transform3D(0.866025, 0.482963, 0.12941, -0.5, 0.836516, 0.224144, 0, -0.258819, 0.965926, -306.452, 61.0181, 299.451)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_001" parent="Environment/Terrain" index="2"]
+transform = Transform3D(0.965926, -0.258819, 0, 0.224144, 0.836516, 0.5, -0.12941, -0.482963, 0.866025, 315.373, 7.01811, 261.446)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_002" parent="Environment/Terrain" index="3"]
+transform = Transform3D(0.711516, 0.699469, -0.0669873, -0.69065, 0.678603, -0.25, -0.129409, 0.224144, 0.965926, -441.667, 43.0612, -54.9663)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_003" parent="Environment/Terrain" index="4"]
+transform = Transform3D(0.965926, -0.258819, 3.8567e-09, 0.224144, 0.836516, 0.5, -0.12941, -0.482963, 0.866025, 128.548, 8.91068, 418.101)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_004" parent="Environment/Terrain" index="5"]
+transform = Transform3D(0.866025, 0.482963, -0.12941, -0.5, 0.836516, -0.224144, 0, 0.258819, 0.965926, -46.0704, 116.018, -465.172)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_005" parent="Environment/Terrain" index="6"]
+transform = Transform3D(0.965926, -0.224144, 0.12941, 0.258819, 0.836516, -0.482963, 0, 0.5, 0.866025, 64.7825, -9.09668, -411.95)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_006" parent="Environment/Terrain" index="7"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.683013, 0.683013, 0.258819, -0.183013, -0.183013, 0.965926, 456.49, 8.76081, 165.027)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_007" parent="Environment/Terrain" index="8"]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 327.327, 7.0235, -222.178)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_008" parent="Environment/Terrain" index="9"]
+transform = Transform3D(0.965926, -0.258819, 3.8567e-09, 0.224144, 0.836516, 0.5, -0.12941, -0.482963, 0.866025, -16.0095, -28.1391, 413.888)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_009" parent="Environment/Terrain" index="10"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.25, 0.933013, -0.258819, -0.0669873, 0.25, 0.965926, -281.786, 2.82958, -277.128)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_010" parent="Environment/Terrain" index="11"]
+transform = Transform3D(0.965926, -0.25, 0.0669873, 0.258819, 0.933013, -0.25, 0, 0.258819, 0.965926, 409.721, -5.60603, -79.5862)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Cube_011" parent="Environment/Terrain" index="12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 259.648, -61.7558, 341.233)
+surface_material_override/0 = SubResource("ShaderMaterial_ntwlu")
+
+[node name="Mountains2" parent="Environment/Terrain" index="14"]
+surface_material_override/0 = ExtResource("2_ugj2o")
+
+[node name="NavigationPlane" type="CSGMesh3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.922142, 0)
+visible = false
+collision_layer = 8
+collision_mask = 23
+mesh = SubResource("PlaneMesh_ggq4y")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Environment/NavigationPlane"]
+navigation_mesh = SubResource("NavigationMesh_gp2k3")
+
+[node name="Platform" type="CSGBox3D" parent="Environment"]
+use_collision = true
+collision_layer = 8
+collision_mask = 23
+size = Vector3(20, 1, 20)
+material = SubResource("StandardMaterial3D_kawrj")
+
+[node name="ClosedRoom" type="MultiMeshInstance3D" parent="Environment"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 20, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment/ClosedRoom"]
+collision_layer = 8
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/ClosedRoom/StaticBody3D"]
+transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1.5, 0, -20, 0)
+shape = SubResource("ConcavePolygonShape3D_kio3g")
+
+[node name="BarrierFog" type="MeshInstance3D" parent="Environment/ClosedRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.5, 0)
+mesh = SubResource("PlaneMesh_6caqc")
+skeleton = NodePath("../Barrier_W")
+
+[node name="Barrier_W" type="MeshInstance3D" parent="Environment/ClosedRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 15, 0)
+mesh = SubResource("PlaneMesh_1nmpp")
+
+[node name="Barrier_E" type="MeshInstance3D" parent="Environment/ClosedRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 15, 0)
+mesh = SubResource("PlaneMesh_u5t2x")
+
+[node name="Barrier_N" type="MeshInstance3D" parent="Environment/ClosedRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 60)
+mesh = SubResource("PlaneMesh_l67b3")
+
+[node name="Barrier_S" type="MeshInstance3D" parent="Environment/ClosedRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -60)
+mesh = SubResource("PlaneMesh_dm43b")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.34546, 0)
+script = ExtResource("5_ridlg")
+
+[node name="MainMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1hfgy")
+
+[node name="Label" type="Label" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -220.0
+offset_top = 48.0
+offset_right = 220.0
+offset_bottom = 192.0
+grow_horizontal = 2
+text = "Toonlite"
+label_settings = SubResource("LabelSettings_6acir")
+horizontal_alignment = 1
+
+[node name="Settings" parent="MainMenu" instance=ExtResource("2_r7dm1")]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -68.0
+offset_right = 48.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartGame" type="Button" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Start Game"
+
+[node name="LoadGame" type="Button" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Load Game"
+
+[node name="Settings" type="Button" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Settings
+"
+
+[node name="Quit" type="Button" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Quit
+"
+
+[connection signal="toggled" from="MainMenu/VBoxContainer/StartGame" to="MainMenu" method="_on_start_game_toggled"]
+[connection signal="toggled" from="MainMenu/VBoxContainer/LoadGame" to="MainMenu" method="_on_load_game_toggled"]
+[connection signal="toggled" from="MainMenu/VBoxContainer/Settings" to="MainMenu" method="_on_settings_toggled"]
+[connection signal="toggled" from="MainMenu/VBoxContainer/Quit" to="MainMenu" method="_on_quit_toggled"]
+
+[editable path="Environment/Terrain"]

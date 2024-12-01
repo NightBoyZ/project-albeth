@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bjw3oy3l584be"]
+
+[resource]
+cull_mode = 2
+metallic = 1.0
+uv1_scale = Vector3(0.05, 0.05, 0.05)
+uv1_triplanar = true

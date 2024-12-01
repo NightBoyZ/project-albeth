@@ -1,0 +1,152 @@
+[gd_scene load_steps=16 format=3 uid="uid://dml7d2xgibhqp"]
+
+[ext_resource type="Script" path="res://Mechanics/User Interfaces(UI)/Godot/HealthPoints.gd" id="1_gmgn8"]
+[ext_resource type="Script" path="res://Mechanics/User Interfaces(UI)/Godot/ManaPool.gd" id="2_7fglh"]
+[ext_resource type="Script" path="res://Mechanics/User Interfaces(UI)/Godot/FPS.gd" id="3_fqwm7"]
+[ext_resource type="Script" path="res://Mechanics/User Interfaces(UI)/Godot/IRLtime.gd" id="4_343bh"]
+[ext_resource type="Script" path="res://Mechanics/User Interfaces(UI)/Godot/Timer.gd" id="5_balcf"]
+[ext_resource type="Texture2D" uid="uid://bygyb0n1pgwxp" path="res://Mechanics/User Interfaces(UI)/Godot/circles n cirlcles/Screenshot 2024-08-26 150159.png" id="6_dxrm2"]
+[ext_resource type="Script" path="res://Mechanics/User Interfaces(UI)/Godot/Exp2.gd" id="7_jw4sc"]
+[ext_resource type="Texture2D" uid="uid://b8m5xsgia2mc8" path="res://Mechanics/User Interfaces(UI)/Godot/circles n cirlcles/Screenshot 2024-08-26 150732.png" id="7_vu3n0"]
+[ext_resource type="Script" path="res://Mechanics/User Interfaces(UI)/Godot/Dif.gd" id="8_vmd68"]
+[ext_resource type="Script" path="res://Mechanics/User Interfaces(UI)/Godot/Mili.gd" id="9_66fpy"]
+[ext_resource type="Script" path="res://Mechanics/User Interfaces(UI)/Godot/Level.gd" id="10_fgp46"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spf4m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mqmh1"]
+bg_color = Color(0.870588, 0, 0.172549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8yxj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d47n5"]
+bg_color = Color(0.0196078, 0.168627, 0.658824, 1)
+
+[node name="Node2D" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_top = 608.0
+offset_right = 400.0
+offset_bottom = 624.0
+theme_override_styles/background = SubResource("StyleBoxFlat_spf4m")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mqmh1")
+value = 100.0
+show_percentage = false
+script = ExtResource("1_gmgn8")
+maxhealth = 100
+
+[node name="Label" type="Label" parent="ProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "This is HP"
+
+[node name="ProgressBar2" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_top = 624.0
+offset_right = 400.0
+offset_bottom = 648.0
+theme_override_styles/background = SubResource("StyleBoxFlat_r8yxj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_d47n5")
+show_percentage = false
+script = ExtResource("2_7fglh")
+
+[node name="Label" type="Label" parent="ProgressBar2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "This is MP"
+
+[node name="FPS" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1081.0
+offset_right = 1121.0
+offset_bottom = 23.0
+text = "FPS"
+script = ExtResource("3_fqwm7")
+
+[node name="IRLtime" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1054.0
+offset_top = 20.0
+offset_right = 1127.0
+offset_bottom = 43.0
+text = "Real time"
+script = ExtResource("4_343bh")
+
+[node name="Exp" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 608.0
+offset_right = 448.0
+offset_bottom = 648.0
+fill_mode = 4
+texture_under = ExtResource("6_dxrm2")
+texture_progress = ExtResource("7_vu3n0")
+script = ExtResource("7_jw4sc")
+
+[node name="Dif" type="Label" parent="."]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 40.0
+offset_right = 640.0
+offset_bottom = 63.0
+script = ExtResource("8_vmd68")
+
+[node name="Timer" type="Label" parent="."]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 16.0
+offset_right = 570.0
+offset_bottom = 39.0
+text = "0:00"
+script = ExtResource("5_balcf")
+
+[node name="Mili" type="Label" parent="."]
+layout_mode = 0
+offset_left = 592.0
+offset_top = 16.0
+offset_right = 632.0
+offset_bottom = 39.0
+text = "Mili"
+script = ExtResource("9_66fpy")
+
+[node name="Level" type="Label" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 568.0
+offset_right = 50.0
+offset_bottom = 591.0
+text = "LV:00"
+script = ExtResource("10_fgp46")
+
+[node name="CW" type="Label" parent="."]
+layout_mode = 0
+offset_left = 800.0
+offset_top = 560.0
+offset_right = 932.0
+offset_bottom = 583.0
+text = "Current Weapon:"

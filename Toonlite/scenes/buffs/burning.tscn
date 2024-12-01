@@ -1,0 +1,71 @@
+[gd_scene load_steps=13 format=3 uid="uid://dxbuh3tqse2vb"]
+
+[ext_resource type="Script" path="res://scenes/buffs/burning.gd" id="1_fv0o3"]
+[ext_resource type="Texture2D" uid="uid://dd51nugrxt7wc" path="res://addons/kenney_particle_pack/fire_01.png" id="2_eg1tx"]
+[ext_resource type="Texture2D" uid="uid://bs4f3ycxf3ny4" path="res://addons/kenney_particle_pack/fire_02.png" id="3_g1vgs"]
+[ext_resource type="Material" uid="uid://mplbx4e2c8vv" path="res://scenes/entities/slime/fire_slime/slime_fireball.tres" id="4_x22cp"]
+
+[sub_resource type="Curve" id="Curve_jvb31"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.738095, 0.848837), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8pis6"]
+curve = SubResource("Curve_jvb31")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1ycyi"]
+emission_shape_offset = Vector3(0, 0.4, 0)
+emission_shape = 1
+emission_sphere_radius = 0.8
+direction = Vector3(0, 1, 0)
+initial_velocity_max = 1.0
+gravity = Vector3(0, 1, 0)
+scale_curve = SubResource("CurveTexture_8pis6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylt0p"]
+transparency = 1
+albedo_color = Color(1, 0.505882, 0, 1)
+albedo_texture = ExtResource("2_eg1tx")
+emission_enabled = true
+emission = Color(1, 0.309804, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_pvxde"]
+material = SubResource("StandardMaterial3D_ylt0p")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ipaw"]
+transparency = 1
+albedo_texture = ExtResource("3_g1vgs")
+
+[sub_resource type="QuadMesh" id="QuadMesh_vsd74"]
+material = SubResource("StandardMaterial3D_8ipaw")
+
+[sub_resource type="QuadMesh" id="QuadMesh_68rpi"]
+resource_local_to_scene = true
+material = ExtResource("4_x22cp")
+size = Vector2(0.1, 0.1)
+
+[node name="Burning" type="Node3D"]
+script = ExtResource("1_fv0o3")
+
+[node name="Flames" type="GPUParticles3D" parent="."]
+amount = 4
+lifetime = 2.0
+local_coords = true
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_1ycyi")
+draw_pass_1 = SubResource("QuadMesh_pvxde")
+
+[node name="Smoke" type="GPUParticles3D" parent="."]
+amount = 4
+lifetime = 2.0
+local_coords = true
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_1ycyi")
+draw_pass_1 = SubResource("QuadMesh_vsd74")
+
+[node name="Ember" type="GPUParticles3D" parent="."]
+amount = 4
+lifetime = 2.0
+local_coords = true
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_1ycyi")
+draw_pass_1 = SubResource("QuadMesh_68rpi")

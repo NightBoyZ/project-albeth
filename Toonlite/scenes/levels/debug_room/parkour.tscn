@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtuescpt7ihdn"]
+
+[ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_dyihj"]
+[ext_resource type="PackedScene" uid="uid://0iib3pugy5wn" path="res://scenes/ui/PauseMenu.tscn" id="2_07pb3"]
+[ext_resource type="PackedScene" uid="uid://cgxfe2qqj1xut" path="res://scenes/entities/player/player.tscn" id="2_848v7"]
+[ext_resource type="AudioStream" uid="uid://b226biv21pbml" path="res://assets/bgm/lobby.mp3" id="3_7kwj4"]
+[ext_resource type="PackedScene" uid="uid://dspgw7qsh4s4c" path="res://scenes/entities/player/dummy/dummy.tscn" id="4_j143u"]
+
+[sub_resource type="Environment" id="Environment_7hunp"]
+background_mode = 1
+background_color = Color(0.678431, 0.701961, 0.682353, 1)
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_dyihj")
+
+[node name="LevelUI" parent="." instance=ExtResource("2_07pb3")]
+unique_name_in_owner = true
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_7hunp")
+
+[node name="Platform" type="CSGBox3D" parent="Environment"]
+use_collision = true
+collision_layer = 8
+collision_mask = 23
+size = Vector3(10, 1, 20)
+
+[node name="Platform2" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 14.5)
+use_collision = true
+collision_layer = 8
+collision_mask = 23
+size = Vector3(4, 1, 3)
+
+[node name="Platform3" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 19.5)
+use_collision = true
+collision_layer = 8
+collision_mask = 23
+size = Vector3(4, 1, 3)
+
+[node name="Platform4" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, 19.5)
+use_collision = true
+collision_layer = 8
+collision_mask = 23
+size = Vector3(4, 1, 3)
+
+[node name="Platform5" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, 14.5)
+use_collision = true
+collision_layer = 8
+collision_mask = 23
+size = Vector3(4, 1, 3)
+
+[node name="Platform6" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2, 14.5)
+use_collision = true
+collision_layer = 8
+collision_mask = 23
+size = Vector3(4, 1, 3)
+
+[node name="Platform7" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1, -0.5)
+use_collision = true
+collision_layer = 8
+collision_mask = 23
+size = Vector3(4, 1, 3)
+
+[node name="Platform8" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, -1, 7.5)
+use_collision = true
+collision_layer = 8
+collision_mask = 23
+size = Vector3(4, 1, 3)
+
+[node name="PlayerManager" type="Node" parent="."]
+
+[node name="Player" parent="PlayerManager" instance=ExtResource("2_848v7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_7kwj4")
+autoplay = true
+
+[node name="Dummy" parent="." instance=ExtResource("4_j143u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[editable path="LevelUI"]

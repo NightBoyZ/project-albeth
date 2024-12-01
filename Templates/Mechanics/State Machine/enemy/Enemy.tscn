@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://b41rur3wg4aiu"]
+
+[ext_resource type="Texture2D" uid="uid://bb6kjvrq4uhpe" path="res://icon.svg" id="1_j1ta7"]
+[ext_resource type="Script" path="res://Mechanics/State Machine/enemy/enemy.gd" id="1_wui5v"]
+[ext_resource type="Script" path="res://Mechanics/State Machine/state_machine.gd" id="3_biw1o"]
+[ext_resource type="Script" path="res://Mechanics/State Machine/enemy/idle.gd" id="4_amq68"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ol5qv"]
+radius = 256.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yvi2y"]
+size = Vector2(128, 128)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5oopi"]
+font_size = 32
+
+[sub_resource type="GDScript" id="GDScript_gs3be"]
+resource_name = "State"
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_wui5v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_j1ta7")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="DetectionZone" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ol5qv")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_yvi2y")
+debug_color = Color(0.963973, 0, 0.495541, 0.42)
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = -64.0
+text = "Idle"
+label_settings = SubResource("LabelSettings_5oopi")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_gs3be")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_biw1o")
+initial_state = NodePath("EnemyIdle")
+
+[node name="EnemyIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("4_amq68")
+enemy = NodePath("../..")

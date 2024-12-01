@@ -1,0 +1,72 @@
+[gd_scene load_steps=13 format=3 uid="uid://btua8cg1uy3as"]
+
+[ext_resource type="Script" path="res://scenes/items/weapons/weapon_base.gd" id="1_h0l40"]
+[ext_resource type="Shader" path="res://addons/GPUTrail-main/shaders/trail.gdshader" id="2_cproe"]
+[ext_resource type="Shader" path="res://addons/GPUTrail-main/shaders/trail_draw_pass.gdshader" id="3_ledu2"]
+[ext_resource type="Texture2D" uid="uid://crk6pkb7e5rwc" path="res://addons/GPUTrail-main/defaults/texture.tres" id="4_ify5a"]
+[ext_resource type="Texture2D" uid="uid://ct31fhxvcragr" path="res://addons/GPUTrail-main/defaults/curve.tres" id="5_j01mj"]
+[ext_resource type="Script" path="res://addons/GPUTrail-main/GPUTrail3D.gd" id="5_pg24d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lawrj"]
+render_priority = 127
+depth_draw_mode = 2
+no_depth_test = true
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_ec6l0"]
+material = SubResource("StandardMaterial3D_lawrj")
+size = Vector3(0.1, 2, 0.1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1lgqc"]
+data = PackedVector3Array(-0.05, 1, 0.05, 0.05, 1, 0.05, -0.05, -1, 0.05, 0.05, 1, 0.05, 0.05, -1, 0.05, -0.05, -1, 0.05, 0.05, 1, -0.05, -0.05, 1, -0.05, 0.05, -1, -0.05, -0.05, 1, -0.05, -0.05, -1, -0.05, 0.05, -1, -0.05, 0.05, 1, 0.05, 0.05, 1, -0.05, 0.05, -1, 0.05, 0.05, 1, -0.05, 0.05, -1, -0.05, 0.05, -1, 0.05, -0.05, 1, -0.05, -0.05, 1, 0.05, -0.05, -1, -0.05, -0.05, 1, 0.05, -0.05, -1, 0.05, -0.05, -1, -0.05, 0.05, 1, 0.05, -0.05, 1, 0.05, 0.05, 1, -0.05, -0.05, 1, 0.05, -0.05, 1, -0.05, 0.05, 1, -0.05, -0.05, -1, 0.05, 0.05, -1, 0.05, -0.05, -1, -0.05, 0.05, -1, 0.05, 0.05, -1, -0.05, -0.05, -1, -0.05)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wyb76"]
+shader = ExtResource("2_cproe")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2gk45"]
+resource_local_to_scene = true
+render_priority = 126
+shader = ExtResource("3_ledu2")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 40
+shader_parameter/color_ramp = ExtResource("4_ify5a")
+shader_parameter/curve = ExtResource("5_j01mj")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ohbdx"]
+material = SubResource("ShaderMaterial_2gk45")
+
+[node name="Weapon" type="BoneAttachment3D"]
+unique_name_in_owner = true
+script = ExtResource("1_h0l40")
+
+[node name="ScalingFix" type="Node3D" parent="."]
+transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, 0, 150, 0)
+
+[node name="Model" type="MeshInstance3D" parent="ScalingFix"]
+mesh = SubResource("BoxMesh_ec6l0")
+skeleton = NodePath("../..")
+
+[node name="WeaponHitbox" type="Area3D" parent="ScalingFix/Model"]
+collision_layer = 2
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ScalingFix/Model/WeaponHitbox"]
+shape = SubResource("ConcavePolygonShape3D_1lgqc")
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="ScalingFix"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.123176, 0)
+amount = 100
+lifetime = 100.0
+explosiveness = 1.0
+fixed_fps = 0
+process_material = SubResource("ShaderMaterial_wyb76")
+draw_pass_1 = SubResource("QuadMesh_ohbdx")
+script = ExtResource("5_pg24d")
+color_ramp = ExtResource("4_ify5a")
+curve = ExtResource("5_j01mj")
+_defaults_have_been_set = true
+
+[connection signal="area_entered" from="ScalingFix/Model/WeaponHitbox" to="." method="_on_weapon_hitbox_area_entered"]

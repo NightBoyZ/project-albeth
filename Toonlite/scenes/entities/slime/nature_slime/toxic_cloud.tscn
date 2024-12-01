@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3yuottalumff"]
+
+[ext_resource type="Texture2D" uid="uid://ccwqmx76x6g8x" path="res://addons/kenney_particle_pack/smoke_04.png" id="1_wcpru"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fu5w3"]
+radius = 4.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7mdra"]
+emission_shape_offset = Vector3(0, 2, 0)
+emission_shape = 1
+emission_sphere_radius = 4.0
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7c2c"]
+transparency = 1
+albedo_color = Color(0, 1, 0, 1)
+albedo_texture = ExtResource("1_wcpru")
+emission_enabled = true
+emission = Color(0, 0.490196, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_tm6xf"]
+material = SubResource("StandardMaterial3D_w7c2c")
+size = Vector2(5, 5)
+
+[node name="ToxicCloud" type="Node3D"]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_fu5w3")
+
+[node name="ToxicGas" type="GPUParticles3D" parent="."]
+amount = 12
+lifetime = 3.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_7mdra")
+draw_pass_1 = SubResource("QuadMesh_tm6xf")

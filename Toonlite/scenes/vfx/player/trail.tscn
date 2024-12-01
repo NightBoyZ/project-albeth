@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtw241g03ps1t"]
+
+[ext_resource type="Script" path="res://scenes/vfx/vfx_remove.gd" id="1_kdlpt"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5g7fm"]
+particle_flag_align_y = true
+angle_min = 45.0
+angle_max = 45.0
+direction = Vector3(0, 0, -1)
+spread = 20.0
+initial_velocity_min = 0.2
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mpg6t"]
+radius = 0.02
+height = 0.02
+radial_segments = 4
+rings = 2
+
+[node name="Trail" type="GPUParticles3D"]
+emitting = false
+amount = 6
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_5g7fm")
+draw_pass_1 = SubResource("SphereMesh_mpg6t")
+script = ExtResource("1_kdlpt")

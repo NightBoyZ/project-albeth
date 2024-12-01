@@ -1,0 +1,1084 @@
+[gd_scene load_steps=97 format=4 uid="uid://4j7ovu8av73o"]
+
+[ext_resource type="PackedScene" uid="uid://fg0rwvxg7fig" path="res://assets/mesh/blender models/InfographicArea.blend" id="1_kfxj8"]
+[ext_resource type="Material" uid="uid://b45ggq7iyk5ds" path="res://addons/kenney_prototype_tools/materials/light/material_07.tres" id="2_4bmb2"]
+[ext_resource type="Shader" uid="uid://p7rg743dv5ae" path="res://scenes/levels/idk_pillars.tres" id="2_v0gxq"]
+[ext_resource type="PackedScene" uid="uid://yurti5awijg6" path="res://assets/mesh/blender models/sword.blend" id="4_osvwx"]
+[ext_resource type="PackedScene" uid="uid://b02f6cirf87h2" path="res://assets/mesh/blender models/terrain_far.blend" id="5_hn8yb"]
+[ext_resource type="Texture2D" uid="uid://d3w1taqey4oyi" path="res://assets/img/ball.png" id="6_birsi"]
+[ext_resource type="PackedScene" uid="uid://7wuh3opv7fj" path="res://assets/mesh/blender models/bow.blend" id="6_k4jbu"]
+[ext_resource type="PackedScene" uid="uid://dt2nm24c07pkt" path="res://assets/mesh/blender models/characters/Toon_base.blend" id="7_myopw"]
+[ext_resource type="PackedScene" uid="uid://c0xx0d8uw6vg5" path="res://assets/mesh/blender models/staff.blend" id="7_s2yeq"]
+[ext_resource type="Script" path="res://camera_3d.gd" id="9_so4a8"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xl0v0"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vnwy8"]
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 1.0
+normalize = false
+noise = SubResource("FastNoiseLite_xl0v0")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bo27k"]
+sky_top_color = Color(0.258824, 0.360784, 0.964706, 1)
+sky_horizon_color = Color(0.656863, 0.72451, 0.887255, 1)
+sky_cover = SubResource("NoiseTexture2D_vnwy8")
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.67451, 0.764706, 1, 1)
+sun_angle_max = 90.0
+
+[sub_resource type="Sky" id="Sky_pl2yv"]
+sky_material = SubResource("ProceduralSkyMaterial_bo27k")
+
+[sub_resource type="Environment" id="Environment_6tdxn"]
+background_mode = 2
+sky = SubResource("Sky_pl2yv")
+ambient_light_color = Color(1, 1, 1, 1)
+tonemap_mode = 2
+glow_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_light_energy = 0.5
+fog_sun_scatter = 1.0
+volumetric_fog_length = 32.0
+adjustment_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n2mnu"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_epg6d"]
+_surfaces = [{
+"aabb": AABB(-19.2, -19.2, -19.2, 38.4, 218.4, 38.4),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAADAAEAAAACAAMAAgAHAAMAAgAGAAcABgAFAAcABgAEAAUABAABAAUABAAAAAEAAgAEAAYAAgAAAAQABwABAAMABwAFAAEA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("/v/+/wAAAAD+/wAAAAAAAP7//v///wAA/v8AAP//AAAAAP7/AAAAAAAAAAAAAAAAAAD+////AAAAAAAA//8AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_vcqkj"]
+resource_name = "terrain_far_Cube_005"
+_surfaces = [{
+"aabb": AABB(-19.2, -19.2, -19.2, 38.4, 218.4, 38.4),
+"attribute_data": PackedByteArray("/1////8f/z//XwAA/5////+fAAD/3/8//1//v/8f/3//X/+//5//v/+f/7//3/9//1//P/9f/z//X/8//5//P/+f/z//n/8//1//f/9f/3//X/9//5//f/+f/3//n/9/"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAAJAAMAAAAGAAkACAAVAAoACAATABUAFAARABcAFAAOABEADQAEAA8ADQACAAQABwAMABIABwABAAwAFgAFAAsAFgAQAAUA"),
+"material": SubResource("StandardMaterial3D_n2mnu"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("/v/+/wAAVNX+//7/AAD///7//v8AAP+//v8AAAAAVNX+/wAAAAD/v/7/AAAAAP+//v/+////VNX+//7///////7//v///////v8AAP//VNX+/wAA//////7/AAD///+/AAD+/wAA//8AAP7/AAD/vwAA/v8AAFTVAAAAAAAA/78AAAAAAAD/vwAAAAAAAFTVAAD+//////8AAP7//////wAA/v///1TVAAAAAP////8AAAAA////vwAAAAD//1TVVFWqqv9//z//f/9/VFWqqv9//3////9/VFWqqv9//z//P/+/VFWqqv8//7////9//3//P/9//3+qqlRV/3//f////3+qqlRV/3//P/8//7+qqlRV/z//v////3+qqlRV")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_epg6d")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v1yvr"]
+render_priority = 0
+shader = ExtResource("2_v0gxq")
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader_parameter/Vector2Parameter = Vector2(-0.005, -0.01)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2aq4j"]
+albedo_color = Color(0, 1, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="Gradient" id="Gradient_h84a0"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a8rn1"]
+gradient = SubResource("Gradient_h84a0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r66ok"]
+albedo_color = Color(1, 0.490196, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.490196, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4673i"]
+albedo_color = Color(0, 0, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="Gradient" id="Gradient_kpomj"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hbdbm"]
+resource_local_to_scene = true
+noise_type = 3
+seed = 1
+fractal_type = 0
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_urrqp"]
+resource_local_to_scene = true
+width = 128
+height = 128
+seamless = true
+color_ramp = SubResource("Gradient_kpomj")
+noise = SubResource("FastNoiseLite_hbdbm")
+
+[sub_resource type="Gradient" id="Gradient_i0idb"]
+colors = PackedColorArray(0, 0.505247, 0.79663, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0k03q"]
+noise_type = 3
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pl7xt"]
+width = 256
+height = 256
+seamless = true
+color_ramp = SubResource("Gradient_i0idb")
+noise = SubResource("FastNoiseLite_0k03q")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xeksl"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("NoiseTexture2D_urrqp")
+emission_enabled = true
+emission = Color(0.509804, 0.72549, 1, 1)
+emission_energy_multiplier = 2.0
+emission_operator = 1
+emission_texture = SubResource("NoiseTexture2D_pl7xt")
+
+[sub_resource type="SphereMesh" id="SphereMesh_luml3"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_xeksl")
+radius = 1.0
+radial_segments = 6
+rings = 4
+is_hemisphere = true
+
+[sub_resource type="Gradient" id="Gradient_nj7k0"]
+colors = PackedColorArray(0, 0, 0, 1, 0.165159, 0.943677, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_llfat"]
+resource_local_to_scene = true
+noise_type = 3
+seed = 1
+fractal_type = 0
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yjc5m"]
+resource_local_to_scene = true
+width = 128
+height = 128
+seamless = true
+color_ramp = SubResource("Gradient_nj7k0")
+noise = SubResource("FastNoiseLite_llfat")
+
+[sub_resource type="Gradient" id="Gradient_kdw3r"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_u7jku"]
+noise_type = 3
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sbgoq"]
+width = 256
+height = 256
+color_ramp = SubResource("Gradient_kdw3r")
+noise = SubResource("FastNoiseLite_u7jku")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eu82r"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("NoiseTexture2D_yjc5m")
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = SubResource("NoiseTexture2D_sbgoq")
+
+[sub_resource type="SphereMesh" id="SphereMesh_etvo6"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_eu82r")
+radius = 1.0
+radial_segments = 6
+rings = 4
+is_hemisphere = true
+
+[sub_resource type="Gradient" id="Gradient_3mshg"]
+colors = PackedColorArray(0, 0, 0, 1, 0.375271, 1, 0.939975, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_clsa0"]
+resource_local_to_scene = true
+noise_type = 3
+seed = 1
+fractal_type = 0
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vckee"]
+resource_local_to_scene = true
+width = 128
+height = 128
+seamless = true
+color_ramp = SubResource("Gradient_3mshg")
+noise = SubResource("FastNoiseLite_clsa0")
+
+[sub_resource type="Gradient" id="Gradient_3cqgc"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gv4ox"]
+noise_type = 3
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m0l5q"]
+width = 256
+height = 256
+color_ramp = SubResource("Gradient_3cqgc")
+noise = SubResource("FastNoiseLite_gv4ox")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oklka"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("NoiseTexture2D_vckee")
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = SubResource("NoiseTexture2D_m0l5q")
+
+[sub_resource type="SphereMesh" id="SphereMesh_nq770"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_oklka")
+radius = 1.0
+radial_segments = 6
+rings = 4
+is_hemisphere = true
+
+[sub_resource type="Gradient" id="Gradient_oagwp"]
+colors = PackedColorArray(0, 0, 0, 1, 0.872193, 0.944942, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_c2gm3"]
+resource_local_to_scene = true
+noise_type = 3
+seed = 1
+fractal_type = 0
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jgi2s"]
+resource_local_to_scene = true
+width = 128
+height = 128
+seamless = true
+color_ramp = SubResource("Gradient_oagwp")
+noise = SubResource("FastNoiseLite_c2gm3")
+
+[sub_resource type="Gradient" id="Gradient_f00kn"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rrpul"]
+noise_type = 3
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ooy7x"]
+width = 256
+height = 256
+color_ramp = SubResource("Gradient_f00kn")
+noise = SubResource("FastNoiseLite_rrpul")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aw2c3"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("NoiseTexture2D_jgi2s")
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = SubResource("NoiseTexture2D_ooy7x")
+
+[sub_resource type="SphereMesh" id="SphereMesh_hfbca"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_aw2c3")
+radius = 1.0
+radial_segments = 6
+rings = 4
+is_hemisphere = true
+
+[sub_resource type="Gradient" id="Gradient_g6c3k"]
+colors = PackedColorArray(0, 0, 0, 1, 0.297055, 0.723116, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_v1p34"]
+resource_local_to_scene = true
+noise_type = 3
+seed = 1
+fractal_type = 0
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_s6fjd"]
+resource_local_to_scene = true
+width = 128
+height = 128
+seamless = true
+color_ramp = SubResource("Gradient_g6c3k")
+noise = SubResource("FastNoiseLite_v1p34")
+
+[sub_resource type="Gradient" id="Gradient_nneol"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_smeue"]
+noise_type = 3
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_um81h"]
+width = 256
+height = 256
+color_ramp = SubResource("Gradient_nneol")
+noise = SubResource("FastNoiseLite_smeue")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c0yfd"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("NoiseTexture2D_s6fjd")
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = SubResource("NoiseTexture2D_um81h")
+
+[sub_resource type="SphereMesh" id="SphereMesh_1av3u"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_c0yfd")
+radius = 1.0
+radial_segments = 6
+rings = 4
+is_hemisphere = true
+
+[sub_resource type="Gradient" id="Gradient_ohjqt"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tvmvk"]
+resource_local_to_scene = true
+noise_type = 3
+seed = 1
+fractal_type = 0
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0p2sm"]
+resource_local_to_scene = true
+width = 128
+height = 128
+in_3d_space = true
+seamless = true
+color_ramp = SubResource("Gradient_ohjqt")
+noise = SubResource("FastNoiseLite_tvmvk")
+
+[sub_resource type="Gradient" id="Gradient_7p861"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_s0fyr"]
+noise_type = 3
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fnj6p"]
+width = 256
+height = 256
+in_3d_space = true
+seamless = true
+color_ramp = SubResource("Gradient_7p861")
+noise = SubResource("FastNoiseLite_s0fyr")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xvg7p"]
+resource_local_to_scene = true
+albedo_color = Color(1, 1, 0, 1)
+albedo_texture = SubResource("NoiseTexture2D_0p2sm")
+emission_enabled = true
+emission = Color(0.937255, 0, 0.121569, 1)
+emission_energy_multiplier = 2.0
+emission_operator = 1
+emission_texture = SubResource("NoiseTexture2D_fnj6p")
+
+[sub_resource type="SphereMesh" id="SphereMesh_6gfj6"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_xvg7p")
+radius = 1.0
+radial_segments = 6
+rings = 4
+is_hemisphere = true
+
+[sub_resource type="Gradient" id="Gradient_bkoui"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6flro"]
+resource_local_to_scene = true
+noise_type = 3
+seed = 1
+fractal_type = 0
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i3d4h"]
+resource_local_to_scene = true
+width = 128
+height = 128
+seamless = true
+color_ramp = SubResource("Gradient_bkoui")
+noise = SubResource("FastNoiseLite_6flro")
+
+[sub_resource type="Gradient" id="Gradient_nybvc"]
+colors = PackedColorArray(0.33432, 0.00196219, 0.689883, 1, 0.992368, 0.864197, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_63n61"]
+noise_type = 3
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tfoy5"]
+width = 256
+height = 256
+seamless = true
+color_ramp = SubResource("Gradient_nybvc")
+noise = SubResource("FastNoiseLite_63n61")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwp7w"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("NoiseTexture2D_i3d4h")
+emission_enabled = true
+emission = Color(0.556863, 0.333333, 1, 1)
+emission_energy_multiplier = 2.0
+emission_operator = 1
+emission_texture = SubResource("NoiseTexture2D_tfoy5")
+
+[sub_resource type="SphereMesh" id="SphereMesh_mknc4"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_kwp7w")
+radius = 1.0
+radial_segments = 6
+rings = 4
+is_hemisphere = true
+
+[sub_resource type="Gradient" id="Gradient_70xla"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_h8tbt"]
+resource_local_to_scene = true
+noise_type = 3
+seed = 1
+fractal_type = 0
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d82x6"]
+resource_local_to_scene = true
+width = 128
+height = 128
+seamless = true
+color_ramp = SubResource("Gradient_70xla")
+noise = SubResource("FastNoiseLite_h8tbt")
+
+[sub_resource type="Gradient" id="Gradient_ryiqd"]
+colors = PackedColorArray(0, 0.30788, 0.00319025, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wssmf"]
+noise_type = 3
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7vade"]
+width = 256
+height = 256
+seamless = true
+color_ramp = SubResource("Gradient_ryiqd")
+noise = SubResource("FastNoiseLite_wssmf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_houuo"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("NoiseTexture2D_d82x6")
+emission_enabled = true
+emission = Color(0.509804, 0.72549, 0, 1)
+emission_energy_multiplier = 2.0
+emission_operator = 1
+emission_texture = SubResource("NoiseTexture2D_7vade")
+
+[sub_resource type="SphereMesh" id="SphereMesh_ni6va"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_houuo")
+radius = 1.0
+radial_segments = 6
+rings = 4
+is_hemisphere = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3iixe"]
+render_priority = 0
+shader = ExtResource("2_v0gxq")
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader_parameter/Vector2Parameter = Vector2(-0.005, -0.01)
+
+[sub_resource type="SphereMesh" id="SphereMesh_c6p7r"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f0j4l"]
+render_priority = 0
+shader = ExtResource("2_v0gxq")
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader_parameter/Vector2Parameter = Vector2(0.02, 0.01)
+
+[sub_resource type="Curve" id="Curve_tfg80"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.23913, 0.505494), 0.0, 0.0, 0, 0, Vector2(0.768116, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.010989), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_y7lky"]
+curve = SubResource("Curve_tfg80")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7ixs2"]
+emission_shape_offset = Vector3(0, 5, 0)
+emission_shape = 3
+emission_box_extents = Vector3(20, 20, 20)
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_y7lky")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5gqco"]
+emission_enabled = true
+emission = Color(0.666667, 0.666667, 0.666667, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_uqsw2"]
+material = SubResource("StandardMaterial3D_5gqco")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6tdxn")
+
+[node name="InfographicArea" parent="." instance=ExtResource("1_kfxj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4751, 0, -1.12574)
+
+[node name="Plane" parent="InfographicArea" index="0"]
+surface_material_override/0 = ExtResource("2_4bmb2")
+
+[node name="Cube_005" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.965926, -0.224144, 0.12941, 0.258819, 0.836516, -0.482963, 2.87868e-08, 0.5, 0.866025, 79.7825, -9.09668, -424.95)
+mesh = SubResource("ArrayMesh_vcqkj")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_v1yvr")
+
+[node name="Range" parent="." instance=ExtResource("7_myopw")]
+transform = Transform3D(0.410019, 0, -0.912077, 0, 1, 0, 0.912077, 0, 0.410019, 26.8633, 0, 2.33222)
+
+[node name="Skeleton3D" parent="Range/Armature" index="0"]
+bones/0/position = Vector3(-2.58214, -1.63707, -77.9264)
+bones/0/rotation = Quaternion(-0.517097, -0.490704, 0.594056, 0.372717)
+bones/1/rotation = Quaternion(0.0523294, 0.00642645, 0.0156225, 0.998487)
+bones/2/rotation = Quaternion(0.0630014, 0.00759027, 0.0427295, 0.997069)
+bones/3/rotation = Quaternion(0.0629524, 0.00639665, 0.0429933, 0.99707)
+bones/4/position = Vector3(2.42144e-07, 15.6978, -1.01577e-07)
+bones/4/rotation = Quaternion(-0.0541536, 0.0744482, 0.00707654, 0.995728)
+bones/5/position = Vector3(6.55651e-07, 7.06056, 0.0417296)
+bones/5/rotation = Quaternion(0.0220459, 0.504071, -0.00994004, 0.863323)
+bones/6/position = Vector3(-2.68221e-06, 27.4475, 0.162221)
+bones/7/position = Vector3(1.68169, 14.2102, 0.00367537)
+bones/7/rotation = Quaternion(0.500528, 0.454403, -0.592834, 0.437651)
+bones/8/position = Vector3(-6.24994e-07, 4.55395, -8.51947e-06)
+bones/8/rotation = Quaternion(-0.156836, -0.336326, 0.147277, 0.916841)
+bones/9/position = Vector3(-7.22324e-07, 34.3239, 2.49064e-06)
+bones/9/rotation = Quaternion(1.11005e-08, 3.42551e-06, -1.6219e-07, 1)
+bones/10/position = Vector3(1.21072e-07, 32.7385, 3.11179e-06)
+bones/11/position = Vector3(-1.68169, 14.2102, -0.00249381)
+bones/11/rotation = Quaternion(0.617539, -0.333245, 0.634816, 0.32342)
+bones/12/position = Vector3(3.40225e-07, 4.55392, -7.46832e-06)
+bones/12/rotation = Quaternion(-0.353102, 0.189492, -0.377476, 0.834819)
+bones/13/position = Vector3(1.87699e-06, 34.3239, -2.24274e-06)
+bones/13/rotation = Quaternion(-0.00191133, -9.06177e-07, -0.912898, 0.408184)
+bones/14/position = Vector3(2.87406e-06, 32.7385, -8.02389e-07)
+bones/15/rotation = Quaternion(0.0669479, 0.00254654, 0.996495, 0.0500915)
+bones/16/rotation = Quaternion(-0.212718, -0.0578588, 0.0252755, 0.975072)
+bones/17/rotation = Quaternion(0.723161, -0.378947, 0.139289, 0.56039)
+bones/18/rotation = Quaternion(0.0447159, 0.000514525, 0.0112664, 0.998936)
+bones/20/rotation = Quaternion(-0.0513493, 0.160373, 0.966827, 0.192068)
+bones/21/rotation = Quaternion(-0.371884, -0.110358, -0.0437966, 0.920655)
+bones/22/rotation = Quaternion(0.82918, 0.115703, 0.0232756, 0.546381)
+bones/23/rotation = Quaternion(0.0378289, 0.00533796, -0.00846358, 0.999234)
+
+[node name="Arm1" parent="Range/Armature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_2aq4j")
+
+[node name="Arm2" parent="Range/Armature/Skeleton3D" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_2aq4j")
+
+[node name="Body1" parent="Range/Armature/Skeleton3D" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_2aq4j")
+
+[node name="Body2" parent="Range/Armature/Skeleton3D" index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_2aq4j")
+
+[node name="Head" parent="Range/Armature/Skeleton3D" index="4"]
+surface_material_override/0 = SubResource("StandardMaterial3D_2aq4j")
+
+[node name="Legs1" parent="Range/Armature/Skeleton3D" index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_2aq4j")
+
+[node name="Legs2" parent="Range/Armature/Skeleton3D" index="6"]
+surface_material_override/0 = SubResource("StandardMaterial3D_2aq4j")
+
+[node name="bow" parent="Range" instance=ExtResource("6_k4jbu")]
+transform = Transform3D(-0.0779026, 0.0363265, -0.487481, 0.209196, 0.448623, 0, 0.441808, -0.206018, -0.085956, -0.3, 1.6, 0.25)
+
+[node name="Shadow" type="Decal" parent="Range"]
+size = Vector3(1.2, 1, 1.2)
+texture_albedo = ExtResource("6_birsi")
+texture_normal = SubResource("GradientTexture1D_a8rn1")
+cull_mask = 2
+
+[node name="Warrior" parent="." instance=ExtResource("7_myopw")]
+transform = Transform3D(0.778123, 0, -0.628112, 0, 1, 0, 0.628112, 0, 0.778123, 19.0596, 0, -1.54869)
+
+[node name="Skeleton3D" parent="Warrior/Armature" index="0"]
+bones/0/position = Vector3(7.45103, -0.0203033, -112.994)
+bones/0/rotation = Quaternion(-0.590415, 0.557054, -0.435065, 0.389641)
+bones/1/rotation = Quaternion(0.0307332, 0.152225, 0.0304404, 0.987399)
+bones/2/rotation = Quaternion(-0.0138358, 0.0394313, -0.00288357, 0.999122)
+bones/3/rotation = Quaternion(-0.0136476, 0.0392738, -0.002418, 0.999132)
+bones/4/position = Vector3(0, 15.6978, -1.23458e-08)
+bones/4/rotation = Quaternion(-0.0557392, 0.0233903, 0.0244195, 0.997873)
+bones/5/position = Vector3(-1.19209e-06, 7.06056, 0.0417361)
+bones/5/rotation = Quaternion(-0.0906028, -0.128374, -0.0920594, 0.983278)
+bones/6/position = Vector3(-2.38419e-07, 27.4475, 0.162222)
+bones/7/position = Vector3(1.68169, 14.2102, 0.00367475)
+bones/7/rotation = Quaternion(0.505719, 0.386807, -0.74748, 0.18948)
+bones/8/position = Vector3(-3.40019e-06, 4.55395, 8.37274e-06)
+bones/8/rotation = Quaternion(-0.0329181, -0.491815, -0.0324862, 0.86947)
+bones/9/position = Vector3(-3.37074e-06, 34.3239, 1.33704e-05)
+bones/9/rotation = Quaternion(0.0110383, 0.0876557, 0.0136502, 0.995996)
+bones/10/position = Vector3(-1.51806e-06, 32.7385, 6.50926e-06)
+bones/11/position = Vector3(-1.6817, 14.2102, -0.00249377)
+bones/11/rotation = Quaternion(0.756239, -0.263795, 0.359753, 0.478635)
+bones/12/position = Vector3(4.37703e-07, 4.55393, 2.09424e-06)
+bones/12/rotation = Quaternion(-0.465163, 0.0708671, -0.538364, 0.699118)
+bones/13/position = Vector3(2.88852e-06, 34.3239, 4.13508e-06)
+bones/13/rotation = Quaternion(-0.167127, -0.105474, -0.6369, 0.745186)
+bones/14/position = Vector3(-4.51691e-06, 32.7385, -2.47132e-06)
+bones/15/rotation = Quaternion(0.124285, 0.189276, 0.947505, -0.225748)
+bones/16/rotation = Quaternion(-0.343275, 0.0629025, 0.0297426, 0.936654)
+bones/17/rotation = Quaternion(0.281856, -0.326842, 0.174099, 0.885111)
+bones/18/rotation = Quaternion(0.0550764, 0.15893, -0.0563515, 0.98414)
+bones/20/rotation = Quaternion(-0.30514, 0.340422, 0.799667, 0.389276)
+bones/21/rotation = Quaternion(-0.489026, -0.116306, 0.185328, 0.844381)
+bones/22/rotation = Quaternion(0.590593, 0.209613, 0.0424869, 0.778111)
+bones/23/rotation = Quaternion(-0.0484284, -0.000389652, -0.00897687, 0.998786)
+
+[node name="Arm1" parent="Warrior/Armature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r66ok")
+
+[node name="Arm2" parent="Warrior/Armature/Skeleton3D" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r66ok")
+
+[node name="Body1" parent="Warrior/Armature/Skeleton3D" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r66ok")
+
+[node name="Body2" parent="Warrior/Armature/Skeleton3D" index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r66ok")
+
+[node name="Head" parent="Warrior/Armature/Skeleton3D" index="4"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r66ok")
+
+[node name="Legs1" parent="Warrior/Armature/Skeleton3D" index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r66ok")
+
+[node name="Legs2" parent="Warrior/Armature/Skeleton3D" index="6"]
+surface_material_override/0 = SubResource("StandardMaterial3D_r66ok")
+
+[node name="sword" parent="Warrior" instance=ExtResource("4_osvwx")]
+transform = Transform3D(-2.98836, 2.98836, 9.06308, -6.40856, 6.40856, -4.22618, -7.07107, -7.07107, -3.9616e-07, -0.409576, 1.03552, -0.208947)
+
+[node name="Cube" parent="Warrior/sword" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_4673i")
+
+[node name="Shadow" type="Decal" parent="Warrior"]
+size = Vector3(1.2, 1, 1.2)
+texture_albedo = ExtResource("6_birsi")
+texture_normal = SubResource("GradientTexture1D_a8rn1")
+cull_mask = 2
+
+[node name="Stickman" type="Node3D" parent="."]
+transform = Transform3D(-1.5, 0, 1.31134e-07, 0, 1.5, 0, -1.31134e-07, 0, -1.5, 30, 10, 30)
+
+[node name="Toon_base" parent="Stickman" instance=ExtResource("7_myopw")]
+transform = Transform3D(-0.350354, 0, 0.567183, 0, 0.666667, 0, -0.567183, 0, -0.350354, 4.29692, -6.66667, 22.6945)
+
+[node name="Skeleton3D" parent="Stickman/Toon_base/Armature" index="0"]
+bones/0/position = Vector3(0.771831, -0.835306, -67.3223)
+bones/0/rotation = Quaternion(-0.407173, 0.0355792, -0.0833599, 0.908843)
+bones/1/rotation = Quaternion(0.14681, 0.00615084, -0.00217736, 0.989143)
+bones/2/rotation = Quaternion(0.0375378, -0.00143984, -0.00801731, 0.999262)
+bones/3/rotation = Quaternion(0.106652, -0.00422, -0.00614552, 0.994268)
+bones/4/position = Vector3(4.76837e-07, 15.6978, -4.88051e-06)
+bones/4/rotation = Quaternion(-0.12253, -0.0405436, 0.0951167, 0.987064)
+bones/5/position = Vector3(-1.78814e-07, 7.06057, 0.0417403)
+bones/5/rotation = Quaternion(-0.388434, -0.0204941, 0.00531858, 0.921233)
+bones/6/position = Vector3(-4.17233e-07, 27.4475, 0.162219)
+bones/7/position = Vector3(1.6817, 14.2102, 0.00367605)
+bones/7/rotation = Quaternion(0.572209, 0.375822, -0.667729, 0.292358)
+bones/8/position = Vector3(-4.17004e-06, 4.55394, 7.03137e-06)
+bones/8/rotation = Quaternion(0.19839, 0.344371, 0.020628, 0.917401)
+bones/9/position = Vector3(7.36165e-06, 34.3239, 1.1272e-05)
+bones/9/rotation = Quaternion(0.106213, -0.0680168, 0.274534, 0.95327)
+bones/10/position = Vector3(-8.10437e-06, 32.7385, -5.65009e-06)
+bones/11/position = Vector3(-1.6817, 14.2102, -0.00249704)
+bones/11/rotation = Quaternion(0.610542, -0.323342, 0.678404, 0.249913)
+bones/12/position = Vector3(-7.00742e-06, 4.55394, -6.87116e-06)
+bones/12/rotation = Quaternion(0.223375, -0.199251, -0.00698103, 0.954125)
+bones/13/position = Vector3(1.19472e-05, 34.3239, 2.14213e-06)
+bones/13/rotation = Quaternion(0.108148, -0.0652139, -0.298074, 0.946152)
+bones/14/position = Vector3(-2.37115e-06, 32.7385, -1.51764e-06)
+bones/15/rotation = Quaternion(-0.0139501, 0.707403, 0.704579, 0.0543644)
+bones/16/rotation = Quaternion(-0.544969, -0.00866154, -0.00702299, 0.838382)
+bones/17/rotation = Quaternion(0.7213, -0.248129, 0.268486, 0.58828)
+bones/18/rotation = Quaternion(0.0909159, -0.0321717, -0.00481794, 0.995327)
+bones/20/rotation = Quaternion(-0.0076844, 0.217182, 0.970459, -0.104795)
+bones/21/rotation = Quaternion(-0.560981, 0.0973612, -0.0229845, 0.821762)
+bones/22/rotation = Quaternion(0.577363, 0.0790258, -0.125461, 0.802912)
+bones/23/rotation = Quaternion(0.0449798, -0.00225668, -0.00101587, 0.998985)
+
+[node name="Shadow" type="Decal" parent="Stickman"]
+size = Vector3(1.2, 1, 1.2)
+texture_albedo = ExtResource("6_birsi")
+texture_normal = SubResource("GradientTexture1D_a8rn1")
+cull_mask = 2
+
+[node name="staff2" parent="." instance=ExtResource("7_s2yeq")]
+transform = Transform3D(0.0517237, -0.000960626, 0.0471565, 0.0439606, -0.024379, -0.0487148, 0.0170918, 0.0656106, -0.0174106, 22.8338, 6.37819, -0.324113)
+
+[node name="staff" parent="." instance=ExtResource("7_s2yeq")]
+transform = Transform3D(0.0514813, -0.0342531, 0.0328085, 0.0472664, 0.041076, -0.0312834, -0.00394414, 0.0451607, 0.0533381, 8.41645, 6.56945, -0.324117)
+
+[node name="Entities" type="MultiMeshInstance3D" parent="."]
+
+[node name="Model27" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.733125, 0.00405955, 0.680082, -1.19209e-07, 0.999982, -0.0059683, -0.680094, -0.00437644, -0.733112, 52.6724, -11.6017, 0.513018)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_luml3")
+skeleton = NodePath("../Model")
+
+[node name="Model26" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.733125, 0.639104, 0.232539, -1.19209e-07, 0.341922, -0.939728, -0.680094, -0.688938, -0.250671, 15.7648, 0.808548, 4.41712)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_luml3")
+skeleton = NodePath("../Model28")
+
+[node name="Model25" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(1, 0, 0, 0, 0.822531, 0.56872, 0, -0.56872, 0.822531, -9.5245, 7.09585, 21.5268)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_luml3")
+skeleton = NodePath("../Model28")
+
+[node name="Model15" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.475173, 0.0938455, -0.874874, 0.165645, 0.966978, 0.193693, 0.86416, -0.236956, 0.443936, 13.2797, 1.24704, 13.0468)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_etvo6")
+skeleton = NodePath("../Model3")
+
+[node name="Model7" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.643231, -0.193688, 0.74077, -0.28833, 0.957532, -1.04308e-07, -0.70931, -0.213586, -0.671759, 5.82872, 0.794582, 8.95525)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_nq770")
+skeleton = NodePath("../Model3")
+
+[node name="Model6" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.805548, 0.331102, -0.49139, -0.380167, 0.924919, -1.61775e-07, 0.454495, 0.18681, 0.870939, -14.4464, 3.79734, 8.92357)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_hfbca")
+skeleton = NodePath("../Model3")
+
+[node name="Model5" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.98105, 0.193755, 0, -0.193755, 0.98105, 0, 0, 0, 1, -9.20566, 0.296104, 8.95525)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_1av3u")
+skeleton = NodePath("../Model3")
+
+[node name="Model4" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.995251, 0.0973397, 0, -0.0973397, 0.995251, 0, 0, 0, 1, 0, 0.148404, 0)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_etvo6")
+skeleton = NodePath("../Model3")
+
+[node name="Model28" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.733125, 0.16552, 0.659645, -1.19209e-07, 0.969932, -0.243378, -0.680094, -0.178427, -0.711081, 19.0257, 1.71039, 3.49728)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_6gfj6")
+skeleton = NodePath("../Model2")
+
+[node name="Model2" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(1, 0, 0, 0, 0.819122, -0.573619, 0, 0.573619, 0.819122, 14.8782, 1.22138, -8.49694)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_luml3")
+skeleton = NodePath("../Model")
+
+[node name="Model" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(1, 0, 0, 0, 0.934099, 0.357015, 0, -0.357015, 0.934099, 13.1131, 3.61905, -6.64528)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_6gfj6")
+
+[node name="Model3" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5249, 0, 0)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_mknc4")
+
+[node name="Model30" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.451691, 0.800398, 0.39413, 0.352227, 0.56586, -0.745478, -0.819703, -0.197903, -0.537515, 10.213, 3.22993, 9.32543)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_ni6va")
+skeleton = NodePath("../Model29")
+
+[node name="Model29" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.91061, 0.120877, 0.395193, -0.297038, 0.473415, -0.829245, -0.287327, -0.872506, -0.395191, 2.67956, 2.54444, 10.9698)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_ni6va")
+skeleton = NodePath("../Model8")
+
+[node name="Model8" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.20702, 0.473836, 0.855933, -0.54695, 0.781446, -0.300313, -0.811165, -0.405982, 0.42094, 7.70976, 2.27779, -9.00251)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_ni6va")
+
+[node name="Model9" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.342939, -0.382905, -0.857775, 0.203863, 0.921725, -0.329946, 0.91697, -0.0617176, 0.394154, 29.4244, 1.66302, 5.41747)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_nq770")
+skeleton = NodePath("../Model3")
+
+[node name="Model10" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.273952, 0.112602, 0.955128, -0.380167, 0.924919, -1.74476e-07, -0.883416, -0.363108, 0.296191, 40.3268, 4.66578, 21.0217)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_hfbca")
+skeleton = NodePath("../Model3")
+
+[node name="Model11" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.20737, -0.0409551, 0.977405, -0.193755, 0.98105, 9.28616e-09, -0.958883, -0.189377, -0.211376, 39.25, 1.16454, 15.8927)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_1av3u")
+skeleton = NodePath("../Model3")
+
+[node name="Model31" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.744194, -0.251439, 0.618833, 0.165645, 0.966978, 0.193693, -0.647099, -0.0416383, 0.761269, 22.0658, 2.11548, 6.46844)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_etvo6")
+skeleton = NodePath("../Model3")
+
+[node name="Model12" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.210372, -0.0205753, 0.977405, -0.0973397, 0.995251, 4.64308e-09, -0.972763, -0.0951403, -0.211376, 28.5512, 1.01684, 8.78798)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_etvo6")
+skeleton = NodePath("../Model3")
+
+[node name="Model34" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.509762, -0.00513569, -0.8603, -1.19209e-07, 0.999982, -0.0059683, 0.860316, -0.00304277, -0.509754, 17.919, -10.7333, -42.8027)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_luml3")
+skeleton = NodePath("../Model")
+
+[node name="Model33" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.437386, -0.518061, -0.735055, 0.261822, 0.708616, -0.65522, 0.860316, -0.479039, -0.174299, 25.3252, 1.67698, 5.69864)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_luml3")
+skeleton = NodePath("../Model35")
+
+[node name="Model32" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.211376, -0.55587, 0.803946, 1.85723e-08, 0.822531, 0.56872, -0.977405, 0.120214, -0.173863, 36.8527, 7.96429, -8.66262)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_luml3")
+skeleton = NodePath("../Model35")
+
+[node name="Model35" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.509762, -0.209382, -0.834447, -1.19209e-07, 0.969932, -0.243378, 0.860316, -0.124065, -0.494435, 22.1531, 2.57882, -10.5471)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_6gfj6")
+skeleton = NodePath("../Model13")
+
+[node name="Model13" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.211376, 0.560658, 0.800614, 1.85723e-08, 0.819122, -0.573619, -0.977405, -0.121249, -0.173143, 17.1014, 2.08982, -3.958)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_luml3")
+skeleton = NodePath("../Model")
+
+[node name="Model14" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.211376, -0.348948, 0.912993, 0, 0.934099, 0.357015, -0.977405, 0.0754644, -0.197446, 19.2843, 4.48749, -2.62418)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_6gfj6")
+
+[node name="Model37" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.705705, -0.362616, -0.60868, 0.352227, 0.56586, -0.745478, 0.61475, -0.740481, -0.271607, 24.5213, 4.09836, -3.16543)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_ni6va")
+skeleton = NodePath("../Model36")
+
+[node name="Model36" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.088354, -0.878342, -0.469796, -0.297038, 0.473415, -0.829245, 0.950769, 0.0662806, -0.302729, 33.8497, 3.41288, 3.85022)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_ni6va")
+skeleton = NodePath("../Model16")
+
+[node name="Model16" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.836596, -0.496966, 0.230505, -0.54695, 0.781446, -0.300313, -0.0308816, -0.377315, -0.92557, 18.1225, 3.14623, 3.15534)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_ni6va")
+
+[node name="Model17" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.628109, 0.189135, 0.754789, -0.28833, 0.957532, -8.30907e-08, -0.722735, -0.217628, 0.655967, -4.14716, 0.794582, -21.3453)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_nq770")
+skeleton = NodePath("../Model3")
+
+[node name="Model18" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.355858, -0.146268, -0.923022, -0.380167, 0.924919, -1.65265e-07, 0.85372, 0.350902, -0.384746, -6.51777, 3.79734, -41.4813)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_hfbca")
+skeleton = NodePath("../Model3")
+
+[node name="Model19" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.116228, 0.0229548, -0.992957, -0.193755, 0.98105, 5.68798e-09, 0.974141, 0.19239, 0.118473, -5.92834, 0.296104, -36.2738)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_1av3u")
+skeleton = NodePath("../Model3")
+
+[node name="Model38" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(-0.801779, 0.246405, -0.544459, 0.165645, 0.966978, 0.193693, 0.574207, 0.0651117, -0.816118, -7.32715, 1.24704, -13.462)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_etvo6")
+skeleton = NodePath("../Model3")
+
+[node name="Model39" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.118473, 0.564715, -0.816738, -4.64121e-17, 0.822531, 0.56872, 0.992957, -0.0673781, 0.0974481, -18.4491, 7.09585, -35.101)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_luml3")
+skeleton = NodePath("../Model42")
+
+[node name="Model20" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.117911, 0.0115322, -0.992957, -0.0973397, 0.995251, 3.11467e-09, 0.988242, 0.0966542, 0.118473, 4.05447, 0.148404, -28.1939)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_etvo6")
+skeleton = NodePath("../Model3")
+
+[node name="Model41" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.588448, 0.00482664, 0.80852, -1.19209e-07, 0.999983, -0.00596836, -0.808535, 0.0035125, 0.588439, 9.78534, -11.6017, 24.1684)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_luml3")
+skeleton = NodePath("../Model")
+
+[node name="Model40" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.588448, 0.759803, 0.276455, -1.19209e-07, 0.341922, -0.939728, -0.808535, 0.552982, 0.201203, 1.53618, 0.808548, -12.0168)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_luml3")
+skeleton = NodePath("../Model42")
+
+[node name="Model42" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.588448, 0.19678, 0.784223, -1.19209e-07, 0.969932, -0.243378, -0.808535, 0.143216, 0.570755, 2.83586, 1.71039, -8.88781)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_6gfj6")
+skeleton = NodePath("../Model21")
+
+[node name="Model21" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.118473, -0.569579, -0.813353, 1.83448e-09, 0.819122, -0.573619, 0.992957, 0.0679586, 0.0970441, 14.2542, 1.22138, -14.4271)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_luml3")
+skeleton = NodePath("../Model")
+
+[node name="Model22" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.118473, 0.354501, -0.92752, -1.41056e-08, 0.934099, 0.357015, 0.992957, -0.0422968, 0.110666, 12.2065, 3.61905, -15.9604)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_6gfj6")
+
+[node name="Model23" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.118473, 0, -0.992957, 0, 1, 0, 0.992957, 0, 0.118473, 5.30139, 0, -17.7431)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_mknc4")
+
+[node name="Model44" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.760417, 0.291334, 0.580424, 0.352227, 0.56586, -0.745478, -0.545622, 0.771314, 0.327673, -3.99532, 3.22993, -16.948)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_ni6va")
+skeleton = NodePath("../Model43")
+
+[node name="Model43" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.177421, 0.880682, 0.439227, -0.297038, 0.473415, -0.829244, -0.938237, 0.0166574, 0.34559, -6.52058, 2.54444, -24.2336)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_ni6va")
+skeleton = NodePath("../Model24")
+
+[node name="Model24" type="MeshInstance3D" parent="Entities"]
+transform = Transform3D(0.829979, 0.45926, -0.31657, -0.54695, 0.781446, -0.300313, 0.109461, 0.422401, 0.899775, 13.907, 2.27779, -21.605)
+lod_bias = 0.001
+mesh = SubResource("SphereMesh_ni6va")
+
+[node name="Terrain" parent="." instance=ExtResource("5_hn8yb")]
+transform = Transform3D(0.707107, 0.190155, -0.681059, 0, 0.963163, 0.26892, 0.707107, -0.190155, 0.681059, -90, -40, 90)
+
+[node name="Mountains" parent="Terrain" index="0"]
+surface_material_override/0 = ExtResource("2_4bmb2")
+
+[node name="Cube" parent="Terrain" index="1"]
+transform = Transform3D(0.866025, 0.482963, 0.12941, -0.5, 0.836516, 0.224144, 0, -0.258819, 0.965926, -306.452, 61.0181, 299.451)
+surface_material_override/0 = SubResource("ShaderMaterial_3iixe")
+
+[node name="Cube_001" parent="Terrain" index="2"]
+transform = Transform3D(0.965926, -0.258819, 0, 0.224144, 0.836516, 0.5, -0.12941, -0.482963, 0.866025, 315.373, 7.01811, 261.446)
+surface_material_override/0 = SubResource("ShaderMaterial_3iixe")
+
+[node name="Cube_002" parent="Terrain" index="3"]
+transform = Transform3D(0.711516, 0.699469, -0.0669873, -0.69065, 0.678603, -0.25, -0.129409, 0.224144, 0.965926, -441.667, 43.0612, -54.9663)
+surface_material_override/0 = SubResource("ShaderMaterial_3iixe")
+
+[node name="Cube_003" parent="Terrain" index="4"]
+transform = Transform3D(0.965926, -0.258819, 3.8567e-09, 0.224144, 0.836516, 0.5, -0.12941, -0.482963, 0.866025, 128.548, 8.91068, 418.101)
+surface_material_override/0 = SubResource("ShaderMaterial_3iixe")
+
+[node name="Cube_004" parent="Terrain" index="5"]
+transform = Transform3D(0.866025, 0.482963, -0.12941, -0.5, 0.836516, -0.224144, 0, 0.258819, 0.965926, -46.0704, 116.018, -465.172)
+surface_material_override/0 = SubResource("ShaderMaterial_3iixe")
+
+[node name="Cube_005" parent="Terrain" index="6"]
+transform = Transform3D(0.965926, -0.224144, 0.12941, 0.258819, 0.836516, -0.482963, 0, 0.5, 0.866025, 64.7825, -9.09668, -411.95)
+surface_material_override/0 = SubResource("ShaderMaterial_3iixe")
+
+[node name="Cube_006" parent="Terrain" index="7"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.683013, 0.683013, 0.258819, -0.183013, -0.183013, 0.965926, 456.49, 8.76081, 165.027)
+surface_material_override/0 = SubResource("ShaderMaterial_3iixe")
+
+[node name="Cube_007" parent="Terrain" index="8"]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 327.327, 7.0235, -222.178)
+surface_material_override/0 = SubResource("ShaderMaterial_3iixe")
+
+[node name="Cube_008" parent="Terrain" index="9"]
+transform = Transform3D(0.965926, -0.258819, 3.8567e-09, 0.224144, 0.836516, 0.5, -0.12941, -0.482963, 0.866025, -16.0095, -28.1391, 413.888)
+surface_material_override/0 = SubResource("ShaderMaterial_3iixe")
+
+[node name="Cube_009" parent="Terrain" index="10"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.25, 0.933013, -0.258819, -0.0669873, 0.25, 0.965926, -281.786, 2.82958, -277.128)
+surface_material_override/0 = SubResource("ShaderMaterial_3iixe")
+
+[node name="Cube_010" parent="Terrain" index="11"]
+transform = Transform3D(0.965926, -0.25, 0.0669873, 0.258819, 0.933013, -0.25, 0, 0.258819, 0.965926, 409.721, -5.60603, -79.5862)
+surface_material_override/0 = SubResource("ShaderMaterial_3iixe")
+
+[node name="Cube_011" parent="Terrain" index="12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 259.648, -61.7558, 341.233)
+surface_material_override/0 = SubResource("ShaderMaterial_3iixe")
+
+[node name="Mountains2" parent="Terrain" index="14"]
+surface_material_override/0 = ExtResource("2_4bmb2")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.615661, -0.603651, 0.506524, 0, 0.642788, 0.766044, -0.788011, 0.471624, -0.39574, 0, 10, 0)
+current = true
+fov = 90.0
+script = ExtResource("9_so4a8")
+
+[node name="Fog" type="CSGMesh3D" parent="Camera3D"]
+mesh = SubResource("SphereMesh_c6p7r")
+material = SubResource("ShaderMaterial_f0j4l")
+
+[node name="Wisp" type="GPUParticles3D" parent="."]
+transform = Transform3D(-0.5, 0, -0.866026, 0, 1, 0, 0.866026, 0, -0.5, 15.647, 0, -5.31215)
+amount = 2056
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_7ixs2")
+draw_pass_1 = SubResource("BoxMesh_uqsw2")
+
+[editable path="InfographicArea"]
+[editable path="Range"]
+[editable path="Warrior"]
+[editable path="Warrior/sword"]
+[editable path="Stickman/Toon_base"]
+[editable path="Terrain"]

@@ -1,0 +1,88 @@
+[gd_scene load_steps=17 format=3 uid="uid://ch3cub8pgbf4x"]
+
+[ext_resource type="Script" path="res://scenes/entities/slime/fire_slime/fireball.gd" id="1_nl7ai"]
+[ext_resource type="Material" uid="uid://c4jhjbm4641b3" path="res://scenes/entities/slime/fire_slime/fireball.tres" id="2_guqvf"]
+[ext_resource type="Texture2D" uid="uid://doaowsl42vdqn" path="res://addons/kenney_particle_pack/magic_05.png" id="3_jqaqd"]
+[ext_resource type="Texture2D" uid="uid://dd51nugrxt7wc" path="res://addons/kenney_particle_pack/fire_01.png" id="4_3h0ei"]
+[ext_resource type="Material" uid="uid://mplbx4e2c8vv" path="res://scenes/entities/slime/fire_slime/slime_fireball.tres" id="5_2wu5n"]
+
+[sub_resource type="Curve" id="Curve_qwwua"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.246032, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4nrqg"]
+curve = SubResource("Curve_qwwua")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7ccad"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_4nrqg")
+
+[sub_resource type="QuadMesh" id="QuadMesh_n2hqk"]
+material = ExtResource("2_guqvf")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0cb5p"]
+
+[sub_resource type="Curve" id="Curve_jvb31"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.738095, 0.848837), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8pis6"]
+curve = SubResource("Curve_jvb31")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0x7gc"]
+emission_shape = 1
+emission_sphere_radius = 0.2
+direction = Vector3(0, 1, 0)
+initial_velocity_max = 1.0
+gravity = Vector3(0, 1, 0)
+scale_curve = SubResource("CurveTexture_8pis6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylt0p"]
+transparency = 1
+albedo_color = Color(1, 0.505882, 0, 1)
+albedo_texture = ExtResource("4_3h0ei")
+emission_enabled = true
+emission = Color(1, 0.309804, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_l6qyj"]
+material = SubResource("StandardMaterial3D_ylt0p")
+
+[sub_resource type="QuadMesh" id="QuadMesh_07ulu"]
+resource_local_to_scene = true
+material = ExtResource("5_2wu5n")
+size = Vector2(0.1, 0.1)
+
+[node name="Fireball" type="CharacterBody3D"]
+script = ExtResource("1_nl7ai")
+
+[node name="Texture" type="Sprite3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+modulate = Color(0.835283, 0.304022, 0, 1)
+billboard = 1
+no_depth_test = true
+render_priority = 1
+texture = ExtResource("3_jqaqd")
+
+[node name="Particles" type="GPUParticles3D" parent="."]
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_7ccad")
+draw_pass_1 = SubResource("QuadMesh_n2hqk")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_0cb5p")
+
+[node name="Flames" type="GPUParticles3D" parent="."]
+amount = 4
+lifetime = 2.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_0x7gc")
+draw_pass_1 = SubResource("QuadMesh_l6qyj")
+
+[node name="Ember" type="GPUParticles3D" parent="."]
+amount = 4
+lifetime = 2.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_0x7gc")
+draw_pass_1 = SubResource("QuadMesh_07ulu")

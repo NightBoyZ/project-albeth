@@ -1,0 +1,95 @@
+[gd_scene load_steps=10 format=3 uid="uid://37yu3ludn8o0"]
+
+[ext_resource type="Script" path="res://scenes/entities/projectiles/ice_shard.gd" id="1_pmqs7"]
+[ext_resource type="PackedScene" uid="uid://d1otffaqvalr0" path="res://scenes/vfx/projectiles/Orb.tscn" id="2_f7wml"]
+[ext_resource type="Texture2D" uid="uid://d3w1taqey4oyi" path="res://assets/img/ball.png" id="3_hauit"]
+
+[sub_resource type="Gradient" id="Gradient_hoyd6"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vm8ow"]
+gradient = SubResource("Gradient_hoyd6")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_awdfa"]
+transparency = 1
+blend_mode = 1
+albedo_texture = ExtResource("3_hauit")
+emission_enabled = true
+emission = Color(0, 0.584314, 0.776471, 1)
+emission_texture = SubResource("GradientTexture2D_vm8ow")
+rim = 0.0
+rim_tint = 0.9
+clearcoat_roughness = 0.39
+refraction_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_af70h"]
+material = SubResource("StandardMaterial3D_awdfa")
+size = Vector2(1, 1)
+orientation = 2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4fyk2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3a0ek"]
+
+[node name="IceShard" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 8
+input_ray_pickable = false
+platform_floor_layers = 4294967048
+platform_wall_layers = 16
+script = ExtResource("1_pmqs7")
+
+[node name="Mesh" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Model" parent="Mesh" instance=ExtResource("2_f7wml")]
+visible = false
+draw_pass_1 = SubResource("PlaneMesh_af70h")
+
+[node name="Model2" parent="Mesh" instance=ExtResource("2_f7wml")]
+amount = 3
+draw_pass_1 = SubResource("PlaneMesh_af70h")
+
+[node name="Light" type="OmniLight3D" parent="Mesh"]
+light_color = Color(0, 0.54902, 0.721569, 1)
+light_energy = 2.0
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_4fyk2")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Collision"]
+avoidance_enabled = true
+keep_y_velocity = false
+
+[node name="Hitbox" type="Area3D" parent="Collision"]
+collision_layer = 4
+collision_mask = 25
+
+[node name="Area" type="CollisionShape3D" parent="Collision/Hitbox"]
+shape = SubResource("BoxShape3D_3a0ek")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+max_db = 1.0
+max_distance = 20.0
+
+[node name="HealthBar" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+visible = false
+visibility_range_end = 10.0
+visibility_range_end_margin = 5.0
+visibility_range_fade_mode = 1
+billboard = 1
+font_size = 64
+
+[node name="VisibilityTimer" type="Timer" parent="HealthBar"]
+wait_time = 2.0
+one_shot = true
+
+[node name="DespawnTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="Collision/Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="HealthBar/VisibilityTimer" to="." method="_on_visibility_timer_timeout"]
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
